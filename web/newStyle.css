@@ -95,3 +95,12 @@
     -o-background-size: cover;
     background-size: cover;
   }
+
+
+  .newContainer{
+    padding-right:15px;
+    padding-left:15px;
+    margin-right:auto;
+    margin-left:500px;
+  }
+
