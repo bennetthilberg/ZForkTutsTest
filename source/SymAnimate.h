@@ -99,7 +99,7 @@ public:
 
     // setup configuration panel
     //config_panel.Setup();
-    config_panel_ex << config_panel.GetConfigPanelDiv();
+    config_panel_ex << config_panel;
 
 
     // Add explanation for organism color:
@@ -283,7 +283,6 @@ public:
    * world state. 
    */
   void DoFrame() {
-
     if (world.GetUpdate() == config.UPDATES() && GetActive()) {
         ToggleActive();
     } else {
