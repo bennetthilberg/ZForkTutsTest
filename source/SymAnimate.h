@@ -17,6 +17,11 @@
 #include "default_mode/WorldSetup.cc"
 
 
+#include "../Empirical/include/emp/web/d3/d3_init.hpp"
+#include "../Empirical/include/emp/web/Document.hpp"
+#include "../Empirical/include/emp/web/d3/visualizations.hpp"
+#include "../Empirical/include/emp/web/d3/selection.hpp"
+
 namespace UI = emp::web;
 SymConfigBase config; // load the default configuration
 
@@ -139,7 +144,7 @@ public:
       // redraw petri dish
       mycanvas.SetWidth(RECT_WIDTH*config.GRID_X());
       mycanvas.SetHeight(RECT_WIDTH*config.GRID_Y());
-      drawPetriDish(mycanvas);
+      // drawPetriDish(mycanvas);
       ToggleActive();//turn on quick to update the grid if the size changed
       ToggleActive();//turn off again
     }, "Reset", "reset");
@@ -157,7 +162,7 @@ public:
     // Add a canvas for petri dish and draw the initial petri dish
     mycanvas = animation.AddCanvas(RECT_WIDTH*config.GRID_X(), RECT_WIDTH*config.GRID_Y(), "can");
     targets.push_back(mycanvas);
-    drawPetriDish(mycanvas);
+    // drawPetriDish(mycanvas);
     animation << "<br>";
 
     learnmore << "If you'd like to learn more, please see the publication <a href=\"https://www.mitpressjournals.org/doi/abs/10.1162/artl_a_00273\">Spatial Structure Can Decrease Symbiotic Cooperation</a>.";
@@ -273,6 +278,10 @@ public:
     else return "#673F03";
   }
 
+  void updateGraph(){
+
+  }
+
 
   /**
    * Input: None
@@ -293,11 +302,17 @@ public:
       // Update world and draw the new petri dish
       world.Update();
       p = world.GetPop();
-      drawPetriDish(mycanvas);
-      //Update live graph here
+      // drawPetriDish(mycanvas);
+
       buttons.Text("update").Redraw();
       buttons.Text("mut").Redraw();
       buttons.Text("par").Redraw();
+
+      //Update live graph here
+      D3::Selection svg = D3::Select("#pop_graph");
+      D3::Selection circles = svg.SelectAll("circle");
+      circles.SetStyle("fill", "purple");
+      //updateGraph();
     }
   }
 };
