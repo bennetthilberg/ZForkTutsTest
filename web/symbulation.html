@@ -2,7 +2,7 @@
 <html>
 <head>
   
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"> 
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">  
   <!-- @prefab indicates branch/version -->
 <link rel="stylesheet/less" type="text/css" href="https://cdn.jsdelivr.net/gh/devosoft/Empirical@master/include/emp/prefab/DefaultPrefabStyles.less">
 <script src="//cdn.jsdelivr.net/npm/less" ></script>
@@ -21,24 +21,23 @@
 </head>
 
 
-<body class= "testBod">
+<body class= "bkgImage">
 
 
 <div class="topBar" style="padding-top: 2rem; padding-bottom: 1rem" >
-<div><h6 class= "test">  Symbulation</h6></div>
+<!--<div><h6 class= "test">  Symbulation</h6></div>-->
 <div class="dropdownA">
   <button class="dropButton">Modules</button>
   <div class="dropdown-contentA">
-    <a href="#">Module 1</a>
+    <a href="https://greenbee-learn.com">Module 1</a>
   </div>
 </div>
 
-<nav>
-<ul>
-  <li><button class="buttonA" >Home</button></li>
-  <li><button class="buttonA" >Help</button></li>
-</ul>
-</nav>
+<div class="rightB">
+  <button class="test2">?</button>
+  <button class="test1">Home</button>
+  
+</div>
 
 <!--<div> </div><a href="https://greenbee-learn.com">Home</a></div>-->
 
@@ -50,20 +49,21 @@ Symbulation is a research platform for simulating the evolution of symbionts and
 
 <div class= "newContainer">
   <div class="row justify-content-lg-left">
-    <div class="col-lg-3">
-      <div id="emp_settings"></div>
+    <div class="col-lg-5">
+      <div id="emp_settings"></div> 
+      
+    </div>
+
+<!--this is the square animation-->  
+    <div class="col-lg-4">
+      <div id="emp_buttons"></div>
+      <div id="emp_animate"></div> 
       <!-- emp_explanation has the gradient-->
       <div id="emp_explanation"></div>
       <div id="emp_learnmore"></div>
     </div>
 
-<!--this is the square animation-->  
-    <div class="col-lg-5">
-      <div id="emp_buttons"></div>
-      <div id="emp_animate"></div> 
-    </div>
-
-    <div class="col-lg-4">
+    <div class="col-lg-3">
       <div> <img src="download.png" alt="graph"></div>
     </div>
   </div>

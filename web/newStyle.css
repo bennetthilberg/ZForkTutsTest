@@ -7,7 +7,7 @@
 
 
   .test{
-    font-family:'Copperplate';
+    font-family:'Garamond';
     color:rgb(255, 248, 248);
     font-size:2.5rem;
     font-weight:300;
@@ -21,25 +21,28 @@
 
 /* Style The Dropdown Button */
 .dropButton {
-    background-color: #4CAF50;
-    color: white;
-    padding: 16px;
-    font-size: 16px;
-    border: none;
-    cursor: pointer;
-  }
+  background-color: #5f8eff;
+  width: 160px;
+  letter-spacing: 2px;
+  font-family:'Garamond';
+  font-size: 20px;
+  border-radius: 5px;
+  color: white;
+  padding: 16px;
+  border: none;
+  cursor: pointer;
+}
   
-  /* The container <div> - needed to position the dropdown content */
-  .dropdownA {
-    position: relative;
-    display: inline-block;
-  }
   
-  /* Dropdown Content (Hidden by Default) */
+  /* Dropdown Content (Hidden by Default)  What is lookes like not when hovered*/
   .dropdown-contentA {
+    border-radius: 5px;
+    letter-spacing: 2px;
+    font-family:'Garamond';
+    font-size: 20px;
     display: none;
     position: absolute;
-    background-color: #f9f9f9;
+    background-color: #5f8eff;
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
@@ -47,48 +50,76 @@
   
   /* Links inside the dropdown */
   .dropdown-contentA a {
-    color: black;
+    border-radius: 5px;
+    letter-spacing: 2px;
+    font-family:'Garamond';
+    font-size: 20px;
+    color: white;
+    background-color: #6abac2;
     padding: 12px 16px;
     text-decoration: none;
     display: block;
   }
+ 
   
   /* Change color of dropdown links on hover */
-  .dropdown-contentA a:hover {background-color: #f1f1f1}
+  .dropdown-contentA a:hover {
+    background-color: #3d1477;
+    color: white;
+  }
   
   /* Show the dropdown menu on hover */
   .dropdownA:hover .dropdown-contentA {
+    background-color: #5f8eff;
     display: block;
   }
   
   /* Change the background color of the dropdown button when the dropdown content is shown */
   .dropdownA:hover .dropButton {
-    background-color: #3e8e41;
+    background-color: #5f8eff;
   }
-
-  nav ul {
-    list-style-type: none;
-    overflow: hidden;
-    background-color: #3aafa9;
-    border-radius: 25px;
-    color: #25275D
-    
-    }
-    
-    nav li {
-    float:right;
-    font-family:monospace;
-    font-size:20px;
-    font-weight: bold;
-    }
     
 
-  .buttonA {
-    color: blue;
+  .rightB{
     float: right;
+    width: 80vw;
+    height: 60px;
+    overflow: hidden;
+  }
+  .rightB :hover{
+    background-color:#3d1477 ;
   }
 
-  .testBod{
+  .test1{
+    float: right;
+    background-color: #5f8eff;
+    width: 80px;
+    letter-spacing: 2px;
+    font-family:'Garamond';
+    font-size: 20px;
+    border-radius: 5px;
+    color: white;
+    padding: 16px;
+    border: none;
+    cursor: pointer;
+    margin-right: 15px;
+  }
+
+  .test2{
+    float: right;
+    background-color: #5f8eff;
+    width: 50px;
+    letter-spacing: 2px;
+    font-family:'Garamond';
+    font-size: 20px;
+    border-radius: 5px;
+    color: white;
+    padding: 16px;
+    border: none;
+    cursor: pointer;
+  }
+
+  .bkgImage{
     background: url(background.webp) no-repeat center center fixed; 
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -101,6 +132,8 @@
     padding-right:15px;
     padding-left:15px;
     margin-right:auto;
-    margin-left:500px;
+    margin-left:auto;
   }
 
+
+  

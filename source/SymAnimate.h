@@ -70,6 +70,7 @@ public:
     config_panel.ExcludeSetting("FILE_PATH");
     config_panel.ExcludeSetting("FILE_NAME");
     config_panel.ExcludeSetting("COMPETITION_MODE");
+    config_panel.ExcludeSetting("HORIZ_TRANS");
 
 
 
@@ -117,8 +118,8 @@ public:
       else but.SetLabel("Start");
     }, "Start", "toggle");
     setButtonStyle("toggle");
-    buttons.Button("toggle").OnMouseOver([this](){ auto but = buttons.Button("toggle"); but.SetCSS("background-color", "grey"); but.SetCSS("cursor", "pointer"); });
-    buttons.Button("toggle").OnMouseOut([this](){ auto but = buttons.Button("toggle"); but.SetCSS("background-color", "#D3D3D3"); });
+    buttons.Button("toggle").OnMouseOver([this](){ auto but = buttons.Button("toggle"); but.SetCSS("background-color", "#3d1477"); but.SetCSS("cursor", "pointer"); but.SetCSS("color", "white");});
+    buttons.Button("toggle").OnMouseOut([this](){ auto but = buttons.Button("toggle"); but.SetCSS("background-color", "#5f8eff"); but.SetCSS("color", "white");});
 
     // ----------------------- Add a reset button to reset the animation/world -----------------------
     /* Note: Must first run world.Reset(), because Inject checks for valid position.
@@ -137,15 +138,15 @@ public:
       but.SetLabel("Start");
 
       // redraw petri dish
-      mycanvas.SetWidth(RECT_WIDTH*config.GRID_X());
+      mycanvas.SetWidth(RECT_WIDTH*config.GRID_X());  //I think here might be where we need to change to make it a circle dish
       mycanvas.SetHeight(RECT_WIDTH*config.GRID_Y());
       drawPetriDish(mycanvas);
       ToggleActive();//turn on quick to update the grid if the size changed
       ToggleActive();//turn off again
     }, "Reset", "reset");
     setButtonStyle("reset");
-    buttons.Button("reset").OnMouseOver([this](){ auto but = buttons.Button("reset"); but.SetCSS("background-color", "grey"); but.SetCSS("cursor", "pointer"); });
-    buttons.Button("reset").OnMouseOut([this](){ auto but = buttons.Button("reset"); but.SetCSS("background-color", "#D3D3D3"); });
+    buttons.Button("reset").OnMouseOver([this](){ auto but = buttons.Button("reset"); but.SetCSS("background-color", "#3d1477"); but.SetCSS("cursor", "pointer"); but.SetCSS("color", "white"); });
+    buttons.Button("reset").OnMouseOut([this](){ auto but = buttons.Button("reset"); but.SetCSS("background-color", "#5f8eff"); but.SetCSS("color", "white"); });
 
     // ----------------------- Keep track of number of updates -----------------------
     buttons << "<br>";
@@ -193,9 +194,13 @@ public:
    */
   void setButtonStyle(std::string but_id){
     auto but = buttons.Button(but_id);
-    but.SetCSS("background-color", "#D3D3D3");
+    but.SetCSS("background-color", "#5f8eff");
     but.SetCSS("border-radius", "4px");
     but.SetCSS("margin-left", "5px");
+    but.SetCSS("color", "white");
+    but.SetCSS("font-family", "Garamond");
+    but.SetCSS("letter-spacing", "3px");
+    but.SetCSS("font-size", "20px");
   }
 
 
@@ -222,14 +227,16 @@ public:
 
 
                 // Draw host rect and symbiont dot
-                can.Rect(x * RECT_WIDTH, y * RECT_WIDTH, RECT_WIDTH, RECT_WIDTH, color_host, "black");
-                int radius = RECT_WIDTH / 4;
+                int radius1 = RECT_WIDTH / 4;
+                int radius2 = RECT_WIDTH / 2;
+                can.Circle(x * RECT_WIDTH + RECT_WIDTH/2, y * RECT_WIDTH + RECT_WIDTH/2, radius2, color_host, "black");
+                
                 if(syms.size() == 1) {
                   std::string color_sym = matchColor(syms[0]->GetIntVal());
                   // while drawing, test whether every organism is mutualistic
                   if (syms[0]->GetIntVal() <= 0) num_parasitic++;
                   else num_mutualistic++;
-                  can.Circle(x * RECT_WIDTH + RECT_WIDTH/2, y * RECT_WIDTH + RECT_WIDTH/2, radius, color_sym, "black");
+                  can.Circle(x * RECT_WIDTH + RECT_WIDTH/2, y * RECT_WIDTH + RECT_WIDTH/2, radius1, color_sym, "black");
                 }
                 i++;
 
