@@ -294,6 +294,7 @@ public:
       world.Update();
       p = world.GetPop();
       drawPetriDish(mycanvas);
+      //Update live graph here
       buttons.Text("update").Redraw();
       buttons.Text("mut").Redraw();
       buttons.Text("par").Redraw();
