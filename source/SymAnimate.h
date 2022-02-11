@@ -125,6 +125,8 @@ public:
     /* Note: Must first run world.Reset(), because Inject checks for valid position.
       If a position is occupied, new org is deleted and your world isn't reset.
       Also, canvas must be redrawn to let users see that it is reset */
+
+      /*
     buttons.AddButton([this](){
       world.Reset();
       buttons.Text("update").Redraw();
@@ -144,10 +146,10 @@ public:
       ToggleActive();//turn on quick to update the grid if the size changed
       ToggleActive();//turn off again
     }, "Reset", "reset");
-    setButtonStyle("reset");
-    buttons.Button("reset").OnMouseOver([this](){ auto but = buttons.Button("reset"); but.SetCSS("background-color", "#3d1477"); but.SetCSS("cursor", "pointer"); but.SetCSS("color", "white"); });
-    buttons.Button("reset").OnMouseOut([this](){ auto but = buttons.Button("reset"); but.SetCSS("background-color", "#5f8eff"); but.SetCSS("color", "white"); });
-
+    //setButtonStyle("reset");
+    //buttons.Button("reset").OnMouseOver([this](){ auto but = buttons.Button("reset"); but.SetCSS("background-color", "#3d1477"); but.SetCSS("cursor", "pointer"); but.SetCSS("color", "white"); });
+    //buttons.Button("reset").OnMouseOut([this](){ auto but = buttons.Button("reset"); but.SetCSS("background-color", "#5f8eff"); but.SetCSS("color", "white"); });
+*/
     // ----------------------- Keep track of number of updates -----------------------
     buttons << "<br>";
     buttons << UI::Text("update") << "Update = " << UI::Live( [this](){ return world.GetUpdate(); } ) << "  ";

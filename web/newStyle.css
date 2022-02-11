@@ -1,6 +1,6 @@
 .topBar {
     padding: 20px;
-    background-color: #77d4dc;
+    background-color: #b0defd;
     width: 1000vw;
     display: flex;
   }
@@ -87,7 +87,8 @@
     overflow: hidden;
   }
   .rightB :hover{
-    background-color:#3d1477 ;
+    background-color:
+    #3d1477 ;
   }
 
   .test1{
@@ -120,7 +121,7 @@
   }
 
   .bkgImage{
-    background: url(background.webp) no-repeat center center fixed; 
+    background: url(background3.png) no-repeat center center fixed; 
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;

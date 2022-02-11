@@ -31,8 +31,8 @@ EMP_BUILD_CONFIG(SymConfigBase,
     VALUE(HORIZ_MUTATION_RATE, double, -1, "Value 0 to 1 of probability of mutation for horizontal transmission, if -1 MUTATION_RATE used"),
     VALUE(SYM_INFECTION_CHANCE, double, 1, "The chance (between 0 and 1) that a sym will infect a parallel host on process"),
     VALUE(SYM_INFECTION_FAILURE_RATE, double, 0, "The chance (between 0 and 1) that a sym will be killed by the world while trying to infect a host"),
-
-    GROUP(MAIN, "Efficiency"),
+    
+    GROUP(EFF, "Efficiency"),
     VALUE(EFFICIENT_SYM, bool, 0, "Do you want symbionts that also have an efficiency value that evolves"),
     VALUE(EFFICIENCY_MUT_RATE, double, -1, "The horizontal transmission mutation rate of the efficiency trait in symbionts, -1 if same as HORIZ_MUT_RATE"),
 
