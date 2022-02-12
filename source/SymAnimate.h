@@ -1,6 +1,10 @@
 // This file contains all operations related to the web interface
 #ifndef SYM_ANIMATE_H
 #define SYM_ANIMATE_H
+//for interactive tutorial
+
+#include "../../Empirical/include/emp/web/KeypressManager.hpp"
+#include "../../Empirical/include/emp/web/Tutorial.h"
 
 #include <iostream>
 #include "default_mode/SymWorld.h"
@@ -8,19 +12,17 @@
 //#include "SymJS.h"
 #include "default_mode/Symbiont.h"
 #include "default_mode/Host.h"
-#include "emp/web/Document.hpp"
-#include "emp/web/Canvas.hpp"
-#include "emp/web/web.hpp"
-#include "emp/config/ArgManager.hpp"
-#include "emp/prefab/ConfigPanel.hpp"
-#include "emp/web/UrlParams.hpp"
+#include "../../Empirical/include/emp/web/Document.hpp"
+#include "../../Empirical/include/emp/web/Canvas.hpp"
+#include "../../Empirical/include/emp/web/web.hpp"
+#include "../../Empirical/include/emp/config/ArgManager.hpp"
+#include "../../Empirical/include/emp/prefab/ConfigPanel.hpp"
+#include "../../Empirical/include/emp/web/UrlParams.hpp"
 #include "default_mode/WorldSetup.cc"
 
 
 namespace UI = emp::web;
 SymConfigBase config; // load the default configuration
-
-
 
 class SymAnimate : public UI::Animate {
 private:
@@ -31,6 +33,9 @@ private:
   UI::Document learnmore;
   UI::Document buttons;
   UI::Canvas mycanvas;
+  UI::Document doc;
+  UI::Button my_button;
+  UI::Input my_input;
 
   const int RECT_WIDTH = 10;
 
@@ -39,19 +44,47 @@ private:
 
 
   emp::vector<emp::Ptr<Organism>> p;
-
+  Tutorial tut;
 
   int num_mutualistic = 0;
   int num_parasitic = 0;
 
 public:
+  static void PrintComplete() { std::cout << "Tutorial Complete!" << std::endl; }
 
   /**
    * 
    * The contructor for SymAnimate
    * 
    */
-  SymAnimate() : animation("emp_animate"), settings("emp_settings"), explanation("emp_explanation"), learnmore("emp_learnmore"), buttons("emp_buttons") {
+  SymAnimate() : animation("emp_animate"), settings("emp_settings"), explanation("emp_explanation"), learnmore("emp_learnmore"), buttons("emp_buttons"), doc("emp_base"), my_button([](){}, "Click me!"), my_input([](std::string s){}, "text", ""){
+    
+    doc << my_button;
+    doc << my_input;
+
+    // my_input.On("keypress", &OnInputEnter);
+    
+    // since z-index can only be set on positioned elements...
+    my_button.SetCSS("position", "relative");
+    my_input.SetCSS("position", "relative");
+    
+
+    tut.AddState("first_state");
+    tut.AddState("second_state");
+    tut.AddState("end_state", &PrintComplete);
+
+    tut.AddEventListenerTrigger("first_state", "second_state", my_button, "click");
+    tut.AddManualTrigger("second_state", "end_state", "enter_input_trigger");
+
+    tut.AddOverlayEffect("first_state", doc, "black", 0.5, 1000, true);
+    tut.AddCSSEffect("first_state", my_button, "z-index", "10000");
+
+    tut.AddOverlayEffect("second_state", doc, "blue", 0.5, 1000, true);
+    tut.AddCSSEffect("second_state", my_input, "z-index", "10000");
+
+    tut.StartAtState("first_state");
+
+
 
     config.GRID_X(50);
     config.GRID_Y(50);
@@ -164,6 +197,16 @@ public:
 
   }
 
+  void OnInputEnter(UI::KeyboardEvent evt) {
+
+    if (evt.keyCode == 13) {
+
+        std::string inputStr = my_input.GetCurrValue();
+
+        if (!inputStr.empty())
+            tut.FireTrigger("enter_input_trigger");
+    }
+  }
 
   /**
    * Input: None
@@ -297,6 +340,8 @@ public:
       buttons.Text("update").Redraw();
       buttons.Text("mut").Redraw();
       buttons.Text("par").Redraw();
+      tut.StartAtState("first_state");
+
     }
   }
 };
