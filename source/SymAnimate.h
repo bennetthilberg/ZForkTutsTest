@@ -16,6 +16,8 @@
 #include "emp/web/UrlParams.hpp"
 #include "default_mode/WorldSetup.cc"
 
+#include "SymConfigPanel.h"
+
 
 namespace UI = emp::web;
 SymConfigBase config; // load the default configuration
@@ -56,7 +58,7 @@ public:
     config.GRID_X(50);
     config.GRID_Y(50);
     config.UPDATES(30000);
-    emp::prefab::ConfigPanel config_panel(config);
+    SymConfigPanel config_panel(config);
     //Exclude all the settings that control
     //things that don't show up in the GUI correctly
     config_panel.ExcludeSetting("SYM_LIMIT");
