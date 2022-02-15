@@ -55,8 +55,8 @@ public:
    */
   SymAnimate() : animation("emp_animate"), settings("emp_settings"), explanation("emp_explanation"), learnmore("emp_learnmore"), buttons("emp_buttons") {
 
-    config.GRID_X(50);
-    config.GRID_Y(50);
+    config.GRID_X(40); //change
+    config.GRID_Y(40);
     config.UPDATES(30000);
     SymConfigPanel config_panel(config);
     //Exclude all the settings that control
@@ -89,8 +89,8 @@ public:
 
 
     initializeWorld();
-    emp::prefab::Card config_panel_ex("INIT_CLOSED");
-    settings << config_panel_ex;
+    emp::prefab::Card config_panel_ex("INIT_CLOSED"); 
+    settings << config_panel_ex; //settings here
     config_panel_ex.AddHeaderContent("<h3>Settings</h3>");
 
     // apply configuration query params and config files to config
