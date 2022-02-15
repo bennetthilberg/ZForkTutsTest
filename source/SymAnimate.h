@@ -36,6 +36,7 @@ private:
   UI::Document learnmore;
   UI::Document buttons;
   UI::Canvas mycanvas;
+  UI::Canvas graph_canvas;
 
   const int RECT_WIDTH = 10;
 
@@ -144,7 +145,7 @@ public:
       // redraw petri dish
       mycanvas.SetWidth(RECT_WIDTH*config.GRID_X());
       mycanvas.SetHeight(RECT_WIDTH*config.GRID_Y());
-      // drawPetriDish(mycanvas);
+      drawPetriDish(mycanvas);
       ToggleActive();//turn on quick to update the grid if the size changed
       ToggleActive();//turn off again
     }, "Reset", "reset");
@@ -162,8 +163,13 @@ public:
     // Add a canvas for petri dish and draw the initial petri dish
     mycanvas = animation.AddCanvas(RECT_WIDTH*config.GRID_X(), RECT_WIDTH*config.GRID_Y(), "can");
     targets.push_back(mycanvas);
-    // drawPetriDish(mycanvas);
+    drawPetriDish(mycanvas);
     animation << "<br>";
+
+    graph_canvas = explanation.AddCanvas(750, 200, "graph").SetCSS("background", "white");
+    targets.push_back(graph_canvas);
+    drawIntValGraph(graph_canvas);
+    explanation << "<br>";
 
     learnmore << "If you'd like to learn more, please see the publication <a href=\"https://www.mitpressjournals.org/doi/abs/10.1162/artl_a_00273\">Spatial Structure Can Decrease Symbiotic Cooperation</a>.";
 
@@ -278,8 +284,36 @@ public:
     else return "#673F03";
   }
 
-  void updateGraph(){
+  /**
+   * Input: The canvas being used. 
+   * 
+   * Output: None
+   * 
+   * Purpose: To draw a dynamic graph of average interaction values 
+   */
+  void drawIntValGraph(UI::Canvas & can){
+    int pop_size = p.size();
+    double int_val_total = 0;
+    int i = 0;
+    for (int x = 0; x < config.GRID_X(); x++){
+            for (int y = 0; y < config.GRID_Y(); y++){
+                //hosts
+                int_val_total += p[i]->GetIntVal();
+                i++;
+            }
+    }
+    double avg_int_val = int_val_total/pop_size;
+    std::string color = matchColor(avg_int_val);
 
+    int y = 100;
+    if(avg_int_val >= 0){
+      y = y - (avg_int_val * 100);
+    }
+    else{
+      y = y + (avg_int_val * 100);
+    }
+
+    can.Circle(world.GetUpdate(), y, 1, color, color);
   }
 
 
@@ -299,20 +333,19 @@ public:
       mycanvas = animation.Canvas("can"); // get canvas by id
       mycanvas.Clear();
 
+      graph_canvas = explanation.Canvas("graph"); //get canvas by id
+
       // Update world and draw the new petri dish
       world.Update();
       p = world.GetPop();
-      // drawPetriDish(mycanvas);
+      drawPetriDish(mycanvas);
 
       buttons.Text("update").Redraw();
       buttons.Text("mut").Redraw();
       buttons.Text("par").Redraw();
 
       //Update live graph here
-      D3::Selection svg = D3::Select("#pop_graph");
-      D3::Selection circles = svg.SelectAll("circle");
-      circles.SetStyle("fill", "purple");
-      //updateGraph();
+      drawIntValGraph(graph_canvas);
     }
   }
 };
