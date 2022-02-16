@@ -23,10 +23,8 @@
 
 namespace UI = emp::web;
 SymConfigBase config; // load the default configuration
-
 class SymAnimate : public UI::Animate {
 private:
-
   UI::Document animation;
   UI::Document settings;
   UI::Document explanation;
@@ -42,23 +40,18 @@ private:
 
 
   emp::vector<emp::Ptr<Organism>> p;
-  Tutorial tut;
 
   int num_mutualistic = 0;
   int num_parasitic = 0;
 
 public:
-  static void PrintComplete() { std::cout << "Tutorial Complete!" << std::endl; }
 
   /**
    * 
    * The contructor for SymAnimate
    * 
    */
-  SymAnimate() : animation("emp_animate"), settings("emp_settings"), explanation("emp_explanation"), learnmore("emp_learnmore"), buttons("emp_buttons"){
-
-
-
+  SymAnimate(): animation("emp_animate"), settings("emp_settings"), explanation("emp_explanation"), learnmore("emp_learnmore"), buttons("emp_buttons"), itut(animation, settings, explanation, learnmore, buttons, mycanvas){
     config.GRID_X(50);
     config.GRID_Y(50);
     config.UPDATES(30000);
@@ -303,7 +296,6 @@ public:
       buttons.Text("update").Redraw();
       buttons.Text("mut").Redraw();
       buttons.Text("par").Redraw();
-      tut.StartAtState("first_state");
 
     }
   }

@@ -1,3 +1,5 @@
+#ifndef ITUTORIAL_H
+#define ITUTORIAL_H
 #include "../../Empirical/include/emp/web/KeypressManager.hpp"
 #include "../../Empirical/include/emp/web/Tutorial.h"
 #include <iostream>
@@ -5,7 +7,6 @@
 #include "../../Empirical/include/emp/web/Document.hpp"
 #include "../../Empirical/include/emp/web/Canvas.hpp"
 #include "../../Empirical/include/emp/web/web.hpp"
-
 
 namespace UI = emp::web;
 class ITutorial {
@@ -17,7 +18,7 @@ class ITutorial {
     public:
         static void PrintComplete() { std::cout << "Tutorial Complete!" << std::endl; }
 
-        ITutorial(): doc("emp_base"), my_button([](){}, "Click!"){
+        ITutorial(UI::Document animation, UI::Document settings, UI::Document explanation, UI::Document learnmore, UI::Document buttons, UI::Canvas mycanvas): doc("emp_base"), my_button([](){}, "Click!"){
             
             doc << my_button;
             my_button.SetCSS("position", "relative");
@@ -28,11 +29,13 @@ class ITutorial {
             tut.AddEventListenerTrigger("first_state", "second_state", my_button, "click");
             tut.AddManualTrigger("second_state", "end_state", "enter_input_trigger");
 
-            tut.AddOverlayEffect("first_state", doc, "black", 0.5, 1000, true);
-            tut.AddCSSEffect("first_state", my_button, "z-index", "10000");
+            tut.AddOverlayEffect("first_state", buttons, "black", 0.5, 1000, true);
+            tut.AddCSSEffect("first_state", my_button, "z-index", "50000");
 
-            tut.AddOverlayEffect("second_state", doc, "blue", 0.5, 1000, true);
+            tut.AddOverlayEffect("second_state", buttons, "green", 0.5, 1000, true);
+            // tut.AddPopoverEffect("second_state", animation, "This is a pop over!!!!");
 
             tut.StartAtState("first_state");
         }
 };
+#endif
