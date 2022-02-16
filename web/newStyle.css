@@ -5,6 +5,10 @@
     display: flex;
   }
 
+  body{
+    overflow-x: hidden;
+  }
+
 
   .test{
     font-family:'Garamond';
