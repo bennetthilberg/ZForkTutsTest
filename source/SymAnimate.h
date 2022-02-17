@@ -61,6 +61,9 @@ public:
     SymConfigPanel config_panel(config);
     //Exclude all the settings that control
     //things that don't show up in the GUI correctly
+    config_panel.ExcludeGroup("EFF");
+    config_panel.ExcludeGroup("PGG");
+    config_panel.ExcludeGroup("LYSIS");
     config_panel.ExcludeSetting("SYM_LIMIT");
     config_panel.ExcludeSetting("DATA_INT");
     config_panel.ExcludeSetting("POP_SIZE");
@@ -73,6 +76,15 @@ public:
     config_panel.ExcludeSetting("FILE_NAME");
     config_panel.ExcludeSetting("COMPETITION_MODE");
     config_panel.ExcludeSetting("HORIZ_TRANS");
+    config_panel.SetRange("GRID_X","5","40");
+    config_panel.SetRange("GRID_Y","5","40");
+    config_panel.SetRange("SYNERGY","-10","10");
+    config_panel.SetRange("MUTATION_SIZE","-0.2","0.2");
+    config_panel.SetRange("HOST_INT","-1","1");
+    config_panel.SetRange("SYM_INT","-1","1");//???
+
+
+
 
 
 
