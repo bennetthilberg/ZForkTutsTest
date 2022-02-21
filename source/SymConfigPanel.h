@@ -11,7 +11,7 @@ class SymConfigPanel : public emp::prefab::ConfigPanel{
     SymConfigPanel(emp::Config & config, bool open = true, const std::string & div_name = "") : ConfigPanel(config, open, div_name){
         info = new emp::prefab::internal::ConfigPanelInfo(div_name);
         this->AddAttr("class", "config_main");
-
+        //this->SetWidth(50);
         // Reset button redirects to a URL with the current config settings
         emp::web::Element reload_button{"a", emp::to_string(GetID(), "_", "reload")};
         reload_button.SetAttr("class", "btn btn-danger");
@@ -34,19 +34,22 @@ class SymConfigPanel : public emp::prefab::ConfigPanel{
           group_card.SetCSS("background", "pink");
           group_card.SetCSS("font-family", "Garamond");
           group_card.SetCSS("letter-spacing", "2px");
+          //group_card.SetWidth(50);
 
           group_card.AddHeaderContent(group_desc);
           (*this) << group_card;
           // A div within card helps make grid without messing up collapse properties
           // and has ID "{main id}_{group name}" for ease of access
-          Div settings(emp::to_string(GetID(), "_", group_name));
-          settings.AddAttr("class", "settings_group");
-          group_card << settings;
-
+          Div settings(emp::to_string(GetID(), "_", group_name)); //creating a div object named settings
+          settings.AddAttr("class", "settings_group"); //setting the html class to the settings_group
+          settings.SetWidth(350);
+          group_card << settings; //putting the settings div into the group card
+          
           //settings.SetCSS("background", "green");
 
+
           for (size_t i = 0; i < group->GetSize(); ++i) {
-            auto setting = group->GetEntry(i);
+            auto setting = group->GetEntry(i); //automatic type casting
             // Get loads of information from the config setting
             const std::string name(setting->GetName());
             const std::string pretty_name(format_label(name));
@@ -70,6 +73,9 @@ class SymConfigPanel : public emp::prefab::ConfigPanel{
               static_cast<emp::web::Div>(reload).SetAttr("href", ss.str());
               // ^ TODO: need the cast a bug with SetAttr doesn't work for Element here, why?
             };
+
+            //Div item(setting_base); //creating a div object named settings
+            //item.AddAttr("class", "settings_base"); //setting the html class to the settings_group
 
             // Add a different control depending on the config types
             if (emp::Has(numeric_types, type)) {

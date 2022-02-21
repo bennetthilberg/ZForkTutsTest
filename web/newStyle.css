@@ -140,5 +140,17 @@
     margin-left:auto;
   }
 
+ .card{
+    color: green;
+    letter-spacing: 2px;
+    font-family:'Garamond';
+    width: 425px;
+ }
+  
+ .settings_group{
+   display: block;
+   grid-auto-flow: column;
+   justify-items: self-end;
+ }
 
   
