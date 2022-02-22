@@ -81,7 +81,7 @@ public:
     config_panel.SetRange("SYNERGY","-10","10");
     config_panel.SetRange("MUTATION_SIZE","-0.2","0.2");
     config_panel.SetRange("HOST_INT","-1","1");
-    config_panel.SetRange("SYM_INT","-1","1");//???
+    config_panel.SetRange("SYM_INT","-2","1");//need to change 
 
 
 
@@ -321,6 +321,7 @@ public:
       buttons.Text("update").Redraw();
       buttons.Text("mut").Redraw();
       buttons.Text("par").Redraw();
+      std::cout<<config.SYM_INT()<<std::endl;
     }
   }
 };
