@@ -1,6 +1,6 @@
 #ifndef CONFIG_H
 #define CONFIG_H
-#include "../../Empirical/include/emp/config/config.hpp"
+#include "../Empirical/include/emp/config/config.hpp"
 
 //TODO: use GROUPs
 EMP_BUILD_CONFIG(SymConfigBase,
@@ -8,11 +8,11 @@ EMP_BUILD_CONFIG(SymConfigBase,
     VALUE(SEED, int, 10, "What value should the random seed be? If seed <= 0, then it is randomly re-chosen."),
     VALUE(COMPETITION_MODE, bool, 0, "Should a competition between two types be conducted? (Which is specified in the code)"),
     VALUE(DATA_INT, int, 100, "How frequently, in updates, should data print?"),
-    VALUE(MUTATION_SIZE, double, 0.002, "Standard deviation of the distribution to mutate by"),
+    VALUE(MUTATION_SIZE, double, 0.002, "How much will the offspring mutate by? The average amount is 0, but you can change it up to 0.2"),
     VALUE(HOST_MUTATION_SIZE, double, -1, "Standard deviation of the distribution to mutate by for hosts, if -1 MUTATION_SIZE used"),
-    VALUE(MUTATION_RATE, double, 1, "Value 0 to 1 of probability of mutation"),
-    VALUE(HOST_MUTATION_RATE, double, -1, "Value 0 to 1 of probability of mutation for hosts, if -1 MUTATION_RATE used"),
-    VALUE(SYNERGY, double, 5, "Amount symbiont's returned resources should be multiplied by"),
+    VALUE(MUTATION_RATE, double, 1, "What is the chance of a mutation occurring? The range is 0 to 1."),
+    VALUE(HOST_MUTATION_RATE, double, -1, "Value 0 to 1 of probability of mutation for horizontal transmission, if -1 a set variable is used. In the symbulation -1 is represented by a green square and 1 is represented by a brown square"),
+    VALUE(SYNERGY, double, 5, "Synergy is the cooperation between the host and symbiont. When the host receives resources, it can choose to donate resources to the symbiont or defend itself with the resources. When a host donates, you multiply by the synergy to know what the host gets back in return. More synergy is more beneficial to the host. "),
     VALUE(VERTICAL_TRANSMISSION, double, 0.7, "Value 0 to 1 of probability of symbiont vertically transmitting when host reproduces"),
     VALUE(HOST_INT, double, -2, "Interaction value from -1 to 1 that hosts should have initially, -2 for random"),
     VALUE(SYM_INT, double, -2, "Interaction value from -1 to 1 that symbionts should have initially, -2 for random"),
@@ -27,12 +27,14 @@ EMP_BUILD_CONFIG(SymConfigBase,
     VALUE(SYM_HORIZ_TRANS_RES, double, 100, "How many resources required for symbiont non-lytic horizontal transmission"),
     VALUE(SYM_VERT_TRANS_RES, double, 0, "How many resources required for symbiont vertical transmission"),
     VALUE(GRID, bool, 0, "Do offspring get placed immediately next to parents on grid, same for symbiont spreading"),
-    VALUE(EFFICIENT_SYM, bool, 0, "Do you want symbionts that also have an efficiency value that evolves"),
-    VALUE(EFFICIENCY_MUT_RATE, double, -1, "The horizontal transmission mutation rate of the efficiency trait in symbionts, -1 if same as HORIZ_MUT_RATE"),
     VALUE(HORIZ_MUTATION_SIZE, double, -1, "Standard deviation of the distribution to mutate by for horizontal transmission, if -1 MUTATION_SIZE used"),
     VALUE(HORIZ_MUTATION_RATE, double, -1, "Value 0 to 1 of probability of mutation for horizontal transmission, if -1 MUTATION_RATE used"),
     VALUE(SYM_INFECTION_CHANCE, double, 1, "The chance (between 0 and 1) that a sym will infect a parallel host on process"),
     VALUE(SYM_INFECTION_FAILURE_RATE, double, 0, "The chance (between 0 and 1) that a sym will be killed by the world while trying to infect a host"),
+    
+    GROUP(EFF, "Efficiency"),
+    VALUE(EFFICIENT_SYM, bool, 0, "Do you want symbionts that also have an efficiency value that evolves"),
+    VALUE(EFFICIENCY_MUT_RATE, double, -1, "The horizontal transmission mutation rate of the efficiency trait in symbionts, -1 if same as HORIZ_MUT_RATE"),
 
     GROUP(LYSIS, "Lysis Settings, coming soon to the GUI!"),
     VALUE(LYSIS_CHANCE, double, -1, "Chance of lysis vs. lysogeny for starting population of phage, -1 for random distribution"),
