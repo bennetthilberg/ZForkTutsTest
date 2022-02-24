@@ -1,0 +1,174 @@
+.topBar {
+    padding: 20px;
+    background-color: #b0defd;
+    width: 1000vw;
+    display: flex;
+  }
+
+  body{
+    overflow-x: hidden;
+  }
+
+
+  .test{
+    font-family:'Garamond';
+    color:rgb(255, 248, 248);
+    font-size:2.5rem;
+    font-weight:300;
+    line-height:1.2}hr{margin-top:1rem;
+    margin-bottom:1rem;
+    border:0;
+    border-top:1px solid rgba(0,0,0,.1);
+    
+}
+
+
+/* Style The Dropdown Button */
+.dropButton {
+  background-color: #5f8eff;
+  width: 160px;
+  letter-spacing: 2px;
+  font-family:'Garamond';
+  font-size: 20px;
+  border-radius: 5px;
+  color: white;
+  padding: 16px;
+  border: none;
+  cursor: pointer;
+}
+  
+  
+  /* Dropdown Content (Hidden by Default)  What is lookes like not when hovered*/
+  .dropdown-contentA {
+    border-radius: 5px;
+    letter-spacing: 2px;
+    font-family:'Garamond';
+    font-size: 20px;
+    display: none;
+    position: absolute;
+    background-color: #5f8eff;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+  
+  /* Links inside the dropdown */
+  .dropdown-contentA a {
+    border-radius: 5px;
+    letter-spacing: 2px;
+    font-family:'Garamond';
+    font-size: 20px;
+    color: white;
+    background-color: #6abac2;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+ 
+  
+  /* Change color of dropdown links on hover */
+  .dropdown-contentA a:hover {
+    background-color: #3d1477;
+    color: white;
+  }
+  
+  /* Show the dropdown menu on hover */
+  .dropdownA:hover .dropdown-contentA {
+    background-color: #5f8eff;
+    display: block;
+  }
+  
+  /* Change the background color of the dropdown button when the dropdown content is shown */
+  .dropdownA:hover .dropButton {
+    background-color: #5f8eff;
+  }
+    
+
+  .rightB{
+    float: right;
+    width: 80vw;
+    height: 60px;
+    overflow: hidden;
+  }
+  .rightB :hover{
+    background-color:
+    #3d1477 ;
+  }
+
+  .test1{
+    float: right;
+    background-color: #5f8eff;
+    width: 80px;
+    letter-spacing: 2px;
+    font-family:'Garamond';
+    font-size: 20px;
+    border-radius: 5px;
+    color: white;
+    padding: 16px;
+    border: none;
+    cursor: pointer;
+    margin-right: 15px;
+  }
+
+  .test2{
+    float: right;
+    background-color: #5f8eff;
+    width: 50px;
+    letter-spacing: 2px;
+    font-family:'Garamond';
+    font-size: 20px;
+    border-radius: 5px;
+    color: white;
+    padding: 16px;
+    border: none;
+    cursor: pointer;
+  }
+
+  .bkgImage{
+    background: url(background3.png) no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  }
+
+
+  .newContainer{
+    padding-right:15px;
+    padding-left:15px;
+    margin-right:auto;
+    margin-left:auto;
+  }
+
+ .card{
+    color: green;
+    letter-spacing: 2px;
+    font-family:'Garamond';
+    width: 450px;
+ }
+  
+ .settings_group{
+   display: block;
+   grid-auto-flow: column;
+   justify-items: self-end;
+ }
+
+
+.value_box{
+  color: #5e8fff;
+}
+
+.btn{
+  color: white;
+}
+.btn:hover{
+  color: #3d1477;
+}
+
+.card-header{
+  color:white;
+  font-style: italic;
+}
+.card-header:hover{
+  background-color: #3d1477;
+}

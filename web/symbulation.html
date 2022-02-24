@@ -1,13 +1,17 @@
 <!doctype html>
 <html>
 <head>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  
+ <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">  
   <!-- @prefab indicates branch/version -->
 <link rel="stylesheet/less" type="text/css" href="https://cdn.jsdelivr.net/gh/devosoft/Empirical@master/include/emp/prefab/DefaultPrefabStyles.less">
 <script src="//cdn.jsdelivr.net/npm/less" ></script>
 <!-- Font Awesome Icons -->
+
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
+<link rel="stylesheet" href="newStyle.css">
+<!--everything except header -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial=scale=1.0">
 <title>Symbulation</title>
@@ -15,30 +19,53 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
 </head>
-<body>
 
-<div class="jumbotron" style="padding-top: 2rem; padding-bottom: 1rem">
-<h1 class="display-4">Symbulation</h1>
-<p class="lead">source: <a href="https://github.com/anyaevostinar/SymbulationEmp">github.com/anyaevostinar/SymbulationEmp</a> <br>
-Symbulation is a research platform for simulating the evolution of symbionts and hosts, give it a try!</p>
+
+<body class= "bkgImage">
+
+
+<div class="topBar" style="padding-top: 2rem; padding-bottom: 1rem" >
+<!--<div><h6 class= "test">  Symbulation</h6></div>-->
+<div class="dropdownA">
+  <button class="dropButton">Modules</button>
+  <div class="dropdown-contentA">
+    <a href="https://greenbee-learn.com">Module 1</a>
+  </div>
 </div>
 
+<div class="rightB">
+  <button class="test2">?</button>
+  <button class="test1">Home</button>
+  
+</div>
 
-<div class="container">
+<!--<div> </div><a href="https://greenbee-learn.com">Home</a></div>-->
+
+ <!--<h1 class="display-4" style="font-family:'Copperplate'">SymbulationB </h1> 
+<p class="lead">source: <a href="https://github.com/anyaevostinar/SymbulationEmp">github.com/anyaevostinar/SymbulationEmp</a> <br>
+Symbulation is a research platform for simulating the evolution of symbionts and hosts, give it a try!</p>
+--></div>
+
+
+<div class= "newContainer">
   <div class="row justify-content-lg-left">
-    <div class="col-lg-3">
-      <div id="emp_settings"></div>
-      <div id="emp_explanation"></div>
-      <div id = "sym_graph"> </div>
-      <div id = "host_graph"> </div>      
-      <div id="emp_learnmore"></div>
-    </div>
     <div class="col-lg-5">
+      <div id="emp_settings"></div> 
+      
+    </div>
+
+<!--this is the square animation-->  
+    <div class="col-lg-4">
       <div id="emp_buttons"></div>
       <div id="emp_animate"></div> 
+      <!-- emp_explanation has the gradient-->
+      <div id="emp_explanation"></div>
+      <div id="emp_learnmore"></div>
     </div>
-    <div class="col-lg-4">
-      <svg id="pop_graph"></svg>
+
+    <div class="col-lg-3">
+      <div id = "sym_graph"> </div>
+      <div id = "host_graph"> </div> 
     </div>
   </div>
 </div>

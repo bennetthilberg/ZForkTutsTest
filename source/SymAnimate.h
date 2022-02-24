@@ -15,7 +15,7 @@
 #include "emp/prefab/ConfigPanel.hpp"
 #include "emp/web/UrlParams.hpp"
 #include "default_mode/WorldSetup.cc"
-
+#include "SymConfigPanel.h"
 
 #include "../Empirical/include/emp/web/d3/d3_init.hpp"
 #include "../Empirical/include/emp/web/Document.hpp"
@@ -62,10 +62,10 @@ public:
    */
   SymAnimate() : animation("emp_animate"), settings("emp_settings"), explanation("emp_explanation"), learnmore("emp_learnmore"), buttons("emp_buttons"), sym_graph("sym_graph"), host_graph("host_graph") {
 
-    config.GRID_X(50);
-    config.GRID_Y(50);
+    config.GRID_X(40);
+    config.GRID_Y(40);
     config.UPDATES(30000);
-    emp::prefab::ConfigPanel config_panel(config);
+    SymConfigPanel config_panel(config);
     //Exclude all the settings that control
     //things that don't show up in the GUI correctly
     config_panel.ExcludeSetting("SYM_LIMIT");
@@ -79,7 +79,7 @@ public:
     config_panel.ExcludeSetting("FILE_PATH");
     config_panel.ExcludeSetting("FILE_NAME");
     config_panel.ExcludeSetting("COMPETITION_MODE");
-
+    config_panel.ExcludeSetting("HORIZ_TRANS");
 
 
     animation.SetCSS("flex-grow", "1");
@@ -108,7 +108,7 @@ public:
 
     // setup configuration panel
     //config_panel.Setup();
-    config_panel_ex << config_panel.GetConfigPanelDiv();
+    config_panel_ex << config_panel;
 
 
     // Add explanation for organism color:
@@ -126,8 +126,8 @@ public:
       else but.SetLabel("Start");
     }, "Start", "toggle");
     setButtonStyle("toggle");
-    buttons.Button("toggle").OnMouseOver([this](){ auto but = buttons.Button("toggle"); but.SetCSS("background-color", "grey"); but.SetCSS("cursor", "pointer"); });
-    buttons.Button("toggle").OnMouseOut([this](){ auto but = buttons.Button("toggle"); but.SetCSS("background-color", "#D3D3D3"); });
+    buttons.Button("toggle").OnMouseOver([this](){ auto but = buttons.Button("toggle"); but.SetCSS("background-color", "#3d1477"); but.SetCSS("cursor", "pointer"); but.SetCSS("color", "white");});
+    buttons.Button("toggle").OnMouseOut([this](){ auto but = buttons.Button("toggle"); but.SetCSS("background-color", "#5f8eff"); but.SetCSS("color", "white");});
 
     // ----------------------- Add a reset button to reset the animation/world -----------------------
     /* Note: Must first run world.Reset(), because Inject checks for valid position.
@@ -179,7 +179,7 @@ public:
 
     host_graph_canvas = host_graph.AddCanvas(750, 200, "host_graph").SetCSS("background", "white");
     targets.push_back(host_graph_canvas);
-    initializeGraph(host_graph_canvas);
+    drawHostIntValGraph(host_graph_canvas);
     host_graph << "<br>";
 
     sym_graph_canvas = sym_graph.AddCanvas(750, 200, "sym_graph").SetCSS("background", "black");
@@ -224,9 +224,13 @@ public:
    */
   void setButtonStyle(std::string but_id){
     auto but = buttons.Button(but_id);
-    but.SetCSS("background-color", "#D3D3D3");
+    but.SetCSS("background-color", "#5f8eff");
     but.SetCSS("border-radius", "4px");
     but.SetCSS("margin-left", "5px");
+    but.SetCSS("color", "white");
+    but.SetCSS("font-family", "Garamond");
+    but.SetCSS("letter-spacing", "3px");
+    but.SetCSS("font-size", "20px");
   }
 
 
