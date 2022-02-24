@@ -31,7 +31,7 @@ class SymConfigPanel : public emp::prefab::ConfigPanel{
 
           emp::prefab::Card group_card(open ? "INIT_OPEN" : "INIT_CLOSED", true, group_base);
         
-          group_card.SetCSS("background", "pink");
+          group_card.SetCSS("background", "#5e8fff");
           group_card.SetCSS("font-family", "Garamond");
           group_card.SetCSS("letter-spacing", "2px");
           //group_card.SetWidth(50);
@@ -42,7 +42,7 @@ class SymConfigPanel : public emp::prefab::ConfigPanel{
           // and has ID "{main id}_{group name}" for ease of access
           Div settings(emp::to_string(GetID(), "_", group_name)); //creating a div object named settings
           settings.AddAttr("class", "settings_group"); //setting the html class to the settings_group
-          settings.SetWidth(350);
+          settings.SetWidth(400); //changes the width of the sliders and box for number
           group_card << settings; //putting the settings div into the group card
           
           //settings.SetCSS("background", "green");
