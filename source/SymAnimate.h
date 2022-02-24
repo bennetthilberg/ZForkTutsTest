@@ -108,7 +108,7 @@ public:
 
     // setup configuration panel
     //config_panel.Setup();
-    config_panel_ex << config_panel.GetConfigPanelDiv();
+    config_panel_ex << config_panel;
 
 
     // Add explanation for organism color:
