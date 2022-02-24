@@ -3,8 +3,8 @@
 #define SYM_ANIMATE_H
 //for interactive tutorial
 
-#include "../../Empirical/include/emp/web/KeypressManager.hpp"
-#include "../../Empirical/include/emp/web/Tutorial.h"
+#include "../Empirical/include/emp/web/KeypressManager.hpp"
+#include "../Empirical/include/emp/web/Tutorial.h"
 #include "ITutorial.h"
 #include <iostream>
 #include "default_mode/SymWorld.h"
@@ -12,12 +12,12 @@
 //#include "SymJS.h"
 #include "default_mode/Symbiont.h"
 #include "default_mode/Host.h"
-#include "../../Empirical/include/emp/web/Document.hpp"
-#include "../../Empirical/include/emp/web/Canvas.hpp"
-#include "../../Empirical/include/emp/web/web.hpp"
-#include "../../Empirical/include/emp/config/ArgManager.hpp"
-#include "../../Empirical/include/emp/prefab/ConfigPanel.hpp"
-#include "../../Empirical/include/emp/web/UrlParams.hpp"
+#include "../Empirical/include/emp/web/Document.hpp"
+#include "../Empirical/include/emp/web/Canvas.hpp"
+#include "../Empirical/include/emp/web/web.hpp"
+#include "../Empirical/include/emp/config/ArgManager.hpp"
+#include "../Empirical/include/emp/prefab/ConfigPanel.hpp"
+#include "../Empirical/include/emp/web/UrlParams.hpp"
 #include "default_mode/WorldSetup.cc"
 
 
@@ -72,8 +72,10 @@ public:
 
 
 
+    animation.SetCSS("position", "static");
     animation.SetCSS("flex-grow", "1");
     animation.SetCSS("max-width", "500px");
+
     settings.SetCSS("flex-grow", "1");
     settings.SetCSS("max-width", "600px");
     explanation.SetCSS("flex-grow", "1");
@@ -160,7 +162,7 @@ public:
     animation << "<br>";
 
     learnmore << "If you'd like to learn more, please see the publication <a href=\"https://www.mitpressjournals.org/doi/abs/10.1162/artl_a_00273\">Spatial Structure Can Decrease Symbiotic Cooperation</a>.";
-
+    itut.startTut(animation, settings, explanation, learnmore, buttons, mycanvas);
   }
 
 

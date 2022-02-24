@@ -77,6 +77,10 @@
         "unordered_set": "cpp",
         "utility": "cpp",
         "variant": "cpp",
-        "vector": "cpp"
+        "vector": "cpp",
+        "list": "cpp",
+        "queue": "cpp",
+        "shared_mutex": "cpp",
+        "valarray": "cpp"
     }
 }
