@@ -15,9 +15,12 @@
 #include "emp/prefab/ConfigPanel.hpp"
 #include "emp/web/UrlParams.hpp"
 #include "default_mode/WorldSetup.cc"
-
 #include "SymConfigPanel.h"
 
+#include "../Empirical/include/emp/web/d3/d3_init.hpp"
+#include "../Empirical/include/emp/web/Document.hpp"
+#include "../Empirical/include/emp/web/d3/visualizations.hpp"
+#include "../Empirical/include/emp/web/d3/selection.hpp"
 
 namespace UI = emp::web;
 SymConfigBase config; // load the default configuration
@@ -30,9 +33,13 @@ private:
   UI::Document animation;
   UI::Document settings;
   UI::Document explanation;
+  UI::Document sym_graph;
+  UI::Document host_graph;
   UI::Document learnmore;
   UI::Document buttons;
   UI::Canvas mycanvas;
+  UI::Canvas host_graph_canvas;
+  UI::Canvas sym_graph_canvas;
 
   const int RECT_WIDTH = 10;
 
@@ -53,9 +60,9 @@ public:
    * The contructor for SymAnimate
    * 
    */
-  SymAnimate() : animation("emp_animate"), settings("emp_settings"), explanation("emp_explanation"), learnmore("emp_learnmore"), buttons("emp_buttons") {
+  SymAnimate() : animation("emp_animate"), settings("emp_settings"), explanation("emp_explanation"), learnmore("emp_learnmore"), buttons("emp_buttons"), sym_graph("sym_graph"), host_graph("host_graph") {
 
-    config.GRID_X(40); //change
+    config.GRID_X(40);
     config.GRID_Y(40);
     config.UPDATES(30000);
     SymConfigPanel config_panel(config);
@@ -75,7 +82,6 @@ public:
     config_panel.ExcludeSetting("HORIZ_TRANS");
 
 
-
     animation.SetCSS("flex-grow", "1");
     animation.SetCSS("max-width", "500px");
     settings.SetCSS("flex-grow", "1");
@@ -89,8 +95,8 @@ public:
 
 
     initializeWorld();
-    emp::prefab::Card config_panel_ex("INIT_CLOSED"); 
-    settings << config_panel_ex; //settings here
+    emp::prefab::Card config_panel_ex("INIT_CLOSED");
+    settings << config_panel_ex;
     config_panel_ex.AddHeaderContent("<h3>Settings</h3>");
 
     // apply configuration query params and config files to config
@@ -127,9 +133,6 @@ public:
     /* Note: Must first run world.Reset(), because Inject checks for valid position.
       If a position is occupied, new org is deleted and your world isn't reset.
       Also, canvas must be redrawn to let users see that it is reset */
-
-      /*
-      //might need to add this back
     buttons.AddButton([this](){
       world.Reset();
       buttons.Text("update").Redraw();
@@ -143,16 +146,24 @@ public:
       but.SetLabel("Start");
 
       // redraw petri dish
-      mycanvas.SetWidth(RECT_WIDTH*config.GRID_X());  //I think here might be where we need to change to make it a circle dish
+      mycanvas.SetWidth(RECT_WIDTH*config.GRID_X());
       mycanvas.SetHeight(RECT_WIDTH*config.GRID_Y());
       drawPetriDish(mycanvas);
+      //graph_canvas.setWidth(750);
+      //graph_canvas.setHeight(200);
+      host_graph_canvas.Clear();
+      drawHostIntValGraph(host_graph_canvas);
+
+      sym_graph_canvas.Clear();
+      drawSymIntValGraph(sym_graph_canvas);
+
       ToggleActive();//turn on quick to update the grid if the size changed
       ToggleActive();//turn off again
     }, "Reset", "reset");
-    //setButtonStyle("reset");
-    //buttons.Button("reset").OnMouseOver([this](){ auto but = buttons.Button("reset"); but.SetCSS("background-color", "#3d1477"); but.SetCSS("cursor", "pointer"); but.SetCSS("color", "white"); });
-    //buttons.Button("reset").OnMouseOut([this](){ auto but = buttons.Button("reset"); but.SetCSS("background-color", "#5f8eff"); but.SetCSS("color", "white"); });
-*/
+    setButtonStyle("reset");
+    buttons.Button("reset").OnMouseOver([this](){ auto but = buttons.Button("reset"); but.SetCSS("background-color", "grey"); but.SetCSS("cursor", "pointer"); });
+    buttons.Button("reset").OnMouseOut([this](){ auto but = buttons.Button("reset"); but.SetCSS("background-color", "#D3D3D3"); });
+
     // ----------------------- Keep track of number of updates -----------------------
     buttons << "<br>";
     buttons << UI::Text("update") << "Update = " << UI::Live( [this](){ return world.GetUpdate(); } ) << "  ";
@@ -166,11 +177,25 @@ public:
     drawPetriDish(mycanvas);
     animation << "<br>";
 
+    host_graph_canvas = host_graph.AddCanvas(750, 200, "host_graph").SetCSS("background", "white");
+    targets.push_back(host_graph_canvas);
+    drawHostIntValGraph(host_graph_canvas);
+    host_graph << "<br>";
+
+    sym_graph_canvas = sym_graph.AddCanvas(750, 200, "sym_graph").SetCSS("background", "black");
+    targets.push_back(sym_graph_canvas);
+    drawSymIntValGraph(sym_graph_canvas);
+    sym_graph << "<br>";
+
     learnmore << "If you'd like to learn more, please see the publication <a href=\"https://www.mitpressjournals.org/doi/abs/10.1162/artl_a_00273\">Spatial Structure Can Decrease Symbiotic Cooperation</a>.";
 
   }
 
+  void initializeGraph(UI::Canvas & can, std::string title, std::string axes){
+    //fill in the line, give title, label axes
 
+    
+  }
   /**
    * Input: None
    * 
@@ -228,20 +253,15 @@ public:
                 // color setting for host and symbiont
 
                 std::string color_host = matchColor(p[i]->GetIntVal());
-
-
-
                 // Draw host rect and symbiont dot
-                int radius1 = RECT_WIDTH / 4;
-                int radius2 = RECT_WIDTH / 2;
-                can.Circle(x * RECT_WIDTH + RECT_WIDTH/2, y * RECT_WIDTH + RECT_WIDTH/2, radius2, color_host, "black");
-                
+                can.Rect(x * RECT_WIDTH, y * RECT_WIDTH, RECT_WIDTH, RECT_WIDTH, color_host, "black");
+                int radius = RECT_WIDTH / 4;
                 if(syms.size() == 1) {
                   std::string color_sym = matchColor(syms[0]->GetIntVal());
                   // while drawing, test whether every organism is mutualistic
                   if (syms[0]->GetIntVal() <= 0) num_parasitic++;
                   else num_mutualistic++;
-                  can.Circle(x * RECT_WIDTH + RECT_WIDTH/2, y * RECT_WIDTH + RECT_WIDTH/2, radius1, color_sym, "black");
+                  can.Circle(x * RECT_WIDTH + RECT_WIDTH/2, y * RECT_WIDTH + RECT_WIDTH/2, radius, color_sym, "black");
                 }
                 i++;
 
@@ -285,6 +305,58 @@ public:
     else return "#673F03";
   }
 
+  /**
+   * Input: The canvas being used. 
+   * 
+   * Output: None
+   * 
+   * Purpose: To draw a dynamic graph of average interaction values 
+   */
+  void drawHostIntValGraph(UI::Canvas & can){
+    int pop_size = p.size();
+    double int_val_total = 0;
+    int i = 0;
+    for (int x = 0; x < config.GRID_X(); x++){
+            for (int y = 0; y < config.GRID_Y(); y++){
+                //hosts
+                int_val_total += p[i]->GetIntVal();
+                i++;
+            }
+    }
+    double avg_int_val = int_val_total/pop_size;
+    std::string color = matchColor(avg_int_val);
+
+    int y = 100 - (avg_int_val * 100);
+
+    can.Circle(world.GetUpdate(), y, 1, color, color);
+  }
+
+  void drawSymIntValGraph(UI::Canvas & can){//TODO: make canvas size for the graph flexiable 
+  //make the y position based upon the size 
+  //add axes 
+  //initialize the canvas without first data point
+    int pop_size = 0;
+    double int_val_total = 0;
+    int i = 0;
+
+    for (int x = 0; x < config.GRID_X(); x++){
+            for (int y = 0; y < config.GRID_Y(); y++){
+                //hosts
+                emp::vector<emp::Ptr<Organism>> syms = p[i]->GetSymbionts();
+                for (int j = 0; j  < syms.size(); j++){
+                  int_val_total+= syms[j]->GetIntVal();
+                  pop_size++;
+                }
+                i++;
+            }
+    }
+    double avg_int_val = int_val_total/pop_size;
+    std::string color = matchColor(avg_int_val);
+
+    int y = 100 - (avg_int_val * 100);
+
+    can.Circle(world.GetUpdate(), y, 1, color, color);
+  }
 
   /**
    * Input: None
@@ -302,13 +374,20 @@ public:
       mycanvas = animation.Canvas("can"); // get canvas by id
       mycanvas.Clear();
 
+      host_graph_canvas = host_graph.Canvas("host_graph"); //get canvas by id
+      sym_graph_canvas = sym_graph.Canvas("sym_graph");
       // Update world and draw the new petri dish
       world.Update();
       p = world.GetPop();
       drawPetriDish(mycanvas);
+
       buttons.Text("update").Redraw();
       buttons.Text("mut").Redraw();
       buttons.Text("par").Redraw();
+
+      //Update live graph here
+      drawHostIntValGraph(host_graph_canvas);
+      drawSymIntValGraph(sym_graph_canvas);
     }
   }
 };
