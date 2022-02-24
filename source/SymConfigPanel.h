@@ -1,8 +1,8 @@
 #ifndef SYM_CONFIG_PANEL_H
 #define SYM_CONFIG_PANEL_H
 
-#include "../../Empirical/include/emp/prefab/ConfigPanel.hpp"
-#include "../../Empirical/include/emp/config/config.hpp"
+#include "../Empirical/include/emp/prefab/ConfigPanel.hpp"
+#include "../Empirical/include/emp/config/config.hpp"
 
 class SymConfigPanel : public emp::prefab::ConfigPanel{
     protected:

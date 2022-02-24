@@ -8,14 +8,15 @@
 //#include "SymJS.h"
 #include "default_mode/Symbiont.h"
 #include "default_mode/Host.h"
-#include "emp/web/Document.hpp"
-#include "emp/web/Canvas.hpp"
-#include "emp/web/web.hpp"
-#include "emp/config/ArgManager.hpp"
-#include "emp/prefab/ConfigPanel.hpp"
-#include "emp/web/UrlParams.hpp"
+#include "../Empirical/include/emp/web/Document.hpp"
+#include "../Empirical/include/emp/web/Canvas.hpp"
+#include "../Empirical/include/emp/web/web.hpp"
+#include "../Empirical/include/emp/config/ArgManager.hpp"
+#include "../Empirical/include/emp/prefab/ConfigPanel.hpp"
+#include "../Empirical/include/emp/web/UrlParams.hpp"
 #include "default_mode/WorldSetup.cc"
 #include "SymConfigPanel.h"
+#include "ITutorial.h"
 
 #include "../Empirical/include/emp/web/d3/d3_init.hpp"
 #include "../Empirical/include/emp/web/Document.hpp"
@@ -40,7 +41,7 @@ private:
   UI::Canvas mycanvas;
   UI::Canvas host_graph_canvas;
   UI::Canvas sym_graph_canvas;
-
+  ITutorial itut;
   const int RECT_WIDTH = 10;
 
   emp::Random random{config.SEED()};
@@ -60,7 +61,7 @@ public:
    * The contructor for SymAnimate
    * 
    */
-  SymAnimate() : animation("emp_animate"), settings("emp_settings"), explanation("emp_explanation"), learnmore("emp_learnmore"), buttons("emp_buttons"), sym_graph("sym_graph"), host_graph("host_graph") {
+  SymAnimate() : animation("emp_animate"), settings("emp_settings"), explanation("emp_explanation"), learnmore("emp_learnmore"), buttons("emp_buttons"), sym_graph("sym_graph"), host_graph("host_graph"), itut(animation, settings, explanation, learnmore, buttons, mycanvas) {
 
     config.GRID_X(40);
     config.GRID_Y(40);
@@ -81,7 +82,7 @@ public:
     config_panel.ExcludeSetting("COMPETITION_MODE");
     config_panel.ExcludeSetting("HORIZ_TRANS");
 
-
+    animation.SetCSS("position", "static");
     animation.SetCSS("flex-grow", "1");
     animation.SetCSS("max-width", "500px");
     settings.SetCSS("flex-grow", "1");
@@ -188,7 +189,7 @@ public:
     sym_graph << "<br>";
 
     learnmore << "If you'd like to learn more, please see the publication <a href=\"https://www.mitpressjournals.org/doi/abs/10.1162/artl_a_00273\">Spatial Structure Can Decrease Symbiotic Cooperation</a>.";
-
+    itut.startTut(animation, settings, explanation, learnmore, buttons, mycanvas);
   }
 
   void initializeGraph(UI::Canvas & can, std::string title, std::string axes){
