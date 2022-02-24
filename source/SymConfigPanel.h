@@ -42,7 +42,7 @@ class SymConfigPanel : public emp::prefab::ConfigPanel{
           // and has ID "{main id}_{group name}" for ease of access
           Div settings(emp::to_string(GetID(), "_", group_name)); //creating a div object named settings
           settings.AddAttr("class", "settings_group"); //setting the html class to the settings_group
-          settings.SetWidth(400); //changes the width of the sliders and box for number
+          settings.SetWidth(300); //changes the width of the sliders and box for number
           group_card << settings; //putting the settings div into the group card
           
           //settings.SetCSS("background", "green");
