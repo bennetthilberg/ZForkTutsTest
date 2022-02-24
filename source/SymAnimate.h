@@ -33,10 +33,13 @@ private:
   UI::Document animation;
   UI::Document settings;
   UI::Document explanation;
+  UI::Document sym_graph;
+  UI::Document host_graph;
   UI::Document learnmore;
   UI::Document buttons;
   UI::Canvas mycanvas;
-  UI::Canvas graph_canvas;
+  UI::Canvas host_graph_canvas;
+  UI::Canvas sym_graph_canvas;
 
   const int RECT_WIDTH = 10;
 
@@ -57,7 +60,7 @@ public:
    * The contructor for SymAnimate
    * 
    */
-  SymAnimate() : animation("emp_animate"), settings("emp_settings"), explanation("emp_explanation"), learnmore("emp_learnmore"), buttons("emp_buttons") {
+  SymAnimate() : animation("emp_animate"), settings("emp_settings"), explanation("emp_explanation"), learnmore("emp_learnmore"), buttons("emp_buttons"), sym_graph("sym_graph"), host_graph("host_graph") {
 
     config.GRID_X(50);
     config.GRID_Y(50);
@@ -146,6 +149,14 @@ public:
       mycanvas.SetWidth(RECT_WIDTH*config.GRID_X());
       mycanvas.SetHeight(RECT_WIDTH*config.GRID_Y());
       drawPetriDish(mycanvas);
+      //graph_canvas.setWidth(750);
+      //graph_canvas.setHeight(200);
+      host_graph_canvas.Clear();
+      drawHostIntValGraph(host_graph_canvas);
+
+      sym_graph_canvas.Clear();
+      drawSymIntValGraph(sym_graph_canvas);
+
       ToggleActive();//turn on quick to update the grid if the size changed
       ToggleActive();//turn off again
     }, "Reset", "reset");
@@ -166,16 +177,25 @@ public:
     drawPetriDish(mycanvas);
     animation << "<br>";
 
-    graph_canvas = explanation.AddCanvas(750, 200, "graph").SetCSS("background", "white");
-    targets.push_back(graph_canvas);
-    drawIntValGraph(graph_canvas);
-    explanation << "<br>";
+    host_graph_canvas = host_graph.AddCanvas(750, 200, "host_graph").SetCSS("background", "white");
+    targets.push_back(host_graph_canvas);
+    initializeGraph(host_graph_canvas);
+    host_graph << "<br>";
+
+    sym_graph_canvas = sym_graph.AddCanvas(750, 200, "sym_graph").SetCSS("background", "black");
+    targets.push_back(sym_graph_canvas);
+    drawSymIntValGraph(sym_graph_canvas);
+    sym_graph << "<br>";
 
     learnmore << "If you'd like to learn more, please see the publication <a href=\"https://www.mitpressjournals.org/doi/abs/10.1162/artl_a_00273\">Spatial Structure Can Decrease Symbiotic Cooperation</a>.";
 
   }
 
+  void initializeGraph(UI::Canvas & can, std::string title, std::string axes){
+    //fill in the line, give title, label axes
 
+    
+  }
   /**
    * Input: None
    * 
@@ -229,9 +249,6 @@ public:
                 // color setting for host and symbiont
 
                 std::string color_host = matchColor(p[i]->GetIntVal());
-
-
-
                 // Draw host rect and symbiont dot
                 can.Rect(x * RECT_WIDTH, y * RECT_WIDTH, RECT_WIDTH, RECT_WIDTH, color_host, "black");
                 int radius = RECT_WIDTH / 4;
@@ -291,7 +308,7 @@ public:
    * 
    * Purpose: To draw a dynamic graph of average interaction values 
    */
-  void drawIntValGraph(UI::Canvas & can){
+  void drawHostIntValGraph(UI::Canvas & can){
     int pop_size = p.size();
     double int_val_total = 0;
     int i = 0;
@@ -305,17 +322,37 @@ public:
     double avg_int_val = int_val_total/pop_size;
     std::string color = matchColor(avg_int_val);
 
-    int y = 100;
-    if(avg_int_val >= 0){
-      y = y - (avg_int_val * 100);
-    }
-    else{
-      y = y + (avg_int_val * 100);
-    }
+    int y = 100 - (avg_int_val * 100);
 
     can.Circle(world.GetUpdate(), y, 1, color, color);
   }
 
+  void drawSymIntValGraph(UI::Canvas & can){//TODO: make canvas size for the graph flexiable 
+  //make the y position based upon the size 
+  //add axes 
+  //initialize the canvas without first data point
+    int pop_size = 0;
+    double int_val_total = 0;
+    int i = 0;
+
+    for (int x = 0; x < config.GRID_X(); x++){
+            for (int y = 0; y < config.GRID_Y(); y++){
+                //hosts
+                emp::vector<emp::Ptr<Organism>> syms = p[i]->GetSymbionts();
+                for (int j = 0; j  < syms.size(); j++){
+                  int_val_total+= syms[j]->GetIntVal();
+                  pop_size++;
+                }
+                i++;
+            }
+    }
+    double avg_int_val = int_val_total/pop_size;
+    std::string color = matchColor(avg_int_val);
+
+    int y = 100 - (avg_int_val * 100);
+
+    can.Circle(world.GetUpdate(), y, 1, color, color);
+  }
 
   /**
    * Input: None
@@ -333,8 +370,8 @@ public:
       mycanvas = animation.Canvas("can"); // get canvas by id
       mycanvas.Clear();
 
-      graph_canvas = explanation.Canvas("graph"); //get canvas by id
-
+      host_graph_canvas = host_graph.Canvas("host_graph"); //get canvas by id
+      sym_graph_canvas = sym_graph.Canvas("sym_graph");
       // Update world and draw the new petri dish
       world.Update();
       p = world.GetPop();
@@ -345,7 +382,8 @@ public:
       buttons.Text("par").Redraw();
 
       //Update live graph here
-      drawIntValGraph(graph_canvas);
+      drawHostIntValGraph(host_graph_canvas);
+      drawSymIntValGraph(sym_graph_canvas);
     }
   }
 };
