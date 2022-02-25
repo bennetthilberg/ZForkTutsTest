@@ -153,10 +153,12 @@ public:
       //graph_canvas.setWidth(750);
       //graph_canvas.setHeight(200);
       host_graph_canvas.Clear();
-      drawHostIntValGraph(host_graph_canvas);
+      initializeGraph(host_graph_canvas, "Host Interaction Values");
+      //drawHostIntValGraph(host_graph_canvas);
 
       sym_graph_canvas.Clear();
-      drawSymIntValGraph(sym_graph_canvas);
+      initializeGraph(sym_graph_canvas, "Symbiont Interaction Values");
+      //drawSymIntValGraph(sym_graph_canvas);
 
       ToggleActive();//turn on quick to update the grid if the size changed
       ToggleActive();//turn off again
@@ -178,24 +180,39 @@ public:
     drawPetriDish(mycanvas);
     animation << "<br>";
 
-    host_graph_canvas = host_graph.AddCanvas(750, 200, "host_graph").SetCSS("background", "white");
+    host_graph_canvas = host_graph.AddCanvas(RECT_WIDTH*40, RECT_WIDTH*18, "host_graph").SetCSS("background", "white");
     targets.push_back(host_graph_canvas);
-    drawHostIntValGraph(host_graph_canvas);
+    initializeGraph(host_graph_canvas, "Host Interaction Values");
+    //drawHostIntValGraph(host_graph_canvas);
     host_graph << "<br>";
 
-    sym_graph_canvas = sym_graph.AddCanvas(750, 200, "sym_graph").SetCSS("background", "black");
+    sym_graph_canvas = sym_graph.AddCanvas(RECT_WIDTH*40, RECT_WIDTH*18, "sym_graph").SetCSS("background", "white");
     targets.push_back(sym_graph_canvas);
-    drawSymIntValGraph(sym_graph_canvas);
+    initializeGraph(sym_graph_canvas, "Symbiont Interaction Values");
+    //drawSymIntValGraph(sym_graph_canvas);
     sym_graph << "<br>";
 
     learnmore << "If you'd like to learn more, please see the publication <a href=\"https://www.mitpressjournals.org/doi/abs/10.1162/artl_a_00273\">Spatial Structure Can Decrease Symbiotic Cooperation</a>.";
     itut.startTut(animation, settings, explanation, learnmore, buttons, mycanvas);
   }
 
-  void initializeGraph(UI::Canvas & can, std::string title, std::string axes){
+  void initializeGraph(UI::Canvas & can, std::string title){
     //fill in the line, give title, label axes
+    int width = can.GetWidth();
+    int height = can.GetHeight();
 
-    
+    can.Font("Garamond");
+    //can.SetCSS("font-family", "Garamond");
+
+    //horizontal axis - leave a 20px padding for y-axis label
+    can.Line(20, height/2, width, height/2);
+    //vertical axis - leave 15% of canvas at top and bottom for title and x-axis label
+    can.Line(20, height*0.85, 20, height*0.15);
+
+    //title
+    can.CenterText(width/2, height*0.075, title);
+    //x-axis
+    can.CenterText(width/2, height*0.925, "Evolutionary Time");
   }
   /**
    * Input: None
@@ -314,6 +331,10 @@ public:
    * Purpose: To draw a dynamic graph of average interaction values 
    */
   void drawHostIntValGraph(UI::Canvas & can){
+    int height = can.GetHeight();
+    //double x_step = config.UPDATES()/280;
+    double x_step = 1000/280;
+
     int pop_size = p.size();
     double int_val_total = 0;
     int i = 0;
@@ -327,15 +348,20 @@ public:
     double avg_int_val = int_val_total/pop_size;
     std::string color = matchColor(avg_int_val);
 
-    int y = 100 - (avg_int_val * 100);
+    int y = (height/2) - (0.7 * avg_int_val * (height/2));
+    int x = 20 + (world.GetUpdate() + x_step);
 
-    can.Circle(world.GetUpdate(), y, 1, color, color);
+    can.Circle(x, y, 1, color, color);
   }
 
   void drawSymIntValGraph(UI::Canvas & can){//TODO: make canvas size for the graph flexiable 
   //make the y position based upon the size 
   //add axes 
   //initialize the canvas without first data point
+    int height = can.GetHeight();
+    //double x_step = config.UPDATES()/280;
+    double x_step = 1000/280;
+
     int pop_size = 0;
     double int_val_total = 0;
     int i = 0;
@@ -354,9 +380,10 @@ public:
     double avg_int_val = int_val_total/pop_size;
     std::string color = matchColor(avg_int_val);
 
-    int y = 100 - (avg_int_val * 100);
+    int y = (height/2) - (0.7 * avg_int_val * (height/2));
+    int x = 20 + (world.GetUpdate() + x_step);
 
-    can.Circle(world.GetUpdate(), y, 1, color, color);
+    can.Circle(x, y, 1, color, color);
   }
 
   /**
