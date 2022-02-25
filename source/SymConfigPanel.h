@@ -34,7 +34,7 @@ class SymConfigPanel : public emp::prefab::ConfigPanel{
           group_card.SetCSS("background", "#5e8fff");
           group_card.SetCSS("font-family", "Garamond");
           group_card.SetCSS("letter-spacing", "2px");
-          //group_card.SetWidth(50);
+          group_card.SetWidth(350); //changes the width of the global settings
 
           group_card.AddHeaderContent(group_desc);
           (*this) << group_card;
