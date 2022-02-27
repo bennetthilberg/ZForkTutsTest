@@ -31,7 +31,7 @@ class ITutorial {
             tut.AddEventListenerTrigger("second_state", "end_state", my_button, "click");
             // tut.AddManualTrigger("second_state", "end_state", "enter_input_trigger");
 
-            tut.AddOverlayEffect("first_state", buttons, "black", 0.5, -1, true);
+            //tut.AddOverlayEffect("first_state", buttons, "black", 0.5, -1, true);
             tut.AddOverlayEffect("second_state", buttons, "black", 0.5, -1, true);
             tut.AddOverlayEffect("end_state", buttons, "black", 0.5,-1, true);
             // tut.AddCSSEffect("first_state", my_button, "z-index", "50000");
