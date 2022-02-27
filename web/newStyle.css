@@ -166,10 +166,11 @@
 }
 
 .card-header{
-  color:white;
+  color:#3d1477;
   font-style: italic;
+  background-color: #bc96fe;
  
 }
 .card-header:hover{
-  background-color: #3d1477;
+  background-color: #b2fce3;
 }

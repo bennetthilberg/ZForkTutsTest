@@ -38,11 +38,12 @@ private:
   UI::Document host_graph;
   UI::Document learnmore;
   UI::Document buttons;
+  UI::Document instructions;
   UI::Canvas mycanvas;
   UI::Canvas host_graph_canvas;
   UI::Canvas sym_graph_canvas;
   ITutorial itut;
-  const int RECT_WIDTH = 10;
+  const int RECT_WIDTH = 15;
 
   emp::Random random{config.SEED()};
   SymWorld world{random};
@@ -61,7 +62,7 @@ public:
    * The contructor for SymAnimate
    * 
    */
-  SymAnimate() : animation("emp_animate"), settings("emp_settings"), explanation("emp_explanation"), learnmore("emp_learnmore"), buttons("emp_buttons"), sym_graph("sym_graph"), host_graph("host_graph"), itut(animation, settings, explanation, learnmore, buttons, mycanvas) {
+  SymAnimate() : animation("emp_animate"), settings("emp_settings"), explanation("emp_explanation"), learnmore("emp_learnmore"), buttons("emp_buttons"), sym_graph("sym_graph"), host_graph("host_graph"), itut(animation, settings, explanation, learnmore, buttons, mycanvas), instructions("instructions") {
 
     config.GRID_X(40);
     config.GRID_Y(40);
@@ -81,10 +82,15 @@ public:
     config_panel.ExcludeSetting("FILE_NAME");
     config_panel.ExcludeSetting("COMPETITION_MODE");
     config_panel.ExcludeSetting("HORIZ_TRANS");
+    config_panel.ExcludeGroup("LYSIS");
+    config_panel.ExcludeGroup("EFF");
+    config_panel.ExcludeGroup("PGG");
 
     animation.SetCSS("position", "static");
     animation.SetCSS("flex-grow", "1");
     animation.SetCSS("max-width", "500px");
+    instructions.SetCSS("flex-grow", "1");
+    instructions.SetCSS("max-width", "500px");
     settings.SetCSS("flex-grow", "1");
     settings.SetCSS("max-width", "600px");
     explanation.SetCSS("flex-grow", "1");
@@ -95,10 +101,13 @@ public:
     buttons.SetCSS("max-width", "600px");
 
 
+
     initializeWorld();
+    /*
     emp::prefab::Card config_panel_ex("INIT_CLOSED");
     settings << config_panel_ex;
     config_panel_ex.AddHeaderContent("<h3>Settings</h3>");
+    */
 
     // apply configuration query params and config files to config
     auto specs = emp::ArgManager::make_builtin_specs(&config);
@@ -109,16 +118,16 @@ public:
 
     // setup configuration panel
     //config_panel.Setup();
-    config_panel_ex << config_panel;
+    // config_panel_ex << config_panel;
+    settings << config_panel;
 
 
     // Add explanation for organism color:
-    explanation << "<br><br><img style=\"max-width:175px;\" src=\"diagram1.png\"> <br>" <<
-      "<img style=\"max-width:600px;\" src = \"gradient1.png\"/> <br>";
+    explanation << "<img style=\"max-width:600px;\" src = \"gradient1.png\"/> <br>";
 
 
     // ----------------------- Add a button that allows for pause and start toggle -----------------------
-    buttons << "<br>";
+    buttons << "<br>" << "<br><img style=\"max-width:175px;\" src=\"diagram1.png\">";
     buttons.AddButton([this](){
       // animate up to the number of updates
       ToggleActive();
@@ -190,8 +199,21 @@ public:
 
     learnmore << "If you'd like to learn more, please see the publication <a href=\"https://www.mitpressjournals.org/doi/abs/10.1162/artl_a_00273\">Spatial Structure Can Decrease Symbiotic Cooperation</a>.";
     itut.startTut(animation, settings, explanation, learnmore, buttons, mycanvas);
-  }
 
+    emp::prefab::Card card_instructions(false ? "INIT_OPEN" : "INIT_CLOSED", true, "test");
+    card_instructions.AddHeaderContent("Lab Instructions");
+    card_instructions.SetCSS("background", "#ede9e8");
+    card_instructions.SetCSS("font-family", "Garamond");
+    card_instructions.SetCSS("letter-spacing", "2px");
+    card_instructions.SetCSS("color", "#3d1477");
+    card_instructions.SetWidth(100,"%");
+    card_instructions.AddBodyContent("this is things that pipes and maybe zhen will write");
+
+    instructions << card_instructions;
+    
+
+  }
+  
   void initializeGraph(UI::Canvas & can, std::string title, std::string axes){
     //fill in the line, give title, label axes
 
