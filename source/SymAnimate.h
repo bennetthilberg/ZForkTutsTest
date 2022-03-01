@@ -162,7 +162,7 @@ public:
       initializeGraph(sym_graph_canvas, "Symbiont Interaction Values");
 
       histogram_canvas.Clear();
-      initializeStackedHist(histogram_canvas, "Histogram Int Values");
+      initializeStackedHist(histogram_canvas, "Symbiont Interaction Values");
       //drawSymIntValGraph(sym_graph_canvas);
 
       ToggleActive();//turn on quick to update the grid if the size changed
@@ -195,7 +195,7 @@ public:
     histogram_canvas = histogram.AddCanvas(RECT_WIDTH*35, RECT_WIDTH*18, "histogram").SetCSS("background", "white");
     //host_graph_canvas.SetWidth(100, "%");
     targets.push_back(histogram_canvas);
-    initializeStackedHist(histogram_canvas, "Stacked Histogram Int Values");
+    initializeStackedHist(histogram_canvas, "Symbiont Interaction Values");
     //drawHostIntValGraph(host_graph_canvas);
     histogram << "<br>";
 
@@ -287,13 +287,15 @@ public:
 
     int height = can.GetHeight();
     //double x_step = config.UPDATES()/280;
-    int binNum = world.GetUpdate()/100;
+    int binNum = world.GetUpdate()/50;
 
     int pop_size = 0;
     double int_val_total = 0;
     int i = 0;
     int mut_total = 0; 
     int par_total = 0; 
+    int highly_mut_total = 0; 
+    int highly_par_total = 0;     
     int neu_total = 0;     
     for (int x = 0; x < config.GRID_X(); x++){
             for (int y = 0; y < config.GRID_Y(); y++){
@@ -301,12 +303,17 @@ public:
                 emp::vector<emp::Ptr<Organism>> syms = p[i]->GetSymbionts();
                 for (int j = 0; j  < syms.size(); j++){
                   double val =  syms[j]->GetIntVal();
-                  if (val > 0.2){
+                  if (val > 0.2 && val < 0.6){
                     mut_total+=1;
-                  } else if (val < -0.2){
-                    par_total +=1;
-                  } else{
+                  } else if (val >= 0.6){
+                    highly_mut_total +=1;
+                  } else if (val >= -0.2 && val < 0.2){
                     neu_total+=1;
+                  }
+                  else if (val >= -0.7 && val < -0.20){
+                    par_total+=1;
+                  } else{
+                    highly_par_total+=1; 
                   }
                   pop_size++;
                 }
@@ -314,11 +321,22 @@ public:
             }
     }
 
-    std::string mut_color = matchColor(0.7);
-    std::string neu_color = matchColor(0);
-    std::string par_color = matchColor(-0.7);
-    int binWidth = 28;
-    can.Rect(binNum*binWidth + 20, height*0.15, binWidth, (height*0.7)*mut_total/pop_size, mut_color);   
+    std::string highly_mut_color = matchColor(1.0);
+    std::string mut_color = matchColor(0.59);    
+    std::string neu_color = matchColor(0.19);
+    std::string par_color = matchColor(-0.21);
+    std::string highly_par_color = matchColor(-0.61);    
+    int binWidth = 14;
+    int highMutEndPoint = height*0.15 + (height*0.7)*highly_mut_total/pop_size;
+    int mutEndPoint = highMutEndPoint + (height*0.7)*mut_total/pop_size;
+    int neuEndPoint = mutEndPoint + (height*0.7)*neu_total/pop_size;
+    int parEndPoint = neuEndPoint + (height*0.7)*par_total/pop_size;
+    //int highParBeginPoint = (height*0.7) + parBeginPoint;
+    can.Rect(binNum*binWidth + 20, height*0.15, binWidth, (height*0.7)*highly_mut_total/pop_size, highly_mut_color); 
+    can.Rect(binNum*binWidth + 20, highMutEndPoint, binWidth, (height*0.7)*mut_total/pop_size, mut_color);   
+    can.Rect(binNum*binWidth + 20, mutEndPoint, binWidth, (height*0.7)*neu_total/pop_size, neu_color);   
+    can.Rect(binNum*binWidth + 20, neuEndPoint, binWidth, (height*0.7)*par_total/pop_size, par_color);   
+    can.Rect(binNum*binWidth + 20, parEndPoint, binWidth, (height*0.7)*highly_par_total/pop_size, highly_par_color);                     
     //int y = (height/2) - (0.7 * avg_int_val * (height/2));
     //int x = 20 + (world.GetUpdate() + x_step);
 
@@ -489,7 +507,8 @@ public:
       //Update live graph here
       drawHostIntValGraph(host_graph_canvas);
       drawSymIntValGraph(sym_graph_canvas);
-      if (world.GetUpdate() % 100 == 0 ||world.GetUpdate() == 1){
+
+      if (world.GetUpdate() % 50 == 0 ||world.GetUpdate() == 2){
         drawStackedHist(histogram_canvas);
       }
     }
