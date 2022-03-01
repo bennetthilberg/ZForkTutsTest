@@ -36,11 +36,13 @@ private:
   UI::Document explanation;
   UI::Document sym_graph;
   UI::Document host_graph;
+  UI::Document histogram;  
   UI::Document learnmore;
   UI::Document buttons;
   UI::Canvas mycanvas;
   UI::Canvas host_graph_canvas;
   UI::Canvas sym_graph_canvas;
+  UI::Canvas histogram_canvas;  
   ITutorial itut;
   const int RECT_WIDTH = 10;
 
@@ -61,7 +63,7 @@ public:
    * The contructor for SymAnimate
    * 
    */
-  SymAnimate() : animation("emp_animate"), settings("emp_settings"), explanation("emp_explanation"), learnmore("emp_learnmore"), buttons("emp_buttons"), sym_graph("sym_graph"), host_graph("host_graph"), itut(animation, settings, explanation, learnmore, buttons, mycanvas) {
+  SymAnimate() : animation("emp_animate"), settings("emp_settings"), explanation("emp_explanation"), learnmore("emp_learnmore"), buttons("emp_buttons"), sym_graph("sym_graph"), host_graph("host_graph"), itut(animation, settings, explanation, learnmore, buttons, mycanvas), histogram("histogram") {
 
     config.GRID_X(40);
     config.GRID_Y(40);
@@ -158,6 +160,9 @@ public:
 
       sym_graph_canvas.Clear();
       initializeGraph(sym_graph_canvas, "Symbiont Interaction Values");
+
+      histogram_canvas.Clear();
+      initializeStackedHist(histogram_canvas, "Histogram Int Values");
       //drawSymIntValGraph(sym_graph_canvas);
 
       ToggleActive();//turn on quick to update the grid if the size changed
@@ -180,13 +185,21 @@ public:
     drawPetriDish(mycanvas);
     animation << "<br>";
 
-    host_graph_canvas = host_graph.AddCanvas(RECT_WIDTH*40, RECT_WIDTH*18, "host_graph").SetCSS("background", "white");
+    host_graph_canvas = host_graph.AddCanvas(RECT_WIDTH*35, RECT_WIDTH*18, "host_graph").SetCSS("background", "white");
+    //host_graph_canvas.SetWidth(100, "%");
     targets.push_back(host_graph_canvas);
     initializeGraph(host_graph_canvas, "Host Interaction Values");
     //drawHostIntValGraph(host_graph_canvas);
     host_graph << "<br>";
 
-    sym_graph_canvas = sym_graph.AddCanvas(RECT_WIDTH*40, RECT_WIDTH*18, "sym_graph").SetCSS("background", "white");
+    histogram_canvas = histogram.AddCanvas(RECT_WIDTH*35, RECT_WIDTH*18, "histogram").SetCSS("background", "white");
+    //host_graph_canvas.SetWidth(100, "%");
+    targets.push_back(histogram_canvas);
+    initializeStackedHist(histogram_canvas, "Stacked Histogram Int Values");
+    //drawHostIntValGraph(host_graph_canvas);
+    histogram << "<br>";
+
+    sym_graph_canvas = sym_graph.AddCanvas(RECT_WIDTH*35, RECT_WIDTH*18, "sym_graph").SetCSS("background", "white");
     targets.push_back(sym_graph_canvas);
     initializeGraph(sym_graph_canvas, "Symbiont Interaction Values");
     //drawSymIntValGraph(sym_graph_canvas);
@@ -205,7 +218,26 @@ public:
     //can.SetCSS("font-family", "Garamond");
 
     //horizontal axis - leave a 20px padding for y-axis label
-    can.Line(20, height/2, width, height/2);
+    can.Line(20, height/2, width - 20, height/2);
+    //vertical axis - leave 15% of canvas at top and bottom for title and x-axis label
+    can.Line(20, height*0.85, 20, height*0.15);
+
+    //title
+    can.CenterText(width/2, height*0.075, title);
+    //x-axis
+    can.CenterText(width/2, height*0.925, "Evolutionary Time");
+  }
+
+  void initializeStackedHist(UI::Canvas & can, std::string title){
+     //fill in the line, give title, label axes
+    int width = can.GetWidth();
+    int height = can.GetHeight();
+
+    can.Font("Garamond");
+    //can.SetCSS("font-family", "Garamond");
+
+    //horizontal axis - leave a 20px padding for y-axis label
+    can.Line(20, height*0.85, width - 20, height*0.85);
     //vertical axis - leave 15% of canvas at top and bottom for title and x-axis label
     can.Line(20, height*0.85, 20, height*0.15);
 
@@ -251,7 +283,47 @@ public:
     but.SetCSS("font-size", "20px");
   }
 
+  void drawStackedHist(UI::Canvas & can){
 
+    int height = can.GetHeight();
+    //double x_step = config.UPDATES()/280;
+    int binNum = world.GetUpdate()/100;
+
+    int pop_size = 0;
+    double int_val_total = 0;
+    int i = 0;
+    int mut_total = 0; 
+    int par_total = 0; 
+    int neu_total = 0;     
+    for (int x = 0; x < config.GRID_X(); x++){
+            for (int y = 0; y < config.GRID_Y(); y++){
+                //hosts
+                emp::vector<emp::Ptr<Organism>> syms = p[i]->GetSymbionts();
+                for (int j = 0; j  < syms.size(); j++){
+                  double val =  syms[j]->GetIntVal();
+                  if (val > 0.2){
+                    mut_total+=1;
+                  } else if (val < -0.2){
+                    par_total +=1;
+                  } else{
+                    neu_total+=1;
+                  }
+                  pop_size++;
+                }
+                i++;
+            }
+    }
+
+    std::string mut_color = matchColor(0.7);
+    std::string neu_color = matchColor(0);
+    std::string par_color = matchColor(-0.7);
+    int binWidth = 28;
+    can.Rect(binNum*binWidth + 20, height*0.15, binWidth, (height*0.7)*mut_total/pop_size, mut_color);   
+    //int y = (height/2) - (0.7 * avg_int_val * (height/2));
+    //int x = 20 + (world.GetUpdate() + x_step);
+
+   // can.Circle(x, y, 1, color, color);
+  }
   /**
    * Input: The canvas being used. 
    * 
@@ -333,7 +405,7 @@ public:
   void drawHostIntValGraph(UI::Canvas & can){
     int height = can.GetHeight();
     //double x_step = config.UPDATES()/280;
-    double x_step = 1000/280;
+    double x_step = 1000/260;
 
     int pop_size = p.size();
     double int_val_total = 0;
@@ -360,7 +432,7 @@ public:
   //initialize the canvas without first data point
     int height = can.GetHeight();
     //double x_step = config.UPDATES()/280;
-    double x_step = 1000/280;
+    double x_step = 1000/260;
 
     int pop_size = 0;
     double int_val_total = 0;
@@ -404,6 +476,7 @@ public:
 
       host_graph_canvas = host_graph.Canvas("host_graph"); //get canvas by id
       sym_graph_canvas = sym_graph.Canvas("sym_graph");
+      histogram_canvas = histogram.Canvas("histogram");
       // Update world and draw the new petri dish
       world.Update();
       p = world.GetPop();
@@ -416,6 +489,9 @@ public:
       //Update live graph here
       drawHostIntValGraph(host_graph_canvas);
       drawSymIntValGraph(sym_graph_canvas);
+      if (world.GetUpdate() % 100 == 0 ||world.GetUpdate() == 1){
+        drawStackedHist(histogram_canvas);
+      }
     }
   }
 };

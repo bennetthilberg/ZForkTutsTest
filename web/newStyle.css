@@ -131,6 +131,10 @@
     -o-background-size: cover;
     background-size: cover;
   }
+  .bkg{
+    background-color: ghostwhite;
+
+  }
 
 
   .newContainer{
