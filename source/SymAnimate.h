@@ -43,7 +43,7 @@ private:
   UI::Canvas host_graph_canvas;
   UI::Canvas sym_graph_canvas;
   ITutorial itut;
-  const int RECT_WIDTH = 15;
+  const int RECT_WIDTH = 10;
 
   emp::Random random{config.SEED()};
   SymWorld world{random};
@@ -123,11 +123,11 @@ public:
 
 
     // Add explanation for organism color:
-    explanation << "<img style=\"max-width:600px;\" src = \"gradient1.png\"/> <br>";
+    explanation << "<img style=\"max-width:350px;\" src = \"gradient1.png\"/> <br>";
 
 
     // ----------------------- Add a button that allows for pause and start toggle -----------------------
-    buttons << "<br>" << "<br><img style=\"max-width:175px;\" src=\"diagram1.png\">";
+    buttons << "<br>" << "<br><img style=\"max-width:175px;\" src=\"diagram.png\">";
     buttons.AddButton([this](){
       // animate up to the number of updates
       ToggleActive();
@@ -171,8 +171,8 @@ public:
       ToggleActive();//turn off again
     }, "Reset", "reset");
     setButtonStyle("reset");
-    buttons.Button("reset").OnMouseOver([this](){ auto but = buttons.Button("reset"); but.SetCSS("background-color", "grey"); but.SetCSS("cursor", "pointer"); });
-    buttons.Button("reset").OnMouseOut([this](){ auto but = buttons.Button("reset"); but.SetCSS("background-color", "#D3D3D3"); });
+    buttons.Button("toggle").OnMouseOver([this](){ auto but = buttons.Button("toggle"); but.SetCSS("background-color", "#3d1477"); but.SetCSS("cursor", "pointer"); but.SetCSS("color", "white");});
+    buttons.Button("toggle").OnMouseOut([this](){ auto but = buttons.Button("toggle"); but.SetCSS("background-color", "#5f8eff"); but.SetCSS("color", "white");});
 
     // ----------------------- Keep track of number of updates -----------------------
     buttons << "<br>";
@@ -187,12 +187,12 @@ public:
     drawPetriDish(mycanvas);
     animation << "<br>";
 
-    host_graph_canvas = host_graph.AddCanvas(750, 200, "host_graph").SetCSS("background", "white");
+    host_graph_canvas = host_graph.AddCanvas(425, 200, "host_graph").SetCSS("background", "white");
     targets.push_back(host_graph_canvas);
     drawHostIntValGraph(host_graph_canvas);
     host_graph << "<br>";
 
-    sym_graph_canvas = sym_graph.AddCanvas(750, 200, "sym_graph").SetCSS("background", "black");
+    sym_graph_canvas = sym_graph.AddCanvas(425, 200, "sym_graph").SetCSS("background", "black");
     targets.push_back(sym_graph_canvas);
     drawSymIntValGraph(sym_graph_canvas);
     sym_graph << "<br>";
