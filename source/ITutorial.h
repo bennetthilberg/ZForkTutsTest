@@ -15,6 +15,7 @@ class ITutorial {
         UI::Document doc;
         UI::Button my_button;
         Tutorial tut;
+        bool started = false;
 
     public:
         static void PrintComplete() { std::cout << "Tutorial Complete!" << std::endl; }
@@ -32,14 +33,16 @@ class ITutorial {
             tut.AddState("second_state");
 
             // Popover remains into the third_state, while overlay does not
-            //tut.AddPopoverEffect("second_state", settings, "Welcome to Symbulation, an evolution modeling software.");
-            tut.AddOverlayEffect("second_state", buttons, "blue", 0.5, -1, true);
+            tut.AddPopoverEffect("second_state", buttons, "Click it to start the experiement", "-2.4vh", "-2vw");
+            tut.AddPopoverEffect("second_state", buttons, "This is a walk through of the UI", "27vh", "-3vw");
+            // tut.AddOverlayEffect("second_state", buttons, "black", 0.8, 10, true);
+            // tut.AddCustomVisualEffect("second_state", animation, "z_index","13");
             // Can we change the contents of the start tutorial button sp that it change to end tutorial once we have entered the tutorial
             
 
             /* third state */
-            tut.AddState("third_state");
-            tut.AddOverlayEffect("third_state", buttons, "yellow", 0.5, -1, true);
+            // tut.AddState("third_state");
+            // tut.AddOverlayEffect("third_state", buttons, "yellow", 0.5, -1, true);
 
             /* End state */
             tut.AddState("end_state", &PrintComplete);
@@ -47,8 +50,8 @@ class ITutorial {
 
             /* Transitions */
             tut.AddEventListenerTrigger("first_state", "second_state", my_button, "click");
-            tut.AddExistingTrigger("second_state", "third_state", "click");
-            tut.AddExistingTrigger("third_state", "end_state", "click");
+            tut.AddEventListenerTrigger("second_state", "third_state", my_button, "click");
+            // tut.AddExistingTrigger("third_state", "end_state", "click");
 
             
             
@@ -58,15 +61,18 @@ class ITutorial {
             // buttons.Button("toggle").SetCSS("z-index", "1");
             // my_button.SetCSS("z-index", "2");
             tut.StartAtState("first_state");
+            started=true;
 
             
         }
 
         void startTut(UI::Document animation, UI::Document settings, UI::Document explanation, UI::Document learnmore, UI::Document buttons, UI::Canvas mycanvas) {
+            if (started) {
+                buttons.Button("toggle").SetCSS("position", "relative");
+                buttons.Button("toggle").SetCSS("z-index", "11");
 
+            }
             
-            buttons.Button("toggle").SetCSS("position", "relative");
-            buttons.Button("toggle").SetCSS("z-index", "2");
             // // my_button.SetCSS("z-index", "2");
             // tut.StartAtState("first_state");
         }
