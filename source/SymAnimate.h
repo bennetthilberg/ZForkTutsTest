@@ -34,10 +34,7 @@ private:
   UI::Document animation;
   UI::Document settings;
   UI::Document explanation;
-  UI::Document sym_graph;
-  UI::Document host_graph;
-  UI::Document sym_histogram;
-  UI::Document host_histogram;  
+  UI::Document graphs; 
   UI::Document learnmore;
   UI::Document buttons;
   UI::Document instructions;
@@ -69,7 +66,7 @@ public:
    * The contructor for SymAnimate
    * 
    */
-  SymAnimate() : animation("emp_animate"), settings("emp_settings"), explanation("emp_explanation"), learnmore("emp_learnmore"), buttons("emp_buttons"), sym_graph("sym_graph"), host_graph("host_graph"), itut(animation, settings, explanation, learnmore, buttons, mycanvas), instructions("instructions"), sym_histogram("sym_histogram"), host_histogram("host_histogram") {
+  SymAnimate() : animation("emp_animate"), settings("emp_settings"), explanation("emp_explanation"), learnmore("emp_learnmore"), buttons("emp_buttons"), graphs("graphs"), itut(animation, settings, explanation, learnmore, buttons, mycanvas), instructions("instructions"){
 
     config.GRID_X(40);
     config.GRID_Y(40);
@@ -98,6 +95,8 @@ public:
     animation.SetCSS("max-width", "500px");
     instructions.SetCSS("flex-grow", "1");
     instructions.SetCSS("max-width", "500px");
+    graphs.SetCSS("flex-grow", "1");
+    graphs.SetCSS("max-width", "500px");
     settings.SetCSS("flex-grow", "1");
     settings.SetCSS("max-width", "600px");
     explanation.SetCSS("flex-grow", "1");
@@ -201,39 +200,51 @@ public:
     drawPetriDish(mycanvas);
     animation << "<br>";
 
-    host_graph_canvas = host_graph.AddCanvas(RECT_WIDTH*35, RECT_WIDTH*18, "host_graph").SetCSS("background", "white");
-    targets.push_back(host_graph_canvas);
-    initializeGraph(host_graph_canvas, "Host Interaction Values");
-    host_graph << "<br>";
-
-    host_histogram_canvas = host_histogram.AddCanvas(RECT_WIDTH*35, RECT_WIDTH*18, "host_histogram").SetCSS("background", "white");
-    targets.push_back(host_histogram_canvas);
-    initializeStackedHist(host_histogram_canvas, "Host Interaction Values Distribution");
-    host_histogram << "<br>";
-
-    sym_histogram_canvas = sym_histogram.AddCanvas(RECT_WIDTH*35, RECT_WIDTH*18, "sym_histogram").SetCSS("background", "white");
-    targets.push_back(sym_histogram_canvas);
-    initializeStackedHist(sym_histogram_canvas, "Symbiont Interaction Values Distribution");
-    sym_histogram << "<br>";
-
-    sym_graph_canvas = sym_graph.AddCanvas(RECT_WIDTH*35, RECT_WIDTH*18, "sym_graph").SetCSS("background", "white");
-    targets.push_back(sym_graph_canvas);
-    initializeGraph(sym_graph_canvas, "Symbiont Interaction Values");
-    sym_graph << "<br>";
-
     learnmore << "If you'd like to learn more, please see the publication <a href=\"https://www.mitpressjournals.org/doi/abs/10.1162/artl_a_00273\">Spatial Structure Can Decrease Symbiotic Cooperation</a>.";
     itut.startTut(animation, settings, explanation, learnmore, buttons, mycanvas);
 
+    emp::prefab::Card graphs_card(true ? "INIT_OPEN" : "INIT_CLOSED", true, "graphs_card");
+    graphs_card.AddHeaderContent("Data Collection");
+    graphs_card.SetCSS("background", "#ede9e8");
+    graphs_card.SetCSS("font-family", "Garamond");
+    graphs_card.SetCSS("letter-spacing", "2px");
+    graphs_card.SetCSS("color", "#3d1477");
+    graphs_card.SetWidth(100,"%");
 
-    emp::prefab::Card card_instructions(false ? "INIT_OPEN" : "INIT_CLOSED", true, "test");
+    host_graph_canvas = UI::Canvas(RECT_WIDTH*35, RECT_WIDTH*18, "host_graph").SetCSS("background", "white");
+    targets.push_back(host_graph_canvas);
+    initializeGraph(host_graph_canvas, "Host Interaction Values");
+    graphs_card << host_graph_canvas;
+    graphs_card << "<br>";
+
+    host_histogram_canvas = UI::Canvas(RECT_WIDTH*35, RECT_WIDTH*18, "host_histogram").SetCSS("background", "white");
+    targets.push_back(host_histogram_canvas);
+    initializeStackedHist(host_histogram_canvas, "Host Interaction Values Distribution");
+    graphs_card << host_histogram_canvas;
+    graphs_card << "<br>";
+
+    sym_histogram_canvas = UI::Canvas(RECT_WIDTH*35, RECT_WIDTH*18, "sym_histogram").SetCSS("background", "white");
+    targets.push_back(sym_histogram_canvas);
+    initializeStackedHist(sym_histogram_canvas, "Symbiont Interaction Values Distribution");
+    graphs_card << sym_histogram_canvas;
+    graphs_card << "<br>";
+
+    sym_graph_canvas = UI::Canvas(RECT_WIDTH*35, RECT_WIDTH*18, "sym_graph").SetCSS("background", "white");
+    targets.push_back(sym_graph_canvas);
+    initializeGraph(sym_graph_canvas, "Symbiont Interaction Values");
+    graphs_card << sym_graph_canvas;
+    graphs_card << "<br>";
+
+    graphs << graphs_card;
+
+    emp::prefab::Card card_instructions(false ? "INIT_OPEN" : "INIT_CLOSED", true, "instructions_card");
     card_instructions.AddHeaderContent("Lab Instructions");
     card_instructions.SetCSS("background", "#ede9e8");
     card_instructions.SetCSS("font-family", "Garamond");
     card_instructions.SetCSS("letter-spacing", "2px");
     card_instructions.SetCSS("color", "#3d1477");
     card_instructions.SetWidth(100,"%");
-    card_instructions.AddBodyContent("this is things that pipes and maybe zhen will write");
-
+    card_instructions << "this is things that pipes and maybe zhen will write";
     instructions << card_instructions;
     
   }
@@ -319,7 +330,6 @@ public:
     int binNum = world.GetUpdate()/UPDATE_HIST;
 
     int pop_size = 0;
-    double int_val_total = 0;
     int i = 0;
     int mut_total = 0; 
     int par_total = 0; 
@@ -374,7 +384,6 @@ public:
     int binNum = world.GetUpdate()/UPDATE_HIST;
 
     int pop_size = 0;
-    double int_val_total = 0;
     int i = 0;
     int mut_total = 0; 
     int par_total = 0; 
@@ -568,10 +577,10 @@ public:
       mycanvas = animation.Canvas("can"); // get canvas by id
       mycanvas.Clear();
 
-      host_graph_canvas = host_graph.Canvas("host_graph"); //get canvas by id
-      host_histogram_canvas = host_histogram.Canvas("host_histogram");
-      sym_graph_canvas = sym_graph.Canvas("sym_graph");
-      sym_histogram_canvas = sym_histogram.Canvas("sym_histogram");
+      host_graph_canvas = graphs.Canvas("host_graph"); //get canvas by id
+      host_histogram_canvas = graphs.Canvas("host_histogram");
+      sym_graph_canvas = graphs.Canvas("sym_graph");
+      sym_histogram_canvas = graphs.Canvas("sym_histogram");
       // Update world and draw the new petri dish
       world.Update();
       p = world.GetPop();
