@@ -179,3 +179,9 @@
 .card-header:hover{
   background-color: #b2fce3;
 }
+
+.makeStick{
+  position: sticky;
+  top: 0;
+  align-self: flex-start;
+}

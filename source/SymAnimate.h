@@ -66,7 +66,7 @@ public:
    * The contructor for SymAnimate
    * 
    */
-  SymAnimate() : animation("emp_animate"), settings("emp_settings"), explanation("emp_explanation"), learnmore("emp_learnmore"), buttons("emp_buttons"), graphs("graphs"), itut(animation, settings, explanation, learnmore, buttons, mycanvas), instructions("instructions"){
+  SymAnimate() : animation("emp_animate"), graphs("graphs"), settings("emp_settings"), explanation("emp_explanation"), learnmore("emp_learnmore"), buttons("emp_buttons"), instructions("instructions"), itut(animation, settings, explanation, learnmore, buttons, mycanvas){
 
     config.GRID_X(40);
     config.GRID_Y(40);
@@ -214,27 +214,26 @@ public:
     host_graph_canvas = UI::Canvas(RECT_WIDTH*35, RECT_WIDTH*18, "host_graph").SetCSS("background", "white");
     targets.push_back(host_graph_canvas);
     initializeGraph(host_graph_canvas, "Host Interaction Values");
-    graphs_card << host_graph_canvas;
-    graphs_card << "<br>";
 
     host_histogram_canvas = UI::Canvas(RECT_WIDTH*35, RECT_WIDTH*18, "host_histogram").SetCSS("background", "white");
     targets.push_back(host_histogram_canvas);
     initializeStackedHist(host_histogram_canvas, "Host Interaction Values Distribution");
-    graphs_card << host_histogram_canvas;
-    graphs_card << "<br>";
 
     sym_histogram_canvas = UI::Canvas(RECT_WIDTH*35, RECT_WIDTH*18, "sym_histogram").SetCSS("background", "white");
     targets.push_back(sym_histogram_canvas);
     initializeStackedHist(sym_histogram_canvas, "Symbiont Interaction Values Distribution");
-    graphs_card << sym_histogram_canvas;
-    graphs_card << "<br>";
 
     sym_graph_canvas = UI::Canvas(RECT_WIDTH*35, RECT_WIDTH*18, "sym_graph").SetCSS("background", "white");
     targets.push_back(sym_graph_canvas);
     initializeGraph(sym_graph_canvas, "Symbiont Interaction Values");
+    
     graphs_card << sym_graph_canvas;
     graphs_card << "<br>";
-
+    graphs_card << host_graph_canvas;
+    graphs_card << "<br>";
+    graphs_card << sym_histogram_canvas;
+    graphs_card << "<br>";
+    graphs_card << host_histogram_canvas;
     graphs << graphs_card;
 
     emp::prefab::Card card_instructions(false ? "INIT_OPEN" : "INIT_CLOSED", true, "instructions_card");
