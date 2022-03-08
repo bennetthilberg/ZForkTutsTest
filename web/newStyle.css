@@ -3,6 +3,7 @@
     background-color: #b0defd;
     width: 1000vw;
     display: flex;
+    margin-bottom: 10px;
   }
 
   body{
@@ -131,6 +132,10 @@
     -o-background-size: cover;
     background-size: cover;
   }
+  .bkg{
+    background-color: ghostwhite;
+
+  }
 
 
   .newContainer{
@@ -144,7 +149,7 @@
     color: green;
     letter-spacing: 2px;
     font-family:'Garamond';
-    width: 425px;
+    width: 450px;
  }
   
  .settings_group{
@@ -153,4 +158,30 @@
    justify-items: self-end;
  }
 
-  
+
+.value_box{
+  color: #5e8fff;
+}
+
+.btn{
+  color: white;
+}
+.btn:hover{
+  color: #3d1477;
+}
+
+.card-header{
+  color:#3d1477;
+  font-style: italic;
+  background-color: #bc96fe;
+ 
+}
+.card-header:hover{
+  background-color: #b2fce3;
+}
+
+.makeStick{
+  position: sticky;
+  top: 0;
+  align-self: flex-start;
+}
