@@ -32,7 +32,7 @@ class ITutorial {
             tut.AddState("second_state");
 
 
-            tut.AddOverlayEffect("second_state", buttons, "black", 0.8, 10, true);
+            // tut.AddOverlayEffect("second_state", buttons, "black", 0.8, 10, true);
             // Popover remains into the third_state, while overlay does not
             tut.AddPopoverEffect("second_state", buttons, "Click it to start the experiement", "-2.4vh", "-2vw");
             tut.AddPopoverEffect("second_state", buttons, "This is a walk through of the UI", "27vh", "-3vw");
@@ -47,6 +47,8 @@ class ITutorial {
 
             // /* End state */
             tut.AddState("end_state", &PrintComplete);
+            tut.AddEventListenerTrigger("first_state", "second_state", my_button, "click", "click_trigger");
+            tut.AddExistingTrigger("second_state", "third_state", "click_trigger");
 
 
             // /* Transitions */
@@ -67,11 +69,7 @@ class ITutorial {
 
         void startTut(UI::Document animation, UI::Document settings, UI::Document explanation, UI::Document learnmore, UI::Document buttons, UI::Canvas mycanvas) {
             start_but = buttons.Button("toggle");
-            std::cout << "start_but is: "<<start_but<<std::endl;
-            std::cout <<"my_button is: "<<my_button<<std::endl;
-            /* Transitions */
-            tut.AddEventListenerTrigger("first_state", "second_state", my_button, "click");
-            tut.AddEventListenerTrigger("second_state", "third_state", start_but, "click");
+    
             start_but.SetCSS("position", "relative");
             start_but.SetCSS("z-index", "11");
 
