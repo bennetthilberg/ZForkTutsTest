@@ -62,7 +62,6 @@ public:
    * 
    */
   SymAnimate() : animation("emp_animate"), settings("emp_settings"), explanation("emp_explanation"), learnmore("emp_learnmore"), buttons("emp_buttons"), sym_graph("sym_graph"), host_graph("host_graph"), itut(animation, settings, explanation, learnmore, buttons, mycanvas) {
-
     config.GRID_X(40);
     config.GRID_Y(40);
     config.UPDATES(30000);
@@ -126,6 +125,8 @@ public:
       if (GetActive()) but.SetLabel("Pause");
       else but.SetLabel("Start");
     }, "Start", "toggle");
+    itut.startTut(animation, settings, explanation, learnmore, buttons, mycanvas);
+    
     setButtonStyle("toggle");
     buttons.Button("toggle").OnMouseOver([this](){ auto but = buttons.Button("toggle"); but.SetCSS("background-color", "#3d1477"); but.SetCSS("cursor", "pointer"); but.SetCSS("color", "white");});
     buttons.Button("toggle").OnMouseOut([this](){ auto but = buttons.Button("toggle"); but.SetCSS("background-color", "#5f8eff"); but.SetCSS("color", "white");});
@@ -189,7 +190,7 @@ public:
     sym_graph << "<br>";
 
     learnmore << "If you'd like to learn more, please see the publication <a href=\"https://www.mitpressjournals.org/doi/abs/10.1162/artl_a_00273\">Spatial Structure Can Decrease Symbiotic Cooperation</a>.";
-    itut.startTut(animation, settings, explanation, learnmore, buttons, mycanvas);
+    
   }
 
   void initializeGraph(UI::Canvas & can, std::string title, std::string axes){
