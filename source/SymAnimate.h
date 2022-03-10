@@ -70,7 +70,7 @@ public:
 
     config.GRID_X(40);
     config.GRID_Y(40);
-    config.UPDATES(30000);
+    config.UPDATES(3000);
     SymConfigPanel config_panel(config);
     //Exclude all the settings that control
     //things that don't show up in the GUI correctly
@@ -97,7 +97,7 @@ public:
     config_panel.SetRange("MUTATION_SIZE","-0.2","0.2");
     config_panel.SetRange("HOST_INT","-1","1");
     config_panel.SetRange("SYM_INT","-2","1");//need to change 
-    config_pabel.SetRange("UPDATES","0","3000");
+    config_panel.SetRange("UPDATES","0","3000");
 
     animation.SetCSS("position", "static");
     animation.SetCSS("flex-grow", "1");
