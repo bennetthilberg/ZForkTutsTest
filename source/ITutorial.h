@@ -47,14 +47,10 @@ class ITutorial {
 
             // /* End state */
             tut.AddState("end_state", &PrintComplete);
-            tut.AddEventListenerTrigger("first_state", "second_state", my_button, "click", "click_trigger");
-            tut.AddExistingTrigger("second_state", "third_state", "click_trigger");
+            tut.AddEventListenerTrigger("first_state", "second_state", my_button, "click", "click_trigger", [](){});
+            // tut.AddExistingTrigger("second_state", "third_state", "click_trigger");
+            // tut.AddExistingTrigger("third_state", "end_state", "click_trigger");
 
-
-            // /* Transitions */
-            // tut.AddEventListenerTrigger("first_state", "second_state", my_button, "click");
-            // tut.AddEventListenerTrigger("second_state", "third_state", my_button, "click");
-            // // tut.AddExistingTrigger("third_state", "end_state", "click");
 
             
             
@@ -69,7 +65,8 @@ class ITutorial {
 
         void startTut(UI::Document animation, UI::Document settings, UI::Document explanation, UI::Document learnmore, UI::Document buttons, UI::Canvas mycanvas) {
             start_but = buttons.Button("toggle");
-    
+            tut.AddEventListenerTrigger("second_state", "third_state", start_but, "click", "click_start_but");
+            tut.AddExistingTrigger("third_state", "end_state", "click_start_but");
             start_but.SetCSS("position", "relative");
             start_but.SetCSS("z-index", "11");
 
