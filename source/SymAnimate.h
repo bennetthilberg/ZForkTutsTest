@@ -70,7 +70,7 @@ public:
 
     config.GRID_X(40);
     config.GRID_Y(40);
-    config.UPDATES(30000);
+    config.UPDATES(1000);
     SymConfigPanel config_panel(config);
     //Exclude all the settings that control
     //things that don't show up in the GUI correctly
@@ -86,9 +86,18 @@ public:
     config_panel.ExcludeSetting("FILE_NAME");
     config_panel.ExcludeSetting("COMPETITION_MODE");
     config_panel.ExcludeSetting("HORIZ_TRANS");
+    config_panel.ExcludeSetting("UPDATES");
+    config_panel.ExcludeSetting("GRID_X");
+    config_panel.ExcludeSetting("GRID_Y");
     config_panel.ExcludeGroup("LYSIS");
     config_panel.ExcludeGroup("EFF");
     config_panel.ExcludeGroup("PGG");
+
+
+    config_panel.SetRange("SYNERGY","-10","10");
+    config_panel.SetRange("MUTATION_SIZE","-0.2","0.2");
+    config_panel.SetRange("HOST_INT","-1","1");
+    config_panel.SetRange("SYM_INT","-2","1");//need to change 
 
     animation.SetCSS("position", "static");
     animation.SetCSS("flex-grow", "1");
@@ -141,6 +150,8 @@ public:
       if (GetActive()) but.SetLabel("Pause");
       else but.SetLabel("Start");
     }, "Start", "toggle");
+    itut.startTut(animation, settings, explanation, learnmore, buttons, mycanvas);
+    
     setButtonStyle("toggle");
     buttons.Button("toggle").OnMouseOver([this](){ auto but = buttons.Button("toggle"); but.SetCSS("background-color", "#3d1477"); but.SetCSS("cursor", "pointer"); but.SetCSS("color", "white");});
     buttons.Button("toggle").OnMouseOut([this](){ auto but = buttons.Button("toggle"); but.SetCSS("background-color", "#5f8eff"); but.SetCSS("color", "white");});
