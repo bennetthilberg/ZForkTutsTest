@@ -198,23 +198,15 @@ public:
     buttons.Button("toggle").OnMouseOver([this](){ auto but = buttons.Button("toggle"); but.SetCSS("background-color", "#3d1477"); but.SetCSS("cursor", "pointer"); but.SetCSS("color", "white");});
     buttons.Button("toggle").OnMouseOut([this](){ auto but = buttons.Button("toggle"); but.SetCSS("background-color", "#5f8eff"); but.SetCSS("color", "white");});
 
-    // ----------------------- Keep track of number of updates -----------------------
-    buttons << "<br>";
-    buttons << UI::Text("update") << "Update = " << UI::Live( [this](){ return world.GetUpdate(); } ) << "  ";
-    buttons << UI::Text("mut") << "Mutualistic = " << UI::Live( [this](){ return num_mutualistic; } ) << "  ";
-    buttons << UI::Text("par") << " Parasitic = " << UI::Live( [this](){ return num_parasitic; } );
-    buttons << "<br>";
-
     // Add a canvas for petri dish and draw the initial petri dish
     mycanvas = animation.AddCanvas(RECT_WIDTH*config.GRID_X(), RECT_WIDTH*config.GRID_Y(), "can");
     targets.push_back(mycanvas);
     drawPetriDish(mycanvas);
     animation << "<br>";
 
-    learnmore << "If you'd like to learn more, please see the publication <a href=\"https://www.mitpressjournals.org/doi/abs/10.1162/artl_a_00273\">Spatial Structure Can Decrease Symbiotic Cooperation</a>.";
     itut.startTut(animation, settings, explanation, learnmore, buttons, mycanvas);
 
-    emp::prefab::Card graphs_card(true ? "INIT_OPEN" : "INIT_CLOSED", true, "graphs_card");
+    emp::prefab::Card graphs_card(false ? "INIT_OPEN" : "INIT_CLOSED", true, "graphs_card");
     graphs_card.AddHeaderContent("Data Collection");
     graphs_card.SetCSS("background", "#ede9e8");
     graphs_card.SetCSS("font-family", "Garamond");
@@ -247,7 +239,7 @@ public:
     graphs_card << host_histogram_canvas;
     graphs << graphs_card;
 
-    emp::prefab::Card card_instructions(false ? "INIT_OPEN" : "INIT_CLOSED", true, "instructions_card");
+    emp::prefab::Card card_instructions(true ? "INIT_OPEN" : "INIT_CLOSED", true, "instructions_card");
     card_instructions.AddHeaderContent("Lab Instructions");
     card_instructions.SetCSS("background", "#ede9e8");
     card_instructions.SetCSS("font-family", "Garamond");
