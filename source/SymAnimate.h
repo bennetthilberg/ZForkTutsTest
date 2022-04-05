@@ -198,6 +198,11 @@ public:
     buttons.Button("toggle").OnMouseOver([this](){ auto but = buttons.Button("toggle"); but.SetCSS("background-color", "#3d1477"); but.SetCSS("cursor", "pointer"); but.SetCSS("color", "white");});
     buttons.Button("toggle").OnMouseOut([this](){ auto but = buttons.Button("toggle"); but.SetCSS("background-color", "#5f8eff"); but.SetCSS("color", "white");});
 
+    buttons.Button("toggle").SetAttr("class","btn btn-secondary");
+    buttons.Button("toggle").SetAttr("data-toggle","popover");
+    buttons.Button("toggle").SetAttr("data-content","Click to start the experiment");
+    buttons.Button("toggle").SetAttr("data-container","body");
+    //  data-container="body" data-toggle="popover" data-placement="top" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">)
     // ----------------------- Keep track of number of updates -----------------------
     buttons << "<br>";
     buttons << UI::Text("update") << "Update = " << UI::Live( [this](){ return world.GetUpdate(); } ) << "  ";
