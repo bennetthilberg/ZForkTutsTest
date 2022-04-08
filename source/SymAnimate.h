@@ -162,7 +162,6 @@ public:
       Also, canvas must be redrawn to let users see that it is reset */
     buttons.AddButton([this](){
       world.Reset();
-      buttons.Text("update").Redraw();
       initializeWorld();
       p = world.GetPop();
 
