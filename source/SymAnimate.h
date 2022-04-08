@@ -588,10 +588,6 @@ public:
       p = world.GetPop();
       drawPetriDish(mycanvas);
 
-      buttons.Text("update").Redraw();
-      buttons.Text("mut").Redraw();
-      buttons.Text("par").Redraw();
-
       //Update live graph here
       drawHostIntValGraph(host_graph_canvas);
       drawSymIntValGraph(sym_graph_canvas);
