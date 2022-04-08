@@ -259,7 +259,15 @@ public:
     background.SetCSS("letter-spacing", "2px");
     background.SetCSS("color", "#3d1477");
     background.SetWidth(100,"%");
-    background << "example text";
+    background << "Symbiosis is a close and sustained relationship that occurs between two different species.";
+    background << "Symbiotic relationships can either be <strong>mutualistic</strong>, where there is a net fitness benefit provided to both parties, or <strong>antagonistic</strong>, where there is a net fitness benefit conferred to one or both parties.";
+ 	  background << "An example of a mutualistic symbiotic relationship is between clownfish and anemones.";
+    background << "Clownfish feed on invertebrates that might be harmful to an anemone, while also providing them with nutrients from their fecal material.";
+    background << "In turn, the anemones provide the clownfish with protection and a safe place to live."; 
+    background << "Common examples of antagonistic symbiotic relationships include fleas and ticks.";
+    background << "Typically, in a parasitic relationship, the symbiont (smaller organism) does harm to the host (larger organism) by siphoning its resources or feeding on the host itself."; 
+    background << "Parasites spread through a population through <strong>horizontal</strong> or <strong>vertical transmission</strong>, the former being when a parasite is spread between two members of a population that do not have a parent-progeny relationship, and the latter being when a parasite is spread from parent to offspring.";
+    background << "A combination of high rates of horizontal transmission and low rates of vertical transmission favors the evolution of antagonistic relationships as the fate of a parasite is not intrinsically tied to the health of a host.";
 
     emp::prefab::Card experiment(false ? "INIT_OPEN" : "INIT_CLOSED", true, "experiment_card");
     experiment.AddHeaderContent("Experiment");
