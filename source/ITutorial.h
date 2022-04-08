@@ -15,12 +15,13 @@ class ITutorial {
         UI::Document doc;
         UI::Button my_button;
         Tutorial tut;
+        UI::Button ok_but;
         UI::Button start_but;
 
     public:
         static void PrintComplete() { std::cout << "Tutorial Complete!" << std::endl; }
 
-        ITutorial(UI::Document animation, UI::Document settings, UI::Document explanation, UI::Document learnmore, UI::Document buttons, UI::Canvas mycanvas): doc("emp_base"), my_button([](){}, "Start Tutorial"){
+        ITutorial(UI::Document animation, UI::Document settings, UI::Document explanation, UI::Document learnmore, UI::Document buttons, UI::Canvas mycanvas): doc("emp_base"), my_button([](){}, "Start Tutorial"), ok_but([](){}, "OK"){
             doc << my_button;
             my_button.SetCSS("position", "relative");
 
@@ -32,10 +33,11 @@ class ITutorial {
             tut.AddState("second_state");
 
 
-            // tut.AddOverlayEffect("second_state", buttons, "black", 0.8, 10, true);
+            tut.AddOverlayEffect("second_state", buttons, "black", 0.8, 10, true);
             // Popover remains into the third_state, while overlay does not
-            tut.AddPopoverEffect("second_state", buttons, "Click it to start the experiement", "-2.4vh", "-2vw");
-            tut.AddPopoverEffect("second_state", buttons, "This is a walk through of the UI", "27vh", "-3vw");
+            tut.AddPopoverEffect("second_state", buttons, "This is a walk through of the UI", ok_but, "15vh", "-1vw");
+            tut.AddPopoverEffect("second_state", buttons, "Click it to start the experiement", ok_but, "-0.5vh", "-2vw");
+            // buttons << ok_but;
 
 
     
@@ -44,6 +46,7 @@ class ITutorial {
             // /* third state */
             tut.AddState("third_state");
             // // tut.AddOverlayEffect("third_state", buttons, "yellow", 0.5, -1, true);
+            tut.AddState("fourth_state", &PrintComplete);
 
             // /* End state */
             tut.AddState("end_state", &PrintComplete);
@@ -51,6 +54,7 @@ class ITutorial {
             // tut.AddExistingTrigger("second_state", "third_state", "click_trigger");
             // tut.AddExistingTrigger("third_state", "end_state", "click_trigger");
 
+            ok_but.SetCSS("position", "relative");
 
             
             
@@ -69,7 +73,11 @@ class ITutorial {
             tut.AddExistingTrigger("third_state", "end_state", "click_start_but");
             start_but.SetCSS("position", "relative");
             start_but.SetCSS("z-index", "11");
-
+            tut.AddEventListenerTrigger("third_state", "end_state", ok_but, "click", "click_ok");
+            // ok_but.SetCSS("top", "-0.5vh");
+            ok_but.SetCSS("left", "0.7vw");
+            animation.SetCSS("position", "relative");
+            animation.SetCSS("z-index", "12");
                 
             //tut.AddOverlayEffect("end_state", buttons, "black", 0.5,-1, true);
             // tut.AddCSSEffect("first_state", my_button, "z-index", "50000");

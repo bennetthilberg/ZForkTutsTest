@@ -30,19 +30,20 @@ class SymConfigPanel : public emp::prefab::ConfigPanel{
           const std::string group_base(emp::to_string(GetID(), "_", group_name, "_outer"));
 
           emp::prefab::Card group_card(open ? "INIT_OPEN" : "INIT_CLOSED", true, group_base);
-        
+          
+
           group_card.SetCSS("background", "#5e8fff");
           group_card.SetCSS("font-family", "Garamond");
           group_card.SetCSS("letter-spacing", "2px");
-          //group_card.SetWidth(50);
-
+          group_card.SetWidth(80, "%"); //changes the width of the global settings
+        
           group_card.AddHeaderContent(group_desc);
           (*this) << group_card;
           // A div within card helps make grid without messing up collapse properties
           // and has ID "{main id}_{group name}" for ease of access
           Div settings(emp::to_string(GetID(), "_", group_name)); //creating a div object named settings
           settings.AddAttr("class", "settings_group"); //setting the html class to the settings_group
-          settings.SetWidth(300); //changes the width of the sliders and box for number
+          settings.SetWidth(100, "%"); //changes the width of the sliders and box for number
           group_card << settings; //putting the settings div into the group card
           
           //settings.SetCSS("background", "green");
@@ -98,13 +99,14 @@ class SymConfigPanel : public emp::prefab::ConfigPanel{
           }
         }
 
+        
         // A div at the end for controls
         Div controls{emp::to_string(GetID(), "_", "controls")};
         controls.AddAttr("class", "config_controls");
         //controls.SetCSS("background","green");
         (*this) << controls;
 
-        controls << reload_button;
+        // controls << reload_button;
     }
 
 };
