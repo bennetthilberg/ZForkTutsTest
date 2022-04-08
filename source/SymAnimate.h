@@ -150,7 +150,6 @@ public:
       if (GetActive()) but.SetLabel("Pause");
       else but.SetLabel("Start");
     }, "Start", "toggle");
-    
     itut.startTut(animation, settings, explanation, learnmore, buttons, mycanvas);
     
     setButtonStyle("toggle");
