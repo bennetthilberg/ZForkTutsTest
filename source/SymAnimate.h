@@ -240,15 +240,39 @@ public:
     graphs << graphs_card;
 
     emp::prefab::Card card_instructions(true ? "INIT_OPEN" : "INIT_CLOSED", true, "instructions_card");
-    card_instructions.AddHeaderContent("Lab Instructions");
-    card_instructions.SetCSS("background", "#ede9e8");
-    card_instructions.SetCSS("font-family", "Garamond");
-    card_instructions.SetCSS("letter-spacing", "2px");
-    card_instructions.SetCSS("color", "#3d1477");
-    card_instructions.SetWidth(100,"%");
-    card_instructions << "this is things that pipes and maybe zhen will write";
+    initializeInstructionsCard(card_instructions);
     instructions << card_instructions;
     
+  }
+
+  void initializeInstructionsCard(emp::prefab::Card & card){
+    card.AddHeaderContent("Lab Instructions");
+    card.SetCSS("background", "#ede9e8");
+    card.SetCSS("font-family", "Garamond");
+    card.SetCSS("letter-spacing", "2px");
+    card.SetCSS("color", "#3d1477");
+    card.SetWidth(100,"%");
+
+    emp::prefab::Card background(true ? "INIT_OPEN" : "INIT_CLOSED", true, "background_card");
+    background.AddHeaderContent("Background");
+    background.SetCSS("background", "#ede9e8");
+    background.SetCSS("font-family", "Garamond");
+    background.SetCSS("letter-spacing", "2px");
+    background.SetCSS("color", "#3d1477");
+    background.SetWidth(100,"%");
+    background << "example text";
+
+    emp::prefab::Card experiment(false ? "INIT_OPEN" : "INIT_CLOSED", true, "experiment_card");
+    experiment.AddHeaderContent("Experiment");
+    experiment.SetCSS("background", "#ede9e8");
+    experiment.SetCSS("font-family", "Garamond");
+    experiment.SetCSS("letter-spacing", "2px");
+    experiment.SetCSS("color", "#3d1477");
+    experiment.SetWidth(100,"%");
+    experiment << "example text 2";
+
+    card << background;
+    card << experiment;
   }
   
   void initializeGraph(UI::Canvas & can, std::string title){
