@@ -45,7 +45,7 @@ class ITutorial {
 
         void startTut(UI::Document animation, UI::Document settings, UI::Document explanation, UI::Document learnmore, UI::Document buttons, UI::Canvas mycanvas) {
             start_but = buttons.Button("toggle");
-    
+
             start_but.SetCSS("position", "relative");
             start_but.SetCSS("z-index", "11");
             ok_but.SetCSS("left", "0.7vw");
