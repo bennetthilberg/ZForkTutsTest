@@ -150,7 +150,6 @@ public:
       if (GetActive()) but.SetLabel("Pause");
       else but.SetLabel("Start");
     }, "Start", "toggle");
-    itut.startTut(animation, settings, explanation, learnmore, buttons, mycanvas);
     
     setButtonStyle("toggle");
     buttons.Button("toggle").OnMouseOver([this](){ auto but = buttons.Button("toggle"); but.SetCSS("background-color", "#3d1477"); but.SetCSS("cursor", "pointer"); but.SetCSS("color", "white");});
@@ -261,6 +260,7 @@ public:
     card_instructions.SetWidth(100,"%");
     card_instructions << "this is things that pipes and maybe zhen will write";
     instructions << card_instructions;
+    itut.startTut(animation, settings, explanation, learnmore, buttons, mycanvas);
     
   }
   

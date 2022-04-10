@@ -32,15 +32,20 @@ class ITutorial {
             tut.AddState("third_state");
             tut.AddState("fourth_state", &PrintComplete);
             tut.AddOverlayEffect("second_state", buttons, "black", 0.8, 10, true);
-            tut.AddOverlayEffect("third_state", buttons, "yellow", 0.8, 10, true);
+            // tut.AddOverlayEffect("third_state", buttons, "yellow", 0.8, 10, true);
 
             /* Transitions */
             tut.AddEventListenerTrigger("first_state", "second_state", my_button, "click", "click_trigger");
-            tut.AddEventListenerTrigger("second_state", "third_state", ok_but, "click_okay", "click_ok");
+            tut.AddEventListenerTrigger("second_state", "third_state", ok_but, "click", "click_ok");
             tut.AddExistingTrigger("third_state", "fourth_state", "click_ok");
-
+            tut.AddPopoverEffect("second_state", buttons, "This is a walk through of the UI", ok_but, "15vh", "-1vw");
+            tut.AddPopoverEffect("second_state", buttons, "Click it to start the experiement", ok_but, "-0.5vh", "-2vw");
+            ok_but.SetCSS("z-index", "13");
+            doc<<ok_but;
             //tut.AddExistingTrigger("second_state", "third_state", "click_trigger");
             //tut.AddEventListenerTrigger("third_state", "end_state", ok_but, "click", "click_ok");
+            tut.StartAtState("first_state");
+
         }
 
         void startTut(UI::Document animation, UI::Document settings, UI::Document explanation, UI::Document learnmore, UI::Document buttons, UI::Canvas mycanvas) {
@@ -56,16 +61,16 @@ class ITutorial {
             
     
             
-            /* Popovers */
-            tut.AddPopoverEffect("second_state", buttons, "This is a walk through of the UI", ok_but, "15vh", "-1vw");
-            tut.AddPopoverEffect("second_state", buttons, "Click it to start the experiement", ok_but, "-0.5vh", "-2vw");
+            // /* Popovers */
+            // tut.AddPopoverEffect("second_state", buttons, "This is a walk through of the UI", ok_but, "15vh", "-1vw");
+            // tut.AddPopoverEffect("second_state", buttons, "Click it to start the experiement", ok_but, "-0.5vh", "-2vw");
 
 
 
 
-            tut.StartAtState("first_state");
+            // tut.StartAtState("first_state");
                 
 
-            }
+        }
 };
 #endif
