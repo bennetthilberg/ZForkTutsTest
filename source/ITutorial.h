@@ -28,20 +28,44 @@ class ITutorial {
 
             /* Add all states */
             tut.AddState("first_state");
-            tut.AddState("second_state");
-            tut.AddState("third_state");
-            tut.AddState("fourth_state", &PrintComplete);
-            tut.AddOverlayEffect("second_state", buttons, "black", 0.8, 10, true);
-            // tut.AddOverlayEffect("third_state", buttons, "yellow", 0.8, 10, true);
+            tut.AddState("start_but_state");
+            tut.AddState("reset_but_state");
+            tut.AddState("settings_state");
+            tut.AddState("settings_change_state");
+            tut.AddState("lab_instruct_state");
+            tut.AddState("graph_state");
+            tut.AddState("repeat_state");
+            tut.AddState("end_state", &PrintComplete);
 
-            /* Transitions */
-            tut.AddEventListenerTrigger("first_state", "second_state", my_button, "click", "click_trigger");
-            tut.AddEventListenerTrigger("second_state", "third_state", ok_but, "click", "click_ok");
-            tut.AddExistingTrigger("third_state", "fourth_state", "click_ok");
-            tut.AddPopoverEffect("second_state", buttons, "This is a walk through of the UI", ok_but, "15vh", "-1vw");
-            tut.AddPopoverEffect("second_state", buttons, "Click it to start the experiement", ok_but, "-0.5vh", "-2vw");
+            /* All triggers */
+            tut.AddEventListenerTrigger("first_state", "start_but_state", my_button, "click", "click_trigger");
+            tut.AddEventListenerTrigger("start_but_state", "reset_but_state", ok_but, "click", "click_ok");
+            tut.AddExistingTrigger("reset_but_state", "settings_state", "click_ok");
+            tut.AddExistingTrigger("settings_state", "settings_change_state", "click_ok");
+            tut.AddExistingTrigger("settings_change_state", "lab_instruct_state", "click_ok");
+            tut.AddExistingTrigger("lab_instruct_state", "graph_state", "click_ok");
+            tut.AddExistingTrigger("graph_state", "repeat_state", "click_ok");
+            tut.AddExistingTrigger("repeat_state", "end_state", "click_ok");
+            printf("new VVersion!\n");
+            /*start_but_state*/
+            tut.AddPopoverEffect("start_but_state", buttons, "This is a walk through of the UI", ok_but, "15vh", "-1vw");
+            tut.AddPopoverEffect("start_but_state", buttons, "Click it to start the experiement", ok_but, "-0.5vh", "-2vw");
+            emp::Ptr<OverlayEffect> overlayPtr = tut.AddOverlayEffect("start_but_state", buttons, "black", 0.8, 10, true);
+            if (tut.GetCurrentState()=="start_but_state") {
+                overlayPtr -> SetOverlayCSS("position", "relative");
+                overlayPtr -> SetOverlayCSS("z-index", "10");
+                overlayPtr -> SetOverlayCSS("background-color", "red");
+            }
+            /**/
+            /**/
+            /**/
+            /**/
+            /**/
+            /**/
+            /**/
+            /**/
+
             ok_but.SetCSS("z-index", "13");
-            doc<<ok_but;
             //tut.AddExistingTrigger("second_state", "third_state", "click_trigger");
             //tut.AddEventListenerTrigger("third_state", "end_state", ok_but, "click", "click_ok");
             tut.StartAtState("first_state");
