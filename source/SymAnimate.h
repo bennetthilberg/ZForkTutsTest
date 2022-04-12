@@ -482,7 +482,7 @@ public:
                 std::string color_host = matchColor(p[i]->GetIntVal());
                 // Draw host rect and symbiont dot
                 can.Rect(x * RECT_WIDTH, y * RECT_WIDTH, RECT_WIDTH, RECT_WIDTH, color_host, "black");
-                int radius = RECT_WIDTH / 4;
+                int radius = RECT_WIDTH / 3;
                 if(syms.size() == 1) {
                   std::string color_sym = matchColor(syms[0]->GetIntVal());
                   // while drawing, test whether every organism is mutualistic
