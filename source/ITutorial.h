@@ -46,26 +46,38 @@ class ITutorial {
             tut.AddExistingTrigger("lab_instruct_state", "graph_state", "click_ok");
             tut.AddExistingTrigger("graph_state", "repeat_state", "click_ok");
             tut.AddExistingTrigger("repeat_state", "end_state", "click_ok");
-            printf("new VVersion!\n");
-            /*start_but_state*/
-            tut.AddPopoverEffect("start_but_state", buttons, "This is a walk through of the UI", ok_but, "15vh", "-1vw");
-            tut.AddPopoverEffect("start_but_state", buttons, "Click it to start the experiement", ok_but, "-0.5vh", "-2vw");
-            emp::Ptr<OverlayEffect> overlayPtr = tut.AddOverlayEffect("start_but_state", buttons, "black", 0.8, 10, true);
-            if (tut.GetCurrentState()=="start_but_state") {
-                overlayPtr -> SetOverlayCSS("position", "relative");
-                overlayPtr -> SetOverlayCSS("z-index", "10");
-                overlayPtr -> SetOverlayCSS("background-color", "red");
-            }
-            /**/
-            /**/
-            /**/
-            /**/
-            /**/
-            /**/
-            /**/
-            /**/
-
             ok_but.SetCSS("z-index", "13");
+            /*start_but_state*/
+            tut.AddPopoverEffect("start_but_state", buttons, "This is a walk through of the UI", ok_but, "-3vh", "-4vw");
+            tut.AddPopoverEffect("start_but_state", buttons, "Click it to start or pause the experiement", ok_but, "-3vh", "-4vw");
+            tut.AddOverlayEffect("start_but_state", buttons, "black", 0.8, 10, true);
+            // emp::Ptr<OverlayEffect> overlayPtr = tut.AddOverlayEffect("start_but_state", buttons, "black", 0.8, 10, true);
+            // std::string curState = tut.GetCurrentState();
+            // std::cout << "Testing......current state: "<< curState<<std::endl;
+            // if (curState=="start_but_state") {
+            //     overlayPtr -> SetOverlayCSS("position", "relative");
+            //     overlayPtr -> SetOverlayCSS("z-index", "10");
+            //     overlayPtr -> SetOverlayCSS("background-color", "red");
+            // }
+
+            /*reset_but_state*/
+            tut.AddPopoverEffect("reset_but_state", buttons, "Click it to reset petri dish", ok_but, "1vh", "0vw");
+            tut.AddOverlayEffect("reset_but_state", buttons, "black", 0.8, 10, true);
+
+            /*settings_state*/
+            tut.AddPopoverEffect("settings_state", buttons, "This is the settings panel. Drop down to see configurable parameters", ok_but, "-7vh", "-27vw");
+            tut.AddOverlayEffect("settings_state", buttons, "black", 0.8, 10, true);
+
+            /*settings_change_state*/
+
+            /*lab_instruct_state*/
+
+            /*graph_state*/
+
+            /*repeat_state*/
+
+            /*end_state*/
+
             //tut.AddExistingTrigger("second_state", "third_state", "click_trigger");
             //tut.AddEventListenerTrigger("third_state", "end_state", ok_but, "click", "click_ok");
             tut.StartAtState("first_state");
@@ -83,13 +95,6 @@ class ITutorial {
             animation.SetCSS("z-index", "12");
 
             
-    
-            
-            // /* Popovers */
-            // tut.AddPopoverEffect("second_state", buttons, "This is a walk through of the UI", ok_but, "15vh", "-1vw");
-            // tut.AddPopoverEffect("second_state", buttons, "Click it to start the experiement", ok_but, "-0.5vh", "-2vw");
-
-
 
 
             // tut.StartAtState("first_state");
