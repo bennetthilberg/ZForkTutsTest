@@ -69,16 +69,16 @@ class ITutorial {
             tut.AddOverlayEffect("settings_state", buttons, "black", 0.8, 10, true);
 
             /*settings_change_state*/
-            tut.AddPopoverEffect("settings_state", buttons, "Try to change the parameters and start a new experiment to see the difference", ok_but, "-7vh", "-27vw");
-            tut.AddOverlayEffect("settings_state", buttons, "black", 0.8, 10, true);
+            tut.AddPopoverEffect("settings_change_state", buttons, "Try to change the parameters and start a new experiment to see the difference", ok_but, "-7vh", "-27vw");
+            tut.AddOverlayEffect("settings_change_state", buttons, "black", 0.8, 10, true);
 
             /*lab_instruct_state*/
-            tut.AddPopoverEffect("settings_state", buttons, "Drop this card down to see lab instructions", ok_but, "-7vh", "30vw");
-            tut.AddOverlayEffect("settings_state", buttons, "black", 0.8, 10, true);
+            tut.AddPopoverEffect("lab_instruct_state", buttons, "Drop this card down to see lab instructions", ok_but, "-7vh", "30vw");
+            tut.AddOverlayEffect("lab_instruct_state", buttons, "black", 0.8, 10, true);
 
             /*graph_state*/
-            tut.AddPopoverEffect("settings_state", buttons, "Drop this card down to see live graphs of the experiment", ok_but, "1vh", "30vw");
-            tut.AddOverlayEffect("settings_state", buttons, "black", 0.8, 10, true);
+            tut.AddPopoverEffect("graph_state", buttons, "Drop this card down to see live graphs of the experiment", ok_but, "1vh", "30vw");
+            tut.AddOverlayEffect("graph_state", buttons, "black", 0.8, 10, true);
 
             /*repeat_state*/
 
