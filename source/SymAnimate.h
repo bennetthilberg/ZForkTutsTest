@@ -46,7 +46,7 @@ private:
   ITutorial itut;
   const int RECT_WIDTH = 10;
   const int UPDATE_HIST = 50;
-  const int GRAPH_PADDING_X = 20;
+  const int GRAPH_PADDING_X = 30;
   const double GRAPH_PADDING_Y = 0.15; 
 
   emp::Random random{config.SEED()};
@@ -299,6 +299,9 @@ public:
     can.CenterText(width/2, height*(GRAPH_PADDING_Y/2), title);
     //x-axis
     can.CenterText(width/2, height*(1-(GRAPH_PADDING_Y/2)), "Evolutionary Time");
+    //can.fillText()
+    can.CenterText(20, height*(GRAPH_PADDING_Y), "1");
+    can.CenterText(20, height*(1-(GRAPH_PADDING_Y)), "-1");
   }
 
   void initializeStackedHist(UI::Canvas & can, std::string title){
@@ -318,6 +321,8 @@ public:
     can.CenterText(width/2, height*(GRAPH_PADDING_Y/2), title);
     //x-axis
     can.CenterText(width/2, height*(1-(GRAPH_PADDING_Y/2)), "Evolutionary Time");
+    can.CenterText(15, height*(GRAPH_PADDING_Y), "100%");
+    can.CenterText(15, height*(1-(GRAPH_PADDING_Y)), "0%");    
   }
   /**
    * Input: None
