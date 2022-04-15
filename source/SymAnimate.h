@@ -252,7 +252,39 @@ public:
     card.SetCSS("color", "#3d1477");
     card.SetWidth(100,"%");
 
-    card << "test";
+    emp::prefab::Card prelab(true ? "INIT_OPEN" : "INIT_CLOSED", true, "prelab_card");
+    prelab.AddHeaderContent("Part 1: Prelab");
+    prelab.SetCSS("background", "#ede9e8");
+    prelab.SetCSS("font-family", "Garamond");
+    prelab.SetCSS("letter-spacing", "2px");
+    prelab.SetCSS("color", "#3d1477");
+    prelab.SetWidth(100,"%");
+    prelab << "example text 2";
+
+    card << prelab;
+
+    emp::prefab::Card lab(false ? "INIT_OPEN" : "INIT_CLOSED", true, "lab_card");
+    lab.AddHeaderContent("Part 2: Lab");
+    lab.SetCSS("background", "#ede9e8");
+    lab.SetCSS("font-family", "Garamond");
+    lab.SetCSS("letter-spacing", "2px");
+    lab.SetCSS("color", "#3d1477");
+    lab.SetWidth(100,"%");
+    lab << "example text 3";
+
+    card << lab;
+
+
+    emp::prefab::Card postlab(false ? "INIT_OPEN" : "INIT_CLOSED", true, "postlab_card");
+    postlab.AddHeaderContent("Part 3: Postlab");
+    postlab.SetCSS("background", "#ede9e8");
+    postlab.SetCSS("font-family", "Garamond");
+    postlab.SetCSS("letter-spacing", "2px");
+    postlab.SetCSS("color", "#3d1477");
+    postlab.SetWidth(100,"%");
+    postlab << "example text 4";
+
+    card << postlab;
   }
   
   void initializeGraph(UI::Canvas & can, std::string title){
