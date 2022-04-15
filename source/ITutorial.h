@@ -69,10 +69,16 @@ class ITutorial {
             tut.AddOverlayEffect("settings_state", buttons, "black", 0.8, 10, true);
 
             /*settings_change_state*/
+            tut.AddPopoverEffect("settings_change_state", buttons, "You can change the settings with the sliders. Click reset to apply your changes to the petri dish.", ok_but, "-7vh", "-27vw");
+            tut.AddOverlayEffect("settings_change_state", buttons, "black", 0.8, 10, true);
 
             /*lab_instruct_state*/
+            tut.AddPopoverEffect("lab_instruct_state", buttons, "Here are the instructions for your lab", ok_but, "-7vh", "-27vw");
+            tut.AddOverlayEffect("lab_instruct_state", buttons, "black", 0.8, 10, true);
 
             /*graph_state*/
+            tut.AddPopoverEffect("graph_state", buttons, "Click this tab to see the data collection. Data is also available as a csv file.", ok_but, "-7vh", "-27vw");
+            tut.AddOverlayEffect("graph_state", buttons, "black", 0.8, 10, true);
 
             /*repeat_state*/
 
