@@ -50,7 +50,7 @@ class ITutorial {
             /*start_but_state*/
             tut.AddPopoverEffect("start_but_state", buttons, "This is a walk through of the UI", ok_but, "-3vh", "-4vw");
             tut.AddPopoverEffect("start_but_state", buttons, "Click it to start or pause the experiement", ok_but, "-3vh", "-4vw");
-            tut.AddOverlayEffect("start_but_state", buttons, "black", 0.8, 10, true);
+            tut.AddOverlayEffect("start_but_state", buttons, buttons, "black", 0.8, 10, true);
             // emp::Ptr<OverlayEffect> overlayPtr = tut.AddOverlayEffect("start_but_state", buttons, "black", 0.8, 10, true);
             // std::string curState = tut.GetCurrentState();
             // std::cout << "Testing......current state: "<< curState<<std::endl;
@@ -62,23 +62,23 @@ class ITutorial {
 
             /*reset_but_state*/
             tut.AddPopoverEffect("reset_but_state", buttons, "Click it to reset petri dish", ok_but, "1vh", "0vw");
-            tut.AddOverlayEffect("reset_but_state", buttons, "black", 0.8, 10, true);
+            tut.AddOverlayEffect("reset_but_state", buttons, settings, "black", 0.8, 10, true);
 
             /*settings_state*/
             tut.AddPopoverEffect("settings_state", buttons, "This is the settings panel. Drop down to see configurable parameters", ok_but, "-7vh", "-27vw");
-            tut.AddOverlayEffect("settings_state", buttons, "black", 0.8, 10, true);
+            tut.AddOverlayEffect("settings_state", buttons, buttons, "black", 0.8, 10, true);
 
             /*settings_change_state*/
             tut.AddPopoverEffect("settings_change_state", buttons, "Try to change the parameters and start a new experiment to see the difference", ok_but, "-7vh", "-27vw");
-            tut.AddOverlayEffect("settings_change_state", buttons, "black", 0.8, 10, true);
+            tut.AddOverlayEffect("settings_change_state", buttons, settings, "black", 0.8, 10, true);
 
             /*lab_instruct_state*/
             tut.AddPopoverEffect("lab_instruct_state", buttons, "Drop this card down to see lab instructions", ok_but, "-7vh", "30vw");
-            tut.AddOverlayEffect("lab_instruct_state", buttons, "black", 0.8, 10, true);
+            tut.AddOverlayEffect("lab_instruct_state", buttons, explanation, "black", 0.8, 10, true);
 
             /*graph_state*/
             tut.AddPopoverEffect("graph_state", buttons, "Drop this card down to see live graphs of the experiment", ok_but, "1vh", "30vw");
-            tut.AddOverlayEffect("graph_state", buttons, "black", 0.8, 10, true);
+            tut.AddOverlayEffect("graph_state", buttons, explanation, "black", 0.8, 10, true);
 
             /*repeat_state*/
 
