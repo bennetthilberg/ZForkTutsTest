@@ -32,6 +32,7 @@ class SymAnimate : public UI::Animate {
 private:
 
   UI::Document animation;
+  UI::Document top_bar;
   UI::Document settings;
   UI::Document explanation;
   UI::Document graphs; 
@@ -66,7 +67,7 @@ public:
    * The contructor for SymAnimate
    * 
    */
-  SymAnimate() : animation("emp_animate"), graphs("graphs"), settings("emp_settings"), explanation("emp_explanation"), learnmore("emp_learnmore"), buttons("emp_buttons"), instructions("instructions"), itut(animation, settings, explanation, learnmore, buttons, mycanvas){
+  SymAnimate() : animation("emp_animate"), graphs("graphs"), settings("emp_settings"), explanation("emp_explanation"), learnmore("emp_learnmore"), buttons("emp_buttons"), instructions("instructions"), top_bar("top_bar"), itut(animation, settings, explanation, learnmore, buttons, top_bar, mycanvas){
 
     config.GRID_X(40);
     config.GRID_Y(40);
@@ -99,6 +100,9 @@ public:
     config_panel.SetRange("HOST_INT","-1","1");
     config_panel.SetRange("SYM_INT","-2","1");//need to change 
 
+    top_bar.SetAttr("class", "topBar");
+    top_bar.SetCSS("position", "relative");
+    top_bar.SetCSS("height", "10vh");
     animation.SetCSS("position", "static");
     animation.SetCSS("flex-grow", "1");
     animation.SetCSS("max-width", "500px");
@@ -155,6 +159,7 @@ public:
     buttons.Button("toggle").OnMouseOver([this](){ auto but = buttons.Button("toggle"); but.SetCSS("background-color", "#3d1477"); but.SetCSS("cursor", "pointer"); but.SetCSS("color", "white");});
     buttons.Button("toggle").OnMouseOut([this](){ auto but = buttons.Button("toggle"); but.SetCSS("background-color", "#5f8eff"); but.SetCSS("color", "white");});
 
+
     // ----------------------- Add a reset button to reset the animation/world -----------------------
     /* Note: Must first run world.Reset(), because Inject checks for valid position.
       If a position is occupied, new org is deleted and your world isn't reset.
@@ -197,6 +202,7 @@ public:
     buttons.Button("toggle").OnMouseOver([this](){ auto but = buttons.Button("toggle"); but.SetCSS("background-color", "#3d1477"); but.SetCSS("cursor", "pointer"); but.SetCSS("color", "white");});
     buttons.Button("toggle").OnMouseOut([this](){ auto but = buttons.Button("toggle"); but.SetCSS("background-color", "#5f8eff"); but.SetCSS("color", "white");});
 
+    buttons.Button("reset").SetAttr("class","btn btn-secondary");
     buttons.Button("toggle").SetAttr("class","btn btn-secondary");
     buttons.Button("toggle").SetAttr("data-toggle","popover");
     buttons.Button("toggle").SetAttr("data-content","Click to start the experiment");
@@ -291,7 +297,7 @@ public:
     can.Font("Garamond");
     //can.SetCSS("font-family", "Garamond");
 
-    //horizontal axis - leave padding for y-axis label
+    // horizontal axis - leave padding for y-axis label
     can.Line(GRAPH_PADDING_X, height*(1-GRAPH_PADDING_Y), width - GRAPH_PADDING_X, height*(1-GRAPH_PADDING_Y));
     //vertical axis - leave 15% of canvas at top and bottom for title and x-axis label
     can.Line(GRAPH_PADDING_X, height*(1-GRAPH_PADDING_Y), GRAPH_PADDING_X, height*GRAPH_PADDING_Y);

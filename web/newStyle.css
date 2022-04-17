@@ -1,7 +1,7 @@
 .topBar {
     padding: 20px;
     background-color: #b0defd;
-    width: 1000vw;
+    /* width: 1000vw; */
     display: flex;
     margin-bottom: 10px;
   }
