@@ -32,6 +32,8 @@ class SymAnimate : public UI::Animate {
 private:
 
   UI::Document animation;
+  UI::Document top_bar;
+  UI::Button start_tutorial;
   UI::Document settings;
   UI::Document explanation;
   UI::Document graphs; 
@@ -66,7 +68,7 @@ public:
    * The contructor for SymAnimate
    * 
    */
-  SymAnimate() : animation("emp_animate"), graphs("graphs"), settings("emp_settings"), explanation("emp_explanation"), learnmore("emp_learnmore"), buttons("emp_buttons"), instructions("instructions"), itut(animation, settings, explanation, learnmore, buttons, mycanvas){
+  SymAnimate() : animation("emp_animate"), graphs("graphs"), settings("emp_settings"), explanation("emp_explanation"), learnmore("emp_learnmore"), buttons("emp_buttons"), instructions("instructions"), top_bar("top_bar"), start_tutorial([](){}, "Start Tutorial"), itut(animation, settings, explanation, learnmore, buttons, top_bar, mycanvas, start_tutorial){
 
     config.GRID_X(40);
     config.GRID_Y(40);
@@ -99,6 +101,9 @@ public:
     config_panel.SetRange("HOST_INT","-1","1");
     config_panel.SetRange("SYM_INT","-2","1");//need to change 
 
+    top_bar.SetAttr("class", "topBar");
+    top_bar.SetCSS("position", "relative");
+    top_bar.SetCSS("height", "10vh");
     animation.SetCSS("position", "static");
     animation.SetCSS("flex-grow", "1");
     animation.SetCSS("max-width", "500px");
@@ -115,7 +120,21 @@ public:
     buttons.SetCSS("flex-grow", "1");
     buttons.SetCSS("max-width", "600px");
 
+    start_tutorial.OnMouseOver([this](){auto but  =start_tutorial;});
+    start_tutorial.SetAttr("class", "test1");
+    start_tutorial.OnMouseOut([this](){auto but=start_tutorial;});
+    // start_tutorial.SetCSS("background-color", "#5f8eff");
+    // start_tutorial.SetCSS("position", "absolute");
+    // start_tutorial.SetCSS("right", "23.5vw");
+    // start_tutorial.SetCSS("bottom", "1.5vh");
 
+    top_bar << "<div class=\"rightB\">";
+    top_bar << "<button class=\"test1\" onclick = 'f=window.open(\"FAQ.html\",\"fenetre\",\"the style (without style tag, example - width=400, height=600, no px\")'style=\"cursor: pointer;\">FAQ</button>";
+    top_bar << start_tutorial;
+    top_bar << "<button class=\"test1\" onclick = 'f=window.open(\"biology_background.html\",\"fenetre\",\"the style (without style tag, example - width=400, height=600, no px\")'style=\"cursor: pointer;\">Biology Background</button>";
+    top_bar << "<button class=\"test1\" onclick = 'f=window.open(\"symb_overview.html\",\"fenetre\",\"the style (without style tag, example - width=400, height=600, no px\")'style=\"cursor: pointer;\">Symbulation Overview</button>";
+    top_bar << "<a href=\"https://anyaevostinar.github.io/SymbulationEmp/web/symbulation.html\" ><button class=\"test1\">Home GUI</button></a>";
+    top_bar << "</div>";
 
     initializeWorld();
     /*
@@ -150,11 +169,11 @@ public:
       if (GetActive()) but.SetLabel("Pause");
       else but.SetLabel("Start");
     }, "Start", "toggle");
-    itut.startTut(animation, settings, explanation, learnmore, buttons, mycanvas);
     
     setButtonStyle("toggle");
     buttons.Button("toggle").OnMouseOver([this](){ auto but = buttons.Button("toggle"); but.SetCSS("background-color", "#3d1477"); but.SetCSS("cursor", "pointer"); but.SetCSS("color", "white");});
     buttons.Button("toggle").OnMouseOut([this](){ auto but = buttons.Button("toggle"); but.SetCSS("background-color", "#5f8eff"); but.SetCSS("color", "white");});
+
 
     // ----------------------- Add a reset button to reset the animation/world -----------------------
     /* Note: Must first run world.Reset(), because Inject checks for valid position.
@@ -196,6 +215,18 @@ public:
     setButtonStyle("reset");
     buttons.Button("toggle").OnMouseOver([this](){ auto but = buttons.Button("toggle"); but.SetCSS("background-color", "#3d1477"); but.SetCSS("cursor", "pointer"); but.SetCSS("color", "white");});
     buttons.Button("toggle").OnMouseOut([this](){ auto but = buttons.Button("toggle"); but.SetCSS("background-color", "#5f8eff"); but.SetCSS("color", "white");});
+
+    buttons.Button("reset").SetAttr("class","btn btn-secondary");
+    buttons.Button("toggle").SetAttr("class","btn btn-secondary");
+    buttons.Button("toggle").SetAttr("data-toggle","popover");
+    buttons.Button("toggle").SetAttr("data-content","Click to start the experiment");
+    buttons.Button("toggle").SetAttr("data-container","body");
+    //  data-container="body" data-toggle="popover" data-placement="top" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">)
+    
+    // ----------------------- Keep track of number of updates -----------------------
+    buttons << "<br>";
+    buttons << UI::Text("update") << "Update = " << UI::Live( [this](){ return world.GetUpdate(); } ) << "  ";
+    buttons << "<br>";
 
     // Add a canvas for petri dish and draw the initial petri dish
     mycanvas = animation.AddCanvas(RECT_WIDTH*config.GRID_X(), RECT_WIDTH*config.GRID_Y(), "can");
@@ -241,6 +272,7 @@ public:
     emp::prefab::Card card_instructions(true ? "INIT_OPEN" : "INIT_CLOSED", true, "instructions_card");
     initializeInstructionsCard(card_instructions);
     instructions << card_instructions;
+    itut.startTut(animation, settings, explanation, learnmore, buttons, mycanvas);
     
   }
 
@@ -317,7 +349,7 @@ public:
     can.Font("Garamond");
     //can.SetCSS("font-family", "Garamond");
 
-    //horizontal axis - leave padding for y-axis label
+    // horizontal axis - leave padding for y-axis label
     can.Line(GRAPH_PADDING_X, height*(1-GRAPH_PADDING_Y), width - GRAPH_PADDING_X, height*(1-GRAPH_PADDING_Y));
     //vertical axis - leave 15% of canvas at top and bottom for title and x-axis label
     can.Line(GRAPH_PADDING_X, height*(1-GRAPH_PADDING_Y), GRAPH_PADDING_X, height*GRAPH_PADDING_Y);
