@@ -252,34 +252,39 @@ public:
     card.SetCSS("color", "#3d1477");
     card.SetWidth(100,"%");
 
-    emp::prefab::Card background(true ? "INIT_OPEN" : "INIT_CLOSED", true, "background_card");
-    background.AddHeaderContent("Background");
-    background.SetCSS("background", "#ede9e8");
-    background.SetCSS("font-family", "Garamond");
-    background.SetCSS("letter-spacing", "2px");
-    background.SetCSS("color", "#3d1477");
-    background.SetWidth(100,"%");
-    background << "Symbiosis is a close and sustained relationship that occurs between two different species.";
-    background << "Symbiotic relationships can either be <strong>mutualistic</strong>, where there is a net fitness benefit provided to both parties, or <strong>antagonistic</strong>, where there is a net fitness benefit conferred to one or both parties.";
- 	  background << "An example of a mutualistic symbiotic relationship is between clownfish and anemones.";
-    background << "Clownfish feed on invertebrates that might be harmful to an anemone, while also providing them with nutrients from their fecal material.";
-    background << "In turn, the anemones provide the clownfish with protection and a safe place to live."; 
-    background << "Common examples of antagonistic symbiotic relationships include fleas and ticks.";
-    background << "Typically, in a parasitic relationship, the symbiont (smaller organism) does harm to the host (larger organism) by siphoning its resources or feeding on the host itself."; 
-    background << "Parasites spread through a population through <strong>horizontal</strong> or <strong>vertical transmission</strong>, the former being when a parasite is spread between two members of a population that do not have a parent-progeny relationship, and the latter being when a parasite is spread from parent to offspring.";
-    background << "A combination of high rates of horizontal transmission and low rates of vertical transmission favors the evolution of antagonistic relationships as the fate of a parasite is not intrinsically tied to the health of a host.";
+    emp::prefab::Card prelab(true ? "INIT_OPEN" : "INIT_CLOSED", true, "prelab_card");
+    prelab.AddHeaderContent("Part 1: Prelab");
+    prelab.SetCSS("background", "#ede9e8");
+    prelab.SetCSS("font-family", "Garamond");
+    prelab.SetCSS("letter-spacing", "2px");
+    prelab.SetCSS("color", "#3d1477");
+    prelab.SetWidth(100,"%");
+    prelab << "example text 2";
 
-    emp::prefab::Card experiment(false ? "INIT_OPEN" : "INIT_CLOSED", true, "experiment_card");
-    experiment.AddHeaderContent("Experiment");
-    experiment.SetCSS("background", "#ede9e8");
-    experiment.SetCSS("font-family", "Garamond");
-    experiment.SetCSS("letter-spacing", "2px");
-    experiment.SetCSS("color", "#3d1477");
-    experiment.SetWidth(100,"%");
-    experiment << "example text 2";
+    card << prelab;
 
-    card << background;
-    card << experiment;
+    emp::prefab::Card lab(false ? "INIT_OPEN" : "INIT_CLOSED", true, "lab_card");
+    lab.AddHeaderContent("Part 2: Lab");
+    lab.SetCSS("background", "#ede9e8");
+    lab.SetCSS("font-family", "Garamond");
+    lab.SetCSS("letter-spacing", "2px");
+    lab.SetCSS("color", "#3d1477");
+    lab.SetWidth(100,"%");
+    lab << "example text 3";
+
+    card << lab;
+
+
+    emp::prefab::Card postlab(false ? "INIT_OPEN" : "INIT_CLOSED", true, "postlab_card");
+    postlab.AddHeaderContent("Part 3: Postlab");
+    postlab.SetCSS("background", "#ede9e8");
+    postlab.SetCSS("font-family", "Garamond");
+    postlab.SetCSS("letter-spacing", "2px");
+    postlab.SetCSS("color", "#3d1477");
+    postlab.SetWidth(100,"%");
+    postlab << "example text 4";
+
+    card << postlab;
   }
   
   void initializeGraph(UI::Canvas & can, std::string title){
