@@ -67,7 +67,7 @@ public:
    * The contructor for SymAnimate
    * 
    */
-  SymAnimate() : animation("emp_animate"), graphs("graphs"), settings("emp_settings"), explanation("emp_explanation"), learnmore("emp_learnmore"), buttons("emp_buttons"), instructions("instructions"), top_bar("top_bar"), start_tutorial([](){}, "Start Tutorial"), itut(animation, settings, explanation, learnmore, buttons, top_bar, mycanvas, start_tutorial){
+  SymAnimate() : animation("emp_animate"), graphs("graphs"), settings("emp_settings"), explanation("emp_explanation"), learnmore("emp_learnmore"), buttons("emp_buttons"), instructions("instructions"), top_bar("top_bar"), start_tutorial([](){}, "Start Tutorial"), itut(animation, settings, explanation, learnmore, buttons, top_bar, mycanvas, instructions, start_tutorial){
 
     config.GRID_X(40);
     config.GRID_Y(40);
@@ -233,7 +233,7 @@ public:
     drawPetriDish(mycanvas);
     animation << "<br>";
 
-    itut.startTut(animation, settings, explanation, learnmore, buttons, mycanvas);
+    itut.startTut(animation, settings, explanation, learnmore, buttons, mycanvas, instructions);
 
     emp::prefab::Card graphs_card(false ? "INIT_OPEN" : "INIT_CLOSED", true, "graphs_card");
     graphs_card.AddHeaderContent("Data Collection");
@@ -271,7 +271,7 @@ public:
     emp::prefab::Card card_instructions(true ? "INIT_OPEN" : "INIT_CLOSED", true, "instructions_card");
     initializeInstructionsCard(card_instructions);
     instructions << card_instructions;
-    itut.startTut(animation, settings, explanation, learnmore, buttons, mycanvas);
+    itut.startTut(animation, settings, explanation, learnmore, buttons, mycanvas, instructions);
     
   }
 
