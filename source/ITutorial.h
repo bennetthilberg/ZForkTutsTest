@@ -26,7 +26,7 @@ class ITutorial {
 
             /* First state: No effects, trigger to second when button presed */
             tut.AddState("first_state");
-            //tut.AddOverlayEffect("first_state", buttons, "black", 0.5, -1, true);
+            //tut.AddOverlayEffect("first_state", buttons, buttons, "black", 0.8, 10, true);
 
             /* Second state: from first, to third, overlay and popover*/
             tut.AddState("second_state");
@@ -34,8 +34,8 @@ class ITutorial {
 
             // tut.AddOverlayEffect("second_state", buttons, "black", 0.8, 10, true);
             // Popover remains into the third_state, while overlay does not
-            tut.AddPopoverEffect("second_state", buttons, "Click it to start the experiement", "-2.4vh", "-2vw");
-            tut.AddPopoverEffect("second_state", buttons, "This is a walk through of the UI", "27vh", "-3vw");
+            //tut.AddPopoverEffect("second_state", buttons, "Click it to start the experiement", "-2.4vh", "-2vw");
+            //tut.AddPopoverEffect("second_state", buttons, "This is a walk through of the UI", "27vh", "-3vw");
 
 
     
