@@ -120,7 +120,7 @@ public:
     buttons.SetCSS("flex-grow", "1");
     buttons.SetCSS("max-width", "600px");
 
-    start_tutorial.OnMouseOver([this](){auto but =start_tutorial;});
+    start_tutorial.OnMouseOver([this](){auto but  =start_tutorial;});
     start_tutorial.SetAttr("class", "test1");
     start_tutorial.OnMouseOut([this](){auto but=start_tutorial;});
     // start_tutorial.SetCSS("background-color", "#5f8eff");

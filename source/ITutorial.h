@@ -15,7 +15,7 @@ class ITutorial {
     private:
         UI::Document doc;
         UI::Button my_button;
-        Tutorial<T> tut;
+        Tutorial tut;
         UI::Button ok_but;
         UI::Button start_but;
 
