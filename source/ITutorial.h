@@ -70,7 +70,6 @@ class ITutorial {
             /*reset_but_state*/
             tut.AddPopoverEffect("reset_but_state", buttons, "Click it to reset petri dish", ok_but, "1vh", "0vw");
             tut.AddOverlayEffect("reset_but_state", buttons, settings, "black", 0.8, 10, true);
-
             /*settings_state*/
             tut.AddPopoverEffect("settings_state", buttons, "This is the settings panel. Drop down to see configurable parameters", ok_but, "-7vh", "-27vw");
             tut.AddOverlayEffect("settings_state", buttons, buttons, "black", 0.8, 10, true);
@@ -98,14 +97,14 @@ class ITutorial {
         }
 
         void startTut(UI::Document animation, UI::Document settings, UI::Document explanation, UI::Document learnmore, UI::Document buttons, UI::Canvas mycanvas) {
-            start_but = buttons.Button("toggle");
 
-            start_but.SetCSS("position", "relative");
-            start_but.SetCSS("z-index", "11");
             ok_but.SetCSS("left", "0.7vw");
 
             animation.SetCSS("position", "relative");
             animation.SetCSS("z-index", "12");
+            
+            tut.AddSpotlight("start_but_state", buttons.Button("toggle"));
+            tut.AddSpotlight("reset_but_state", buttons.Button("reset"));
 
             
 
