@@ -13,7 +13,7 @@ namespace UI = emp::web;
 class ITutorial {
     private:
         UI::Document doc;
-        //UI::Button my_button;
+        UI::Button my_button;
         Tutorial tut;
         UI::Button ok_but;
         UI::Button start_but;
@@ -21,7 +21,9 @@ class ITutorial {
     public:
         static void PrintComplete() { std::cout << "Tutorial Complete!" << std::endl; }
 
-        ITutorial(UI::Document animation, UI::Document settings, UI::Document explanation, UI::Document learnmore, UI::Document buttons, UI:: Document top_bar, UI::Canvas mycanvas, UI::Button my_button): doc("emp_base"), ok_but([](){}, "OK"){
+        template <typename T>
+        ITutorial(UI::Document animation, UI::Document settings, UI::Document explanation, UI::Document learnmore, UI::Document buttons, UI:: Document top_bar, UI::Canvas mycanvas): doc("emp_base"), ok_but([](){}, "OK"){
+            my_button = buttons.Button("start_but");
             // doc << my_button;
             // top_bar << my_button;
             // my_button.OnMouseOver([this](){auto but  =my_button; but.SetCSS("background-color", "#3d1477"); but.SetCSS("cursor", "pointer"); but.SetCSS("color", "white");});
@@ -93,7 +95,7 @@ class ITutorial {
 
             //tut.AddExistingTrigger("second_state", "third_state", "click_trigger");
             //tut.AddEventListenerTrigger("third_state", "end_state", ok_but, "click", "click_ok");
-            tut.StartAtState("first_state");
+            tut.StartAtState<T>("first_state");
 
         }
 

@@ -68,7 +68,7 @@ public:
    * The contructor for SymAnimate
    * 
    */
-  SymAnimate() : animation("emp_animate"), graphs("graphs"), settings("emp_settings"), explanation("emp_explanation"), learnmore("emp_learnmore"), buttons("emp_buttons"), instructions("instructions"), top_bar("top_bar"), start_tutorial([](){}, "Start Tutorial"), itut(animation, settings, explanation, learnmore, buttons, top_bar, mycanvas, start_tutorial){
+  SymAnimate() : animation("emp_animate"), graphs("graphs"), settings("emp_settings"), explanation("emp_explanation"), learnmore("emp_learnmore"), buttons("emp_buttons"), instructions("instructions"), top_bar("top_bar"), start_tutorial([](){}, "Start Tutorial", "start_but"), itut(animation, settings, explanation, learnmore, buttons, top_bar, mycanvas){
 
     config.GRID_X(40);
     config.GRID_Y(40);
@@ -120,7 +120,7 @@ public:
     buttons.SetCSS("flex-grow", "1");
     buttons.SetCSS("max-width", "600px");
 
-    start_tutorial.OnMouseOver([this](){auto but  =start_tutorial;});
+    start_tutorial.OnMouseOver([this](){auto but =start_tutorial;});
     start_tutorial.SetAttr("class", "test1");
     start_tutorial.OnMouseOut([this](){auto but=start_tutorial;});
     // start_tutorial.SetCSS("background-color", "#5f8eff");
