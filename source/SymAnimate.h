@@ -27,7 +27,7 @@ namespace UI = emp::web;
 SymConfigBase config; // load the default configuration
 
 
-
+template <typename T>
 class SymAnimate : public UI::Animate {
 private:
 
@@ -45,7 +45,7 @@ private:
   UI::Canvas sym_graph_canvas;
   UI::Canvas sym_histogram_canvas; 
   UI::Canvas host_histogram_canvas;  
-  ITutorial itut;
+  ITutorial<T> itut;
   const int RECT_WIDTH = 10;
   const int UPDATE_HIST = 50;
   const int GRAPH_PADDING_X = 30;

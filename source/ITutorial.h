@@ -10,18 +10,18 @@
 #include "../Empirical/include/emp/web/web.hpp"
 
 namespace UI = emp::web;
+template <typename T>
 class ITutorial {
     private:
         UI::Document doc;
         UI::Button my_button;
-        Tutorial tut;
+        Tutorial<T> tut;
         UI::Button ok_but;
         UI::Button start_but;
 
     public:
         static void PrintComplete() { std::cout << "Tutorial Complete!" << std::endl; }
 
-        template <typename T>
         ITutorial(UI::Document animation, UI::Document settings, UI::Document explanation, UI::Document learnmore, UI::Document buttons, UI:: Document top_bar, UI::Canvas mycanvas): doc("emp_base"), ok_but([](){}, "OK"){
             my_button = buttons.Button("start_but");
             // doc << my_button;
@@ -95,7 +95,7 @@ class ITutorial {
 
             //tut.AddExistingTrigger("second_state", "third_state", "click_trigger");
             //tut.AddEventListenerTrigger("third_state", "end_state", ok_but, "click", "click_ok");
-            tut.StartAtState<T>("first_state");
+            tut.StartAtState("first_state");
 
         }
 

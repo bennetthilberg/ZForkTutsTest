@@ -7,7 +7,8 @@
 using namespace std;
 
 namespace UI = emp::web;
-SymAnimate anim;
+template <typename T>
+SymAnimate<T> anim;
 
 int symbulation_main(int argc, char * argv[]){
     
