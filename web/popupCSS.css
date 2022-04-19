@@ -1,0 +1,16 @@
+.bkg{
+    color:rgb(255, 248, 248);
+    padding: 25px; 
+}
+
+h1{
+    font-family:'Garamond';
+    color:#5e8fff;
+    font-size:25px;
+    font-weight:300;
+}
+
+.par{
+    color: black;
+    font-family:'Garamond';
+}
