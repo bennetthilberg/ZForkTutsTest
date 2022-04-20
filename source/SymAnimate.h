@@ -33,6 +33,7 @@ private:
 
   UI::Document animation;
   UI::Document top_bar;
+  UI::Button start_tutorial;
   UI::Document settings;
   UI::Document explanation;
   UI::Document graphs; 
@@ -47,7 +48,7 @@ private:
   ITutorial itut;
   const int RECT_WIDTH = 10;
   const int UPDATE_HIST = 50;
-  const int GRAPH_PADDING_X = 20;
+  const int GRAPH_PADDING_X = 30;
   const double GRAPH_PADDING_Y = 0.15; 
 
   emp::Random random{config.SEED()};
@@ -67,8 +68,7 @@ public:
    * The contructor for SymAnimate
    * 
    */
-  SymAnimate() : animation("emp_animate"), graphs("graphs"), settings("emp_settings"), explanation("emp_explanation"), learnmore("emp_learnmore"), buttons("emp_buttons"), instructions("instructions"), top_bar("top_bar"), itut(animation, settings, explanation, learnmore, buttons, top_bar, mycanvas){
-
+  SymAnimate() : animation("emp_animate"), graphs("graphs"), settings("emp_settings"), explanation("emp_explanation"), learnmore("emp_learnmore"), buttons("emp_buttons"), instructions("instructions"), top_bar("top_bar"), start_tutorial([](){}, "Start Tutorial"), itut(animation, settings, explanation, learnmore, buttons, top_bar, mycanvas, start_tutorial){
     config.GRID_X(40);
     config.GRID_Y(40);
     config.UPDATES(1000);
@@ -119,7 +119,16 @@ public:
     buttons.SetCSS("flex-grow", "1");
     buttons.SetCSS("max-width", "600px");
 
+    //--------------NAV BAR--------------------
+    start_tutorial.SetAttr("class", "test1");
 
+    top_bar << "<div class=\"rightB\">";
+    top_bar << "<button class=\"test1\" onclick = 'f=window.open(\"symb_overview.html\",\"fenetre\",\"the style (without style tag, example - width=400, height=600, no px\")'style=\"cursor: pointer;\">Symbulation Overview</button>";
+    top_bar << "<button class=\"test1\" onclick = 'f=window.open(\"biology_background.html\",\"fenetre\",\"the style (without style tag, example - width=400, height=600, no px\")'style=\"cursor: pointer;\">Biology Background</button>";
+    top_bar << "<button class=\"test1\" onclick = 'f=window.open(\"FAQ.html\",\"fenetre\",\"the style (without style tag, example - width=400, height=600, no px\")'style=\"cursor: pointer;\">FAQ</button>";
+    top_bar << "<a href=\"https://anyaevostinar.github.io/SymbulationEmp/web/symbulation.html\" ><button class=\"test1\">Home GUI</button></a>";
+    top_bar << start_tutorial;
+    top_bar << "</div>";
 
     initializeWorld();
     /*
@@ -166,7 +175,6 @@ public:
       Also, canvas must be redrawn to let users see that it is reset */
     buttons.AddButton([this](){
       world.Reset();
-      buttons.Text("update").Redraw();
       initializeWorld();
       p = world.GetPop();
 
@@ -209,11 +217,8 @@ public:
     buttons.Button("toggle").SetAttr("data-container","body");
     //  data-container="body" data-toggle="popover" data-placement="top" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">)
     // ----------------------- Keep track of number of updates -----------------------
-    buttons << "<br>";
+    
     buttons << UI::Text("update") << "Update = " << UI::Live( [this](){ return world.GetUpdate(); } ) << "  ";
-    buttons << UI::Text("mut") << "Mutualistic = " << UI::Live( [this](){ return num_mutualistic; } ) << "  ";
-    buttons << UI::Text("par") << " Parasitic = " << UI::Live( [this](){ return num_parasitic; } );
-    buttons << "<br>";
 
     // Add a canvas for petri dish and draw the initial petri dish
     mycanvas = animation.AddCanvas(RECT_WIDTH*config.GRID_X(), RECT_WIDTH*config.GRID_Y(), "can");
@@ -221,10 +226,9 @@ public:
     drawPetriDish(mycanvas);
     animation << "<br>";
 
-    learnmore << "If you'd like to learn more, please see the publication <a href=\"https://www.mitpressjournals.org/doi/abs/10.1162/artl_a_00273\">Spatial Structure Can Decrease Symbiotic Cooperation</a>.";
     itut.startTut(animation, settings, explanation, learnmore, buttons, mycanvas);
 
-    emp::prefab::Card graphs_card(true ? "INIT_OPEN" : "INIT_CLOSED", true, "graphs_card");
+    emp::prefab::Card graphs_card(false ? "INIT_OPEN" : "INIT_CLOSED", true, "graphs_card");
     graphs_card.AddHeaderContent("Data Collection");
     graphs_card.SetCSS("background", "#ede9e8");
     graphs_card.SetCSS("font-family", "Garamond");
@@ -257,17 +261,54 @@ public:
     graphs_card << host_histogram_canvas;
     graphs << graphs_card;
 
-    emp::prefab::Card card_instructions(false ? "INIT_OPEN" : "INIT_CLOSED", true, "instructions_card");
-    card_instructions.AddHeaderContent("Lab Instructions");
-    card_instructions.SetCSS("background", "#ede9e8");
-    card_instructions.SetCSS("font-family", "Garamond");
-    card_instructions.SetCSS("letter-spacing", "2px");
-    card_instructions.SetCSS("color", "#3d1477");
-    card_instructions.SetWidth(100,"%");
-    card_instructions << "this is things that pipes and maybe zhen will write";
+    emp::prefab::Card card_instructions(true ? "INIT_OPEN" : "INIT_CLOSED", true, "instructions_card");
+    initializeInstructionsCard(card_instructions);
     instructions << card_instructions;
     itut.startTut(animation, settings, explanation, learnmore, buttons, mycanvas);
     
+  }
+
+  void initializeInstructionsCard(emp::prefab::Card & card){
+    card.AddHeaderContent("Lab Instructions");
+    card.SetCSS("background", "#ede9e8");
+    card.SetCSS("font-family", "Garamond");
+    card.SetCSS("letter-spacing", "2px");
+    card.SetCSS("color", "#3d1477");
+    card.SetWidth(100,"%");
+
+    emp::prefab::Card prelab(true ? "INIT_OPEN" : "INIT_CLOSED", true, "prelab_card");
+    prelab.AddHeaderContent("Part 1: Prelab");
+    prelab.SetCSS("background", "#ede9e8");
+    prelab.SetCSS("font-family", "Garamond");
+    prelab.SetCSS("letter-spacing", "2px");
+    prelab.SetCSS("color", "#3d1477");
+    prelab.SetWidth(100,"%");
+    prelab << "example text 2";
+
+    card << prelab;
+
+    emp::prefab::Card lab(false ? "INIT_OPEN" : "INIT_CLOSED", true, "lab_card");
+    lab.AddHeaderContent("Part 2: Lab");
+    lab.SetCSS("background", "#ede9e8");
+    lab.SetCSS("font-family", "Garamond");
+    lab.SetCSS("letter-spacing", "2px");
+    lab.SetCSS("color", "#3d1477");
+    lab.SetWidth(100,"%");
+    lab << "example text 3";
+
+    card << lab;
+
+
+    emp::prefab::Card postlab(false ? "INIT_OPEN" : "INIT_CLOSED", true, "postlab_card");
+    postlab.AddHeaderContent("Part 3: Postlab");
+    postlab.SetCSS("background", "#ede9e8");
+    postlab.SetCSS("font-family", "Garamond");
+    postlab.SetCSS("letter-spacing", "2px");
+    postlab.SetCSS("color", "#3d1477");
+    postlab.SetWidth(100,"%");
+    postlab << "example text 4";
+
+    card << postlab;
   }
   
   void initializeGraph(UI::Canvas & can, std::string title){
@@ -287,6 +328,9 @@ public:
     can.CenterText(width/2, height*(GRAPH_PADDING_Y/2), title);
     //x-axis
     can.CenterText(width/2, height*(1-(GRAPH_PADDING_Y/2)), "Evolutionary Time");
+    //can.fillText()
+    can.CenterText(20, height*(GRAPH_PADDING_Y), "1");
+    can.CenterText(20, height*(1-(GRAPH_PADDING_Y)), "-1");
   }
 
   void initializeStackedHist(UI::Canvas & can, std::string title){
@@ -306,6 +350,8 @@ public:
     can.CenterText(width/2, height*(GRAPH_PADDING_Y/2), title);
     //x-axis
     can.CenterText(width/2, height*(1-(GRAPH_PADDING_Y/2)), "Evolutionary Time");
+    can.CenterText(15, height*(GRAPH_PADDING_Y), "100%");
+    can.CenterText(15, height*(1-(GRAPH_PADDING_Y)), "0%");    
   }
   /**
    * Input: None
@@ -470,7 +516,7 @@ public:
                 std::string color_host = matchColor(p[i]->GetIntVal());
                 // Draw host rect and symbiont dot
                 can.Rect(x * RECT_WIDTH, y * RECT_WIDTH, RECT_WIDTH, RECT_WIDTH, color_host, "black");
-                int radius = RECT_WIDTH / 4;
+                int radius = RECT_WIDTH / 3;
                 if(syms.size() == 1) {
                   std::string color_sym = matchColor(syms[0]->GetIntVal());
                   // while drawing, test whether every organism is mutualistic
@@ -606,10 +652,6 @@ public:
       world.Update();
       p = world.GetPop();
       drawPetriDish(mycanvas);
-
-      buttons.Text("update").Redraw();
-      buttons.Text("mut").Redraw();
-      buttons.Text("par").Redraw();
 
       //Update live graph here
       drawHostIntValGraph(host_graph_canvas);

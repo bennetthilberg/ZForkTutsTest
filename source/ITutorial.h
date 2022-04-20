@@ -13,7 +13,6 @@ namespace UI = emp::web;
 class ITutorial {
     private:
         UI::Document doc;
-        UI::Button my_button;
         Tutorial tut;
         UI::Button ok_but;
         UI::Button start_but;
@@ -21,17 +20,17 @@ class ITutorial {
     public:
         static void PrintComplete() { std::cout << "Tutorial Complete!" << std::endl; }
 
-        ITutorial(UI::Document animation, UI::Document settings, UI::Document explanation, UI::Document learnmore, UI::Document buttons, UI:: Document top_bar, UI::Canvas mycanvas): doc("emp_base"), my_button([](){}, "Start Tutorial"), ok_but([](){}, "OK"){
+        ITutorial(UI::Document animation, UI::Document settings, UI::Document explanation, UI::Document learnmore, UI::Document buttons, UI:: Document top_bar, UI::Canvas mycanvas, UI::Button my_button): doc("emp_base"), ok_but([](){}, "OK"){
             // doc << my_button;
-            top_bar << my_button;
-            my_button.OnMouseOver([this](){auto but  =my_button; but.SetCSS("background-color", "#3d1477"); but.SetCSS("cursor", "pointer"); but.SetCSS("color", "white");});
-            my_button.SetAttr("class", "btn btn-secondary");
-            my_button.OnMouseOut([this](){auto but=my_button; but.SetCSS("background-color", "#5f8eff"); but.SetCSS("color", "white");});
-            my_button.SetCSS("background-color", "#5f8eff");
-            my_button.SetCSS("position", "absolute");
-            my_button.SetCSS("right", "23.5vw");
-            my_button.SetCSS("bottom", "1.5vh");
-            ok_but.SetCSS("position", "relative");
+            //top_bar << my_button;
+            // my_button.OnMouseOver([this](){auto but  =my_button; but.SetCSS("background-color", "#3d1477"); but.SetCSS("cursor", "pointer"); but.SetCSS("color", "white");});
+            // my_button.SetAttr("class", "btn btn-secondary");
+            // my_button.OnMouseOut([this](){auto but=my_button; but.SetCSS("background-color", "#5f8eff"); but.SetCSS("color", "white");});
+            // my_button.SetCSS("background-color", "#5f8eff");
+            // my_button.SetCSS("position", "absolute");
+            // my_button.SetCSS("right", "23.5vw");
+            // my_button.SetCSS("bottom", "1.5vh");
+            // ok_but.SetCSS("position", "relative");
 
             /* Add all states */
             tut.AddState("first_state");
