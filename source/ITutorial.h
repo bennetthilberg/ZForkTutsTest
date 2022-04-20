@@ -8,7 +8,7 @@
 #include "../Empirical/include/emp/web/Button.hpp"
 #include "../Empirical/include/emp/web/Canvas.hpp"
 #include "../Empirical/include/emp/web/web.hpp"
-
+ 
 namespace UI = emp::web;
 class ITutorial {
     private:
@@ -16,13 +16,13 @@ class ITutorial {
         Tutorial tut;
         UI::Button ok_but;
         UI::Button start_but;
-
+ 
     public:
         static void PrintComplete() { std::cout << "Tutorial Complete!" << std::endl; }
-
-        ITutorial(UI::Document animation, UI::Document settings, UI::Document explanation, UI::Document learnmore, UI::Document buttons, UI:: Document top_bar, UI::Canvas mycanvas, UI::Button my_button): doc("emp_base"), ok_but([](){}, "OK"){
+ 
+        ITutorial(UI::Document animation, UI::Document settings, UI::Document explanation, UI::Document learnmore, UI::Document buttons, UI:: Document top_bar, UI::Canvas mycanvas,UI::Document instructions, UI::Button my_button): doc("emp_base"), ok_but([](){}, "OK"){
             // doc << my_button;
-            //top_bar << my_button;
+            // top_bar << my_button;
             // my_button.OnMouseOver([this](){auto but  =my_button; but.SetCSS("background-color", "#3d1477"); but.SetCSS("cursor", "pointer"); but.SetCSS("color", "white");});
             // my_button.SetAttr("class", "btn btn-secondary");
             // my_button.OnMouseOut([this](){auto but=my_button; but.SetCSS("background-color", "#5f8eff"); but.SetCSS("color", "white");});
@@ -30,8 +30,8 @@ class ITutorial {
             // my_button.SetCSS("position", "absolute");
             // my_button.SetCSS("right", "23.5vw");
             // my_button.SetCSS("bottom", "1.5vh");
-            // ok_but.SetCSS("position", "relative");
-
+            ok_but.SetCSS("position", "relative");
+ 
             /* Add all states */
             tut.AddState("first_state");
             tut.AddState("start_but_state");
@@ -42,7 +42,7 @@ class ITutorial {
             tut.AddState("graph_state");
             tut.AddState("repeat_state");
             tut.AddState("end_state", &PrintComplete);
-
+ 
             /* All triggers */
             tut.AddEventListenerTrigger("first_state", "start_but_state", my_button, "click", "click_trigger");
             tut.AddEventListenerTrigger("start_but_state", "reset_but_state", ok_but, "click", "click_ok");
@@ -65,53 +65,59 @@ class ITutorial {
             //     overlayPtr -> SetOverlayCSS("z-index", "10");
             //     overlayPtr -> SetOverlayCSS("background-color", "red");
             // }
-
+ 
             /*reset_but_state*/
             tut.AddPopoverEffect("reset_but_state", buttons, "Click it to reset petri dish", ok_but, "1vh", "0vw");
             tut.AddOverlayEffect("reset_but_state", buttons, settings, "black", 0.8, 10, true);
-
             /*settings_state*/
-            tut.AddPopoverEffect("settings_state", buttons, "This is the settings panel. Drop down to see configurable parameters", ok_but, "-7vh", "-27vw");
+            tut.AddPopoverEffect("settings_state", buttons, "This is the settings panel. Try to fold and drop down", ok_but, "-7vh", "-27vw");
             tut.AddOverlayEffect("settings_state", buttons, buttons, "black", 0.8, 10, true);
-
+ 
             /*settings_change_state*/
             tut.AddPopoverEffect("settings_change_state", buttons, "Try to change the parameters and start a new experiment to see the difference", ok_but, "-7vh", "-27vw");
             tut.AddOverlayEffect("settings_change_state", buttons, settings, "black", 0.8, 10, true);
-
+ 
             /*lab_instruct_state*/
             tut.AddPopoverEffect("lab_instruct_state", buttons, "Drop this card down to see lab instructions", ok_but, "-7vh", "30vw");
             tut.AddOverlayEffect("lab_instruct_state", buttons, explanation, "black", 0.8, 10, true);
-
+ 
             /*graph_state*/
             tut.AddPopoverEffect("graph_state", buttons, "Drop this card down to see live graphs of the experiment", ok_but, "1vh", "30vw");
             tut.AddOverlayEffect("graph_state", buttons, explanation, "black", 0.8, 10, true);
-
+ 
             /*repeat_state*/
-
+ 
             /*end_state*/
-
+ 
             //tut.AddExistingTrigger("second_state", "third_state", "click_trigger");
             //tut.AddEventListenerTrigger("third_state", "end_state", ok_but, "click", "click_ok");
             tut.StartAtState("first_state");
-
+ 
         }
-
-        void startTut(UI::Document animation, UI::Document settings, UI::Document explanation, UI::Document learnmore, UI::Document buttons, UI::Canvas mycanvas) {
-            start_but = buttons.Button("toggle");
-
-            start_but.SetCSS("position", "relative");
-            start_but.SetCSS("z-index", "11");
+ 
+        void startTut(UI::Document animation, UI::Document settings, UI::Document explanation, UI::Document learnmore, UI::Document buttons, UI::Canvas mycanvas, UI::Document instructions) {
+ 
             ok_but.SetCSS("left", "0.7vw");
-
-            animation.SetCSS("position", "relative");
-            animation.SetCSS("z-index", "12");
-
-            
-
-
+            instructions.SetCSS("z-index","0");
+            instructions.SetCSS("position", "static");
+            // animation.SetCSS("position", "relative");
+            // animation.SetCSS("z-index", "12");
+           
+            tut.AddSpotlight("start_but_state", animation);
+            tut.AddSpotlight("start_but_state", buttons.Button("toggle"));
+            tut.AddSpotlight("reset_but_state", buttons.Button("reset"));
+            tut.AddSpotlight("settings_state", settings.Div("emp__449_MAIN_outer_card_header"));
+            tut.AddSpotlight("settings_state", settings.Div("emp__449_HOST_outer_card_header"));
+            tut.AddSpotlight("settings_state", settings.Div("emp__449_SYM_outer_card_header"));
+            tut.AddSpotlight("settings_state", settings.Div("emp__449_ADV_outer_card_header"));
+            tut.AddSpotlight("settings_change_state", settings);
+           
+ 
+ 
             // tut.StartAtState("first_state");
-                
-
+               
+ 
         }
 };
 #endif
+

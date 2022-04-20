@@ -10,6 +10,16 @@
     overflow-x: hidden;
   }
 
+  .rightB{
+    width: 80vw;
+    height: 60px;
+    overflow: hidden;
+  }
+  .rightB :hover{
+    background-color:
+    #3d1477 ;
+  }
+
 
   .test{
     font-family:'Garamond';
@@ -64,18 +74,6 @@
     padding: 12px 16px;
     text-decoration: none;
     display: block;
-  }
-    
-
-  .rightB{
-    float: right;
-    width: 80vw;
-    height: 60px;
-    overflow: hidden;
-  }
-  .rightB :hover{
-    background-color:
-    #3d1477 ;
   }
 
   .test1{
