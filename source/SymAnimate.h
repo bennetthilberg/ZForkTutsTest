@@ -129,10 +129,10 @@ public:
 
     top_bar << "<div class=\"rightB\">";
     top_bar << "<button class=\"test1\" onclick = 'f=window.open(\"FAQ.html\",\"fenetre\",\"the style (without style tag, example - width=400, height=600, no px\")'style=\"cursor: pointer;\">FAQ</button>";
+    top_bar << start_tutorial;
     top_bar << "<button class=\"test1\" onclick = 'f=window.open(\"biology_background.html\",\"fenetre\",\"the style (without style tag, example - width=400, height=600, no px\")'style=\"cursor: pointer;\">Biology Background</button>";
     top_bar << "<button class=\"test1\" onclick = 'f=window.open(\"symb_overview.html\",\"fenetre\",\"the style (without style tag, example - width=400, height=600, no px\")'style=\"cursor: pointer;\">Symbulation Overview</button>";
     top_bar << "<a href=\"https://anyaevostinar.github.io/SymbulationEmp/web/symbulation.html\" ><button class=\"test1\">Home GUI</button></a>";
-    top_bar << start_tutorial;
     top_bar << "</div>";
 
     initializeWorld();
@@ -223,17 +223,7 @@ public:
     //  data-container="body" data-toggle="popover" data-placement="top" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">)
     
     // ----------------------- Keep track of number of updates -----------------------
-    buttons << "<br>";
-    buttons << UI::Text("update") << "Update = " << UI::Live( [this](){ return world.GetUpdate(); } ) << "  ";
-    buttons << "<br>";
 
-    // Add a canvas for petri dish and draw the initial petri dish
-    mycanvas = animation.AddCanvas(RECT_WIDTH*config.GRID_X(), RECT_WIDTH*config.GRID_Y(), "can");
-    targets.push_back(mycanvas);
-    drawPetriDish(mycanvas);
-    animation << "<br>";
-
-    itut.startTut(animation, settings, explanation, learnmore, buttons, mycanvas, instructions);
 
     emp::prefab::Card graphs_card(false ? "INIT_OPEN" : "INIT_CLOSED", true, "graphs_card");
     graphs_card.AddHeaderContent("Data Collection");
@@ -271,8 +261,18 @@ public:
     emp::prefab::Card card_instructions(true ? "INIT_OPEN" : "INIT_CLOSED", true, "instructions_card");
     initializeInstructionsCard(card_instructions);
     instructions << card_instructions;
+
+
+    buttons << "<br>";
+    buttons << UI::Text("update") << "Update = " << UI::Live( [this](){ return world.GetUpdate(); } ) << "  ";
+    buttons << "<br>";
+
+    // Add a canvas for petri dish and draw the initial petri dish
+    mycanvas = animation.AddCanvas(RECT_WIDTH*config.GRID_X(), RECT_WIDTH*config.GRID_Y(), "can");
+    targets.push_back(mycanvas);
+    drawPetriDish(mycanvas);
+    animation << "<br>";
     itut.startTut(animation, settings, explanation, learnmore, buttons, mycanvas, instructions);
-    
   }
 
   void initializeInstructionsCard(emp::prefab::Card & card){
