@@ -18,7 +18,7 @@ EMP_BUILD_CONFIG(SymConfigBase,
     GROUP(HOST, "Host Settings"),
     VALUE(HOST_INT, double, -2, "Interaction value from -1 to 1 that hosts should have initially, -2 for random"),
 
-    GROUP(SYM, "Sym Settings"),
+    GROUP(SYM, "Symbiont Settings"),
     VALUE(SYM_INT, double, -2, "Interaction value from -1 to 1 that symbionts should have initially, -2 for random"),
     VALUE(VERTICAL_TRANSMISSION, double, 0.7, "Value 0 to 1 of probability of symbiont vertically transmitting when host reproduces"),
     

@@ -98,7 +98,9 @@ public:
     config_panel.SetRange("SYNERGY","-10","10");
     config_panel.SetRange("MUTATION_SIZE","-0.2","0.2");
     config_panel.SetRange("HOST_INT","-1","1");
-    config_panel.SetRange("SYM_INT","-2","1");//need to change 
+    config_panel.SetRange("SYM_INT","-2","1");  //need to change 
+    config_panel.SetRange("SYNERGY", "0", "10");
+   
 
     top_bar.SetAttr("class", "topBar");
     top_bar.SetCSS("position", "relative");
@@ -151,11 +153,12 @@ public:
 
 
     // Add explanation for organism color:
-    explanation << "<img style=\"max-width:350px;\" src = \"gradient1.png\"/> <br>";
+    // max-width
+    explanation << "<img style=\"max-width:400px;\" src = \"gradient1.png\"/> <br>";
 
 
     // ----------------------- Add a button that allows for pause and start toggle -----------------------
-    buttons << "<br>" << "<br><img style=\"max-width:175px;\" src=\"diagram.png\">";
+    buttons << "<br>" << "<br><img style=\"max-width:75px;\" src=\"HOST.png\">";
     buttons.AddButton([this](){
       // animate up to the number of updates
       ToggleActive();
@@ -168,6 +171,7 @@ public:
     buttons.Button("toggle").OnMouseOver([this](){ auto but = buttons.Button("toggle"); but.SetCSS("background-color", "#3d1477"); but.SetCSS("cursor", "pointer"); but.SetCSS("color", "white");});
     buttons.Button("toggle").OnMouseOut([this](){ auto but = buttons.Button("toggle"); but.SetCSS("background-color", "#5f8eff"); but.SetCSS("color", "white");});
 
+    
 
     // ----------------------- Add a reset button to reset the animation/world -----------------------
     /* Note: Must first run world.Reset(), because Inject checks for valid position.
@@ -175,6 +179,7 @@ public:
       Also, canvas must be redrawn to let users see that it is reset */
     buttons.AddButton([this](){
       world.Reset();
+      buttons.Text("update").Redraw();
       initializeWorld();
       p = world.GetPop();
 
@@ -207,6 +212,17 @@ public:
       ToggleActive();//turn off again
     }, "Reset", "reset");
     setButtonStyle("reset");
+
+    buttons.AddButton([this](){
+      auto button = buttons.Button("hover");
+      std::string updates = "Update #" + std::to_string(world.GetUpdate());
+      button.SetLabel(updates);
+    }, "Update #0", "update");
+    
+    //TODO: style button update
+    //buttons.Button("update").OnMouseOver([this](){ auto but = buttons.Button("update"); but.SetCSS(make popover)})
+    //buttons.Button("update").SetAttr("class", "btn btn-tertiary");
+
     buttons.Button("toggle").OnMouseOver([this](){ auto but = buttons.Button("toggle"); but.SetCSS("background-color", "#3d1477"); but.SetCSS("cursor", "pointer"); but.SetCSS("color", "white");});
     buttons.Button("toggle").OnMouseOut([this](){ auto but = buttons.Button("toggle"); but.SetCSS("background-color", "#5f8eff"); but.SetCSS("color", "white");});
 
@@ -255,9 +271,7 @@ public:
     instructions << card_instructions;
 
 
-    buttons << "<br>";
-    buttons << UI::Text("update") << "Update = " << UI::Live( [this](){ return world.GetUpdate(); } ) << "  ";
-    buttons << "<br>";
+    
 
     // Add a canvas for petri dish and draw the initial petri dish
     mycanvas = animation.AddCanvas(RECT_WIDTH*config.GRID_X(), RECT_WIDTH*config.GRID_Y(), "can");
@@ -282,7 +296,14 @@ public:
     prelab.SetCSS("letter-spacing", "2px");
     prelab.SetCSS("color", "#3d1477");
     prelab.SetWidth(100,"%");
-    prelab << "example text 2";
+    prelab << "<ol>";
+    prelab << "<li>Click on “Biology Background” and read the information in the pop up</li>";
+    prelab << "<li>Click on “Symbulation Overview” and read the information in the pop up</li>";
+    prelab << "<li>Click the tutorial at the top of the window and follow the instructions</li>";
+    prelab << "<li>Click the Settings panel and read the drop down description for each variable in the global, host, and symbiont groups. For now you can ignore the advanced settings. </li>";
+    prelab << "<li>What settings do you think will influence the evolution of the system? </li>";
+    prelab << "</ol>";
+
 
     card << prelab;
 
@@ -293,7 +314,16 @@ public:
     lab.SetCSS("letter-spacing", "2px");
     lab.SetCSS("color", "#3d1477");
     lab.SetWidth(100,"%");
-    lab << "example text 3";
+    lab << "<ol>";
+    lab << "<li>Open the settings and adjust them. Try your best to evolve parasitic organisms. Typically, parasites require a low vertical transmission rate like 0.3 and low resource distribution (setting “res distribute”), like 10.</li>";
+    lab << "<li>What can you observe? What adjustments do you think lead to parasitism, and why? What adjustments can you make to evolve more parasites, or evolve them quicker?</li>";
+    lab << "<li>Share what you learned with your classmates.</li>";
+    lab << "<li>Now that you have explored the simulation, form hypotheses based on the settings you think that lead to parasitism. List all the hypotheses and record them for later.</li>";
+    lab << "<li>Pick one of your Hypotheses from the list. Design an experiment to test this hypothesis. What settings will you use? How many experiments should be conducted? Do you need a control group and an experimental group? What will these groups look like?</li>";
+    lab << "<li>Use the web lab to run your experiments, and record your predictions.</li>";
+    lab << "<li>Do your experiments' predictions support your hypothesis, and why? What is the evidence, and how do they support/disprove your hypothesis?</li>";
+    lab << "</ol>";
+
 
     card << lab;
 
@@ -305,7 +335,18 @@ public:
     postlab.SetCSS("letter-spacing", "2px");
     postlab.SetCSS("color", "#3d1477");
     postlab.SetWidth(100,"%");
-    postlab << "example text 4";
+    postlab << "<ol>";
+    postlab << "<li>Reflect on your experiment. Did you prove your hypothesis? What could you have done differently?</li>";
+    postlab << "<li>Record the results and make a 3-minute presentation to explain your findings.</li>";
+    postlab << "<ol type='a'>";
+    postlab << "<li>Your predictions</li>";
+    postlab << "<li>Your results and whether they consistent with your hypothesis</li>";
+    postlab << "<li>Your explanation of your results</li>";
+    postlab << "</ol>";
+    postlab << "<li>Repeat this process, starting with the prelab, for mutualism rather than parasitism. Typically, mutualism requires vertical transmission to be 0.7 or higher, and resource distribution to be 50 or higher</li>"; 
+    postlab << "<li>Consider how you might design an environment that would select for more intermediate values of antagonism or mutualism. What would that look like? What would it look like to have coexisting populations? What other questions can you ask about this system?</li>";
+    postlab << "</ol>";
+
 
     card << postlab;
   }
@@ -651,6 +692,10 @@ public:
       world.Update();
       p = world.GetPop();
       drawPetriDish(mycanvas);
+      
+      std::string updates = "Update #" + std::to_string(world.GetUpdate());
+      buttons.Button("update").SetLabel(updates);
+      //buttons.Text("update").Redraw();
 
       //Update live graph here
       drawHostIntValGraph(host_graph_canvas);
