@@ -13,16 +13,16 @@ EMP_BUILD_CONFIG(SymConfigBase,
     VALUE(GRID_Y, int, 100, "Height of world, just multiplied by width to get total size"),
     VALUE(UPDATES, int, 1001, "Number of updates to run before quitting"),
     VALUE(RES_DISTRIBUTE, int, 100, "Number of resources to give to each host each update if they are available"),
+    VALUE(SYNERGY, double, 5, "Synergy is the cooperation between the host and symbiont. When the host receives resources, it can choose to donate resources to the symbiont or defend itself with the resources. When a host donates, you multiply by the synergy to know what the host gets back in return. More synergy is more beneficial to the host. "),
 
     GROUP(HOST, "Host Settings"),
     VALUE(HOST_INT, double, -2, "Interaction value from -1 to 1 that hosts should have initially, -2 for random"),
 
-    GROUP(SYM, "Sym Settings"),
+    GROUP(SYM, "Symbiont Settings"),
     VALUE(SYM_INT, double, -2, "Interaction value from -1 to 1 that symbionts should have initially, -2 for random"),
     VALUE(VERTICAL_TRANSMISSION, double, 0.7, "Value 0 to 1 of probability of symbiont vertically transmitting when host reproduces"),
     
     GROUP(ADV, "Advanced Settings"),
-    VALUE(SYNERGY, double, 5, "Synergy is the cooperation between the host and symbiont. When the host receives resources, it can choose to donate resources to the symbiont or defend itself with the resources. When a host donates, you multiply by the synergy to know what the host gets back in return. More synergy is more beneficial to the host. "),
     VALUE(HORIZ_MUTATION_SIZE, double, -1, "Standard deviation of the distribution to mutate by for horizontal transmission, if -1 MUTATION_SIZE used"),
     VALUE(HORIZ_MUTATION_RATE, double, -1, "Value 0 to 1 of probability of mutation for horizontal transmission, if -1 MUTATION_RATE used"),
     VALUE(SYM_INFECTION_CHANCE, double, 1, "The chance (between 0 and 1) that a sym will infect a parallel host on process"),
