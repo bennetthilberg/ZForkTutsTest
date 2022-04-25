@@ -100,6 +100,7 @@ public:
     config_panel.SetRange("HOST_INT","-1","1");
     config_panel.SetRange("SYM_INT","-2","1");  //need to change 
     config_panel.SetRange("SYNERGY", "0", "10");
+    config_panel.SetRange("RES_DISTRIBUTE", "10", "100");
    
 
     top_bar.SetAttr("class", "topBar");
