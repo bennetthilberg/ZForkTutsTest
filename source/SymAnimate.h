@@ -279,7 +279,7 @@ public:
     targets.push_back(mycanvas);
     drawPetriDish(mycanvas);
     animation << "<br>";
-    itut.startTut(animation, settings, explanation, learnmore, buttons, mycanvas, instructions);
+    itut.startTut(animation, settings, explanation, learnmore, buttons, mycanvas, instructions, top_bar);
   }
 
   void initializeInstructionsCard(emp::prefab::Card & card){
