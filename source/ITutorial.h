@@ -20,7 +20,7 @@ class ITutorial {
     public:
         static void PrintComplete() { std::cout << "Tutorial Complete!" << std::endl; }
  
-        ITutorial(UI::Document animation, UI::Document settings, UI::Document explanation, UI::Document learnmore, UI::Document buttons, UI:: Document top_bar, UI::Canvas mycanvas,UI::Document instructions, UI::Button my_button): doc("emp_base"), ok_but([](){}, "OK"){
+        ITutorial(UI::Document & animation, UI::Document & settings, UI::Document & explanation, UI::Document & learnmore, UI::Document & buttons, UI::Document & top_bar, UI::Canvas & mycanvas,UI::Document & instructions, UI::Button & my_button): doc("emp_base"), ok_but([](){}, "OK"){
             // doc << my_button;
             // top_bar << my_button;
             // my_button.OnMouseOver([this](){auto but  =my_button; but.SetCSS("background-color", "#3d1477"); but.SetCSS("cursor", "pointer"); but.SetCSS("color", "white");});
@@ -95,7 +95,7 @@ class ITutorial {
  
         }
  
-        void startTut(UI::Document animation, UI::Document settings, UI::Document explanation, UI::Document learnmore, UI::Document buttons, UI::Canvas mycanvas, UI::Document instructions) {
+        void startTut(UI::Document & animation, UI::Document & settings, UI::Document & explanation, UI::Document & learnmore, UI::Document & buttons, UI::Canvas & mycanvas, UI::Document & instructions) {
  
             ok_but.SetCSS("left", "0.7vw");
             instructions.SetCSS("z-index","0");
