@@ -68,7 +68,7 @@ public:
    * 
    */
   SymAnimate() : animation("emp_animate"), graphs("graphs"), settings("emp_settings"), explanation("emp_explanation"), learnmore("emp_learnmore"), buttons("emp_buttons"), instructions("instructions"), top_bar("top_bar"), start_tutorial([](){}, "Start Tutorial"), itut(animation, settings, explanation, learnmore, buttons, top_bar, mycanvas, instructions, start_tutorial){
-
+    
     config.GRID_X(40);
     config.GRID_Y(40);
     config.UPDATES(1000);
@@ -125,9 +125,11 @@ public:
     //--------------NAV BAR--------------------
     start_tutorial.SetAttr("class", "test1");
 
-    top_bar << "<div class=\"rightB\">";
+    top_bar << "<div class=\"rightB\" id='rightB'>";
     top_bar << "<button class=\"test1\" onclick = 'f=window.open(\"symb_overview.html\",\"fenetre\",\"the style (without style tag, example - width=400, height=600, no px\")'style=\"cursor: pointer;\">Symbulation Overview</button>";
-    top_bar << "<button class=\"test1\" onclick = 'f=window.open(\"biology_background.html\",\"fenetre\",\"the style (without style tag, example - width=400, height=600, no px\")'style=\"cursor: pointer;\">Biology Background</button>";
+    top_bar <<  "<div id='bio_bkgd'>";
+    top_bar << "<button class=\"test1\"  onclick = 'f=window.open(\"biology_background.html\",\"fenetre\",\"the style (without style tag, example - width=400, height=600, no px\")'style=\"cursor: pointer;\">Biology Background</button>";
+    top_bar << "</div>";
     top_bar << "<button class=\"test1\" onclick = 'f=window.open(\"FAQ.html\",\"fenetre\",\"the style (without style tag, example - width=400, height=600, no px\")'style=\"cursor: pointer;\">FAQ</button>";
     top_bar << "<a href=\"https://anyaevostinar.github.io/SymbulationEmp/web/symbulation.html\" ><button class=\"test1\">Home GUI</button></a>";
     top_bar << start_tutorial;

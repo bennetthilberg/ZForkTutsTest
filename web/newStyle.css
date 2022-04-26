@@ -21,6 +21,11 @@
     #3d1477 ;
   }
 
+  .col-lg-4.sub {
+    z-index: 0;
+    position: static;
+
+  }
 
   .test{
     font-family:'Garamond';

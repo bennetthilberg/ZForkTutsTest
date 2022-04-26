@@ -25,7 +25,8 @@ class ITutorial {
             ok_but.SetCSS("position", "relative");
             ok_but.SetCSS("z-index", "13");
             my_button.SetCSS("z-index", "13");
- 
+            
+            printf("testing");
             /* Add all states */
             tut.AddState("first_state");
             tut.AddState("intro_state");
@@ -37,7 +38,7 @@ class ITutorial {
             tut.AddState("lab_instruct_state");
             tut.AddState("graph_state");
             tut.AddState("repeat_state");
-            tut.AddState("end_state", &PrintComplete);
+            // tut.AddState("end_state", &PrintComplete);
  
             /* All state-to-state triggers */
             tut.AddEventListenerTrigger("first_state", "intro_state", my_button, "click", "click_trigger");
@@ -49,25 +50,35 @@ class ITutorial {
             tut.AddExistingTrigger("reset_change_state", "lab_instruct_state", "click_ok");
             tut.AddExistingTrigger("lab_instruct_state", "graph_state", "click_ok");
             tut.AddExistingTrigger("graph_state", "repeat_state", "click_ok");
-            tut.AddExistingTrigger("repeat_state", "end_state", "click_ok");
+            tut.AddExistingTrigger("repeat_state", "first_state", "click_ok");
 
             /*end tutorial triggers*/
             // Next line is supposed to allow you to restart the tutorial, but instead we are getting it automaticallly entering
             // this state rather than waiting for the trigger :(
             //tut.AddExistingTrigger("end_state", "first_state", "click_trigger");
-            tut.AddExistingTrigger("intro_state", "end_state", "click_trigger");
-            tut.AddExistingTrigger("start_but_state", "end_state", "click_trigger");
-            tut.AddExistingTrigger("reset_but_state", "end_state", "click_trigger");
-            tut.AddExistingTrigger("settings_state", "end_state", "click_trigger");
-            tut.AddExistingTrigger("settings_change_state", "end_state", "click_trigger");
-            tut.AddExistingTrigger("reset_change_state", "end_state", "click_trigger");
-            tut.AddExistingTrigger("lab_instruct_state", "end_state", "click_trigger");
-            tut.AddExistingTrigger("graph_state", "end_state", "click_trigger");
-            tut.AddExistingTrigger("repeat_state", "end_state", "click_trigger");
+            // tut.AddExistingTrigger("intro_state", "end_state", "click_trigger");
+            // tut.AddExistingTrigger("start_but_state", "end_state", "click_trigger");
+            // tut.AddExistingTrigger("reset_but_state", "end_state", "click_trigger");
+            // tut.AddExistingTrigger("settings_state", "end_state", "click_trigger");
+            // tut.AddExistingTrigger("settings_change_state", "end_state", "click_trigger");
+            // tut.AddExistingTrigger("reset_change_state", "end_state", "click_trigger");
+            // tut.AddExistingTrigger("lab_instruct_state", "end_state", "click_trigger");
+            // tut.AddExistingTrigger("graph_state", "end_state", "click_trigger");
+            // tut.AddExistingTrigger("repeat_state", "end_state", "click_trigger");
+            
+            tut.AddExistingTrigger("intro_state", "first_state", "click_trigger");
+            tut.AddExistingTrigger("start_but_state", "first_state", "click_trigger");
+            tut.AddExistingTrigger("reset_but_state", "first_state", "click_trigger");
+            tut.AddExistingTrigger("settings_state", "first_state", "click_trigger");
+            tut.AddExistingTrigger("settings_change_state", "first_state", "click_trigger");
+            tut.AddExistingTrigger("reset_change_state", "first_state", "click_trigger");
+            tut.AddExistingTrigger("lab_instruct_state", "first_state", "click_trigger");
+            tut.AddExistingTrigger("graph_state", "first_state", "click_trigger");
+            tut.AddExistingTrigger("repeat_state", "first_state", "click_trigger");
 
 
             /*start_but_state*/
-            tut.AddPopoverEffect("intro_state", buttons, "Welcome to Symbulation, an interactive online lab that explores the relationships between hosts and symbionts. Before starting this tutorial, click the symbulation background button to learn about how the simulation runs. Once you have read it, click ok.", ok_but, "1vh", "-4vw", "auto");
+            tut.AddPopoverEffect("intro_state", buttons, "Welcome to Symbulation, an interactive online lab that explores the relationships between hosts and symbionts. Before starting this tutorial, click the Symbulation Overview button to learn about how the simulation runs. Once you have read it, click ok.", ok_but, "1vh", "-4vw", "auto");
             tut.AddOverlayEffect("intro_state", buttons, "black", 0.8, 10, true);
             
             tut.AddPopoverEffect("start_but_state", buttons, "This grid represents a petri dish holding the hosts and symbionts in our environment. Each host is a square, and each symbiont is a circle. To start the simulation, just push start and observe as the petri dish starts to change. You can pause the simulation at any time with the pause button.", ok_but, "-10vh", "-4vw", "auto");
@@ -82,13 +93,14 @@ class ITutorial {
             // }
  
             /*reset_but_state*/
-            tut.AddPopoverEffect("reset_but_state", buttons, "To reset the simulation, push reset. You will need to click reset after you make changes to the settings before starting the simulation.", ok_but, "1vh", "-5vw", "auto");
+            tut.AddPopoverEffect("reset_but_state", buttons, "To reset the simulation, push reset. You will need to click reset after you make changes to the settings before starting the simulation.", ok_but, "0.4vh", "-5vw", "auto");
             tut.AddOverlayEffect("reset_but_state", buttons, "black", 0.8, 10, true);
             /*settings_state*/
             tut.AddPopoverEffect("settings_state", buttons, "These are the settings panels. Each setting has a dropdown that explains more about what that setting does. Try expanding a dropdown to learn more about a setting. ", ok_but, "1vh", "-5vw", "auto");
             tut.AddOverlayEffect("settings_state", buttons,  "black", 0.8, 10, true);
  
             /*settings_change_state*/
+
             tut.AddPopoverEffect("settings_change_state", buttons, "You can change a setting by adjusting the slider, typing in a value, or using the small arrows. Try changing a setting now!", ok_but, "1vh", "-5vw", "auto");
             tut.AddOverlayEffect("settings_change_state", buttons, "black", 0.8, 10, true);
  
@@ -101,8 +113,8 @@ class ITutorial {
             tut.AddOverlayEffect("lab_instruct_state", buttons, "black", 0.8, 10, true);
  
             /*graph_state*/
-            tut.AddPopoverEffect("graph_state", buttons, "Below the lab instructions are live graphs. Click the drop down to see them!", ok_but, "20vh", "25vw", "40%");
-            tut.AddPopoverEffect("graph_state", buttons, "Click reset and start on the lab to watch the graphs update in real time. ", ok_but, "30vh", "25vw", "40%");
+            tut.AddPopoverEffect("graph_state", buttons, "Below the lab instructions are live graphs. Click the drop down to see them!", ok_but, "19vh", "25vw", "40%");
+            tut.AddPopoverEffect("graph_state", buttons, "Click reset and start on the lab to watch the graphs update in real time. ", ok_but, "31vh", "25vw", "40%");
             tut.AddOverlayEffect("graph_state", buttons, "black", 0.8, 10, true);
  
             /*repeat_state*/
@@ -121,6 +133,7 @@ class ITutorial {
 
             // tut.AddSpotlight("first_state", instructions);
             // tut.AddSpotlight("intro_state", top_bar);
+            tut.AddSpotlight("intro_state", top_bar);
             tut.AddSpotlight("start_but_state", animation);
             tut.AddSpotlight("start_but_state", buttons.Button("toggle"));
             tut.AddSpotlight("reset_but_state", buttons.Button("reset"));
