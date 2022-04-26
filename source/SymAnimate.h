@@ -214,11 +214,11 @@ public:
     }, "Reset", "reset");
     setButtonStyle("reset");
 
-    buttons.AddButton([this](){
-      auto button = buttons.Button("hover");
-      std::string updates = "Update #" + std::to_string(world.GetUpdate());
-      button.SetLabel(updates);
-    }, "Update #0", "update");
+    // buttons.AddButton([this](){
+    //   auto button = buttons.Button("hover");
+    //   std::string updates = "Update #" + std::to_string(world.GetUpdate());
+    //   button.SetLabel(updates);
+    // }, "Update #0", "update");
     
     //TODO: style button update
     //buttons.Button("update").OnMouseOver([this](){ auto but = buttons.Button("update"); but.SetCSS(make popover)})

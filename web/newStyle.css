@@ -3,8 +3,9 @@
     background-color: #b0defd;
     /* width: 1000vw; */
     display: flex;
+    z-index: auto;
     margin-bottom: 10px;
-  }
+}
 
   body{
     overflow-x: hidden;

@@ -126,11 +126,8 @@ class ITutorial {
         void startTut(UI::Document & animation, UI::Document & settings, UI::Document & explanation, UI::Document & learnmore, UI::Document & buttons, UI::Canvas & mycanvas, UI::Document & instructions, UI::Document & top_bar) {
  
             ok_but.SetCSS("left", "0.7vw");
-            instructions.SetCSS("z-index","0");
-            instructions.SetCSS("position", "static");
-            // animation.SetCSS("position", "relative");
-            // animation.SetCSS("z-index", "12");
-            tut.AddSpotlight("first_state", instructions);
+
+            // tut.AddSpotlight("first_state", instructions);
             tut.AddSpotlight("start_but_state", animation);
             tut.AddSpotlight("start_but_state", buttons.Button("toggle"));
             tut.AddSpotlight("reset_but_state", buttons.Button("reset"));
