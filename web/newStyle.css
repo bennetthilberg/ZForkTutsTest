@@ -92,6 +92,20 @@
     margin-right: 15px;
   }
 
+  .updateBut{
+    width: auto;
+    height: auto;
+    letter-spacing: 2px;
+    font-family:'Garamond';
+    font-size: 22px;
+    border-radius: 5px;
+    color: #5f8eff;
+    padding: 5px;
+    border: solid;
+    cursor: pointer;
+    margin-left: 5px;
+  }
+
   .test2{
     float: right;
     background-color: #5f8eff;

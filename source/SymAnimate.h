@@ -223,6 +223,7 @@ public:
     //TODO: style button update
     //buttons.Button("update").OnMouseOver([this](){ auto but = buttons.Button("update"); but.SetCSS(make popover)})
     //buttons.Button("update").SetAttr("class", "btn btn-tertiary");
+    buttons.Button("update").SetAttr("class","updateBut");
 
     buttons.Button("toggle").OnMouseOver([this](){ auto but = buttons.Button("toggle"); but.SetCSS("background-color", "#3d1477"); but.SetCSS("cursor", "pointer"); but.SetCSS("color", "white");});
     buttons.Button("toggle").OnMouseOut([this](){ auto but = buttons.Button("toggle"); but.SetCSS("background-color", "#5f8eff"); but.SetCSS("color", "white");});
