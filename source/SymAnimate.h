@@ -265,6 +265,10 @@ public:
     graphs_card << sym_histogram_canvas;
     graphs_card << "<br>";
     graphs_card << host_histogram_canvas;
+
+    //download data button
+    create_download_data_button(graphs_card);
+
     graphs << graphs_card;
 
     emp::prefab::Card card_instructions(true ? "INIT_OPEN" : "INIT_CLOSED", true, "instructions_card");
@@ -280,6 +284,48 @@ public:
     drawPetriDish(mycanvas);
     animation << "<br>";
     itut.startTut(animation, settings, explanation, learnmore, buttons, mycanvas, instructions);
+  }
+
+  void create_download_data_button(emp::prefab::Card & card){
+    card << "<button class = \"test1\" onclick=\"saveTextAsFile()\">Save Text to File</button>";
+
+    //calling the function that downloads both files
+    card << "<script type=\"text/javascript\">";
+    card << "function saveTextAsFile(){ saveTextAsFileHost().click(); saveTextAsFileSym();}";
+
+    //download host file
+    card << "function saveTextAsFileHost(){";
+    card << "var textToSaveAsBlob = new Blob([\"a\"], {type:\"text/plain\"});";
+    card << "var textToSaveAsURL = window.URL.createObjectURL(textToSaveAsBlob);";
+    card << "var fileNameToSaveAs = [\"host.txt\"];";
+    card << "var downloadLink = document.createElement(\"a\");";
+    card << "downloadLink.download = fileNameToSaveAs;";
+    card << "downloadLink.innerHTML = \"Download File\";";
+    card << "downloadLink.href = textToSaveAsURL;";
+    card << "downloadLink.onclick = destroyClickedElement;";
+    card << "downloadLink.style.display = \"none\";";
+    card << "document.body.appendChild(downloadLink);";
+    card << "return downloadLink;}";
+
+    //download sym file
+    card << "function saveTextAsFileSym(){";
+    card << "var textToSaveAsBlob = new Blob([\"a\"], {type:\"text/plain\"});";
+    card << "var textToSaveAsURL = window.URL.createObjectURL(textToSaveAsBlob);";
+    card << "var fileNameToSaveAs = [\"sym.txt\"];";
+    card << "var downloadLink = document.createElement(\"a\");";
+    card << "downloadLink.download = fileNameToSaveAs;";
+    card << "downloadLink.innerHTML = \"Download File\";";
+    card << "downloadLink.href = textToSaveAsURL;";
+    card << "downloadLink.onclick = destroyClickedElement;";
+    card << "downloadLink.style.display = \"none\";";
+    card << "document.body.appendChild(downloadLink);";
+    card << "downloadLink.click();}";
+
+    //destroy clicked element
+    card << "function destroyClickedElement(event){document.body.removeChild(event.target);}";
+
+    //end script
+    card << "</script>";
   }
 
   void initializeInstructionsCard(emp::prefab::Card & card){
