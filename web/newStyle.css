@@ -80,7 +80,7 @@
     float: right;
     background-color: #5f8eff;
     width: auto;
-    height: auto;
+    height:50px;
     letter-spacing: 2px;
     font-family:'Garamond';
     font-size: 14px;
@@ -90,6 +90,8 @@
     border: none;
     cursor: pointer;
     margin-right: 15px;
+    padding-left: 3px;
+    padding-right: 3px;
   }
 
   .updateBut{
