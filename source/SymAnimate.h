@@ -216,15 +216,15 @@ public:
     }, "Reset", "reset");
     setButtonStyle("reset");
 
-    // buttons.AddButton([this](){
-    //   auto button = buttons.Button("hover");
-    //   std::string updates = "Update #" + std::to_string(world.GetUpdate());
-    //   button.SetLabel(updates);
-    // }, "Update #0", "update");
+    buttons.AddButton([this](){
+      auto button = buttons.Button("hover");
+      std::string updates = "Update #" + std::to_string(world.GetUpdate());
+      button.SetLabel(updates);
+    }, "Update #0", "update");
     
     //TODO: style button update
-    //buttons.Button("update").OnMouseOver([this](){ auto but = buttons.Button("update"); but.SetCSS(make popover)})
-    //buttons.Button("update").SetAttr("class", "btn btn-tertiary");
+
+    buttons.Button("update").SetAttr("class","updateBut");
 
     buttons.Button("toggle").OnMouseOver([this](){ auto but = buttons.Button("toggle"); but.SetCSS("background-color", "#3d1477"); but.SetCSS("cursor", "pointer"); but.SetCSS("color", "white");});
     buttons.Button("toggle").OnMouseOut([this](){ auto but = buttons.Button("toggle"); but.SetCSS("background-color", "#5f8eff"); but.SetCSS("color", "white");});
@@ -267,6 +267,10 @@ public:
     graphs_card << sym_histogram_canvas;
     graphs_card << "<br>";
     graphs_card << host_histogram_canvas;
+
+    //download data button
+    create_download_data_button(graphs_card);
+
     graphs << graphs_card;
 
     emp::prefab::Card card_instructions(true ? "INIT_OPEN" : "INIT_CLOSED", true, "instructions_card");
@@ -282,6 +286,48 @@ public:
     drawPetriDish(mycanvas);
     animation << "<br>";
     itut.startTut(animation, settings, explanation, learnmore, buttons, mycanvas, instructions, top_bar);
+  }
+
+  void create_download_data_button(emp::prefab::Card & card){
+    card << "<button class = \"test1\" onclick=\"saveTextAsFile()\">Save Text to File</button>";
+
+    //calling the function that downloads both files
+    card << "<script type=\"text/javascript\">";
+    card << "function saveTextAsFile(){ saveTextAsFileHost().click(); saveTextAsFileSym();}";
+
+    //download host file
+    card << "function saveTextAsFileHost(){";
+    card << "var textToSaveAsBlob = new Blob([\"a\"], {type:\"text/plain\"});";
+    card << "var textToSaveAsURL = window.URL.createObjectURL(textToSaveAsBlob);";
+    card << "var fileNameToSaveAs = [\"host.txt\"];";
+    card << "var downloadLink = document.createElement(\"a\");";
+    card << "downloadLink.download = fileNameToSaveAs;";
+    card << "downloadLink.innerHTML = \"Download File\";";
+    card << "downloadLink.href = textToSaveAsURL;";
+    card << "downloadLink.onclick = destroyClickedElement;";
+    card << "downloadLink.style.display = \"none\";";
+    card << "document.body.appendChild(downloadLink);";
+    card << "return downloadLink;}";
+
+    //download sym file
+    card << "function saveTextAsFileSym(){";
+    card << "var textToSaveAsBlob = new Blob([\"a\"], {type:\"text/plain\"});";
+    card << "var textToSaveAsURL = window.URL.createObjectURL(textToSaveAsBlob);";
+    card << "var fileNameToSaveAs = [\"sym.txt\"];";
+    card << "var downloadLink = document.createElement(\"a\");";
+    card << "downloadLink.download = fileNameToSaveAs;";
+    card << "downloadLink.innerHTML = \"Download File\";";
+    card << "downloadLink.href = textToSaveAsURL;";
+    card << "downloadLink.onclick = destroyClickedElement;";
+    card << "downloadLink.style.display = \"none\";";
+    card << "document.body.appendChild(downloadLink);";
+    card << "downloadLink.click();}";
+
+    //destroy clicked element
+    card << "function destroyClickedElement(event){document.body.removeChild(event.target);}";
+
+    //end script
+    card << "</script>";
   }
 
   void initializeInstructionsCard(emp::prefab::Card & card){

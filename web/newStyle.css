@@ -86,7 +86,7 @@
     float: right;
     background-color: #5f8eff;
     width: auto;
-    height: auto;
+    height:50px;
     letter-spacing: 2px;
     font-family:'Garamond';
     font-size: 14px;
@@ -96,6 +96,22 @@
     border: none;
     cursor: pointer;
     margin-right: 15px;
+    padding-left: 3px;
+    padding-right: 3px;
+  }
+
+  .updateBut{
+    width: auto;
+    height: auto;
+    letter-spacing: 2px;
+    font-family:'Garamond';
+    font-size: 22px;
+    border-radius: 5px;
+    color: #5f8eff;
+    padding: 5px;
+    border: solid;
+    cursor: pointer;
+    margin-left: 5px;
   }
 
   .test2{
