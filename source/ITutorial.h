@@ -123,7 +123,7 @@ class ITutorial {
  
             /*end_state*/
 
-            tut.StartAtState("first_state", my_button);
+            tut.StartAtState("intro_state", my_button);
  
         }
  
