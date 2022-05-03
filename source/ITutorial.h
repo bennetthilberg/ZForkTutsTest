@@ -20,7 +20,7 @@ class ITutorial {
     public:
         static void PrintComplete() { std::cout << "Tutorial Complete!" << std::endl; }
  
-        ITutorial(UI::Document & animation, UI::Document & settings, UI::Document & explanation, UI::Document & learnmore, UI::Document & buttons, UI::Document & top_bar, UI::Canvas & mycanvas,UI::Document & instructions, UI::Button & my_button): doc("emp_base"), ok_but([](){}, "OK"){
+        ITutorial(UI::Document & animation, UI::Document & settings, UI::Document & explanation, UI::Document & learnmore, UI::Document & buttons, UI::Document & top_bar, UI::Canvas & mycanvas,UI::Document & instructions, UI::Document & graphs, UI::Button & my_button): doc("emp_base"), ok_but([](){}, "OK"){
             
             ok_but.SetCSS("position", "relative");
             ok_but.SetCSS("z-index", "13");
@@ -127,7 +127,7 @@ class ITutorial {
  
         }
  
-        void startTut(UI::Document & animation, UI::Document & settings, UI::Document & explanation, UI::Document & learnmore, UI::Document & buttons, UI::Canvas & mycanvas, UI::Document & instructions, UI::Document & top_bar) {
+        void startTut(UI::Document & animation, UI::Document & settings, UI::Document & explanation, UI::Document & learnmore, UI::Document & buttons, UI::Canvas & mycanvas, UI::Document & instructions,UI::Document & graphs, UI::Document & top_bar) {
  
             ok_but.SetCSS("left", "0.7vw");
 
@@ -143,8 +143,13 @@ class ITutorial {
             //tut.AddSpotlight("settings_state", settings.Div("emp__449_ADV_outer_card_header"));
             tut.AddSpotlight("settings_state", settings);
             tut.AddSpotlight("settings_change_state", settings);
-            tut.AddSpotlight("graph_state", buttons);
+            tut.AddSpotlight("lab_instruct_state", instructions);
+            tut.AddSpotlight("graph_state", graphs);
             tut.AddSpotlight("reset_change_state", buttons);
+            instructions.SetCSS("z-index","-1");
+            instructions.SetCSS("position", "absolute");
+            graphs.SetCSS("z-index","-1");
+            graphs.SetCSS("position", "absolute");
            
  
                 
