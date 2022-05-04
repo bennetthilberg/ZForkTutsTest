@@ -131,27 +131,26 @@ class ITutorial {
  
             ok_but.SetCSS("left", "0.7vw");
 
-            // tut.AddSpotlight("first_state", instructions);
-            // tut.AddSpotlight("intro_state", top_bar);
+
             tut.AddSpotlight("intro_state", top_bar);
             tut.AddSpotlight("start_but_state", animation);
             tut.AddSpotlight("start_but_state", buttons.Button("toggle"));
             tut.AddSpotlight("reset_but_state", buttons.Button("reset"));
-            //tut.AddSpotlight("settings_state", settings.Div("emp__449_MAIN_outer_card_header"));
-            //tut.AddSpotlight("settings_state", settings.Div("emp__449_HOST_outer_card_header"));
-            //tut.AddSpotlight("settings_state", settings.Div("emp__449_SYM_outer_card_header"));
-            //tut.AddSpotlight("settings_state", settings.Div("emp__449_ADV_outer_card_header"));
             tut.AddSpotlight("settings_state", settings);
             tut.AddSpotlight("settings_change_state", settings);
             tut.AddSpotlight("lab_instruct_state", instructions);
             tut.AddSpotlight("graph_state", graphs);
-            tut.AddSpotlight("reset_change_state", buttons);
+            tut.AddSpotlight("reset_change_state", buttons.Button("reset"));
+            tut.AddSpotlight("reset_change_state", buttons.Button("toggle"));
+
+
             tut.AddSpotlight("first_state", instructions);
             tut.AddSpotlight("first_state", graphs);
             instructions.SetCSS("z-index","-1");
             instructions.SetCSS("position", "relative");
             graphs.SetCSS("z-index","-1");
             graphs.SetCSS("position", "relative");
+            top_bar.SetCSS("z-index", "12");
            
  
                 
