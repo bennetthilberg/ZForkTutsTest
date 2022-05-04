@@ -146,10 +146,12 @@ class ITutorial {
             tut.AddSpotlight("lab_instruct_state", instructions);
             tut.AddSpotlight("graph_state", graphs);
             tut.AddSpotlight("reset_change_state", buttons);
+            tut.AddSpotlight("first_state", instructions);
+            tut.AddSpotlight("first_state", graphs);
             instructions.SetCSS("z-index","-1");
-            instructions.SetCSS("position", "absolute");
+            instructions.SetCSS("position", "relative");
             graphs.SetCSS("z-index","-1");
-            graphs.SetCSS("position", "absolute");
+            graphs.SetCSS("position", "relative");
            
  
                 
