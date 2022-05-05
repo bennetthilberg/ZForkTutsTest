@@ -78,7 +78,7 @@ class ITutorial {
 
 
             /*start_but_state*/
-            tut.AddPopoverEffect("intro_state", buttons, "Welcome to Symbulation, an interactive online lab that explores the relationships between hosts and symbionts. Before starting this tutorial, click the Symbulation Overview button to learn about how the simulation runs. Once you have read it, click ok.", ok_but, "1vh", "-4vw", "auto");
+            tut.AddPopoverEffect("intro_state", buttons, "Welcome to Symbulation, an interactive online lab that explores the relationships between hosts and symbionts. Before starting this tutorial, click the Symbulation Overview button to learn about how the simulation runs. Then, click the biology background to learn about symbiosis. Once you have read it, click ok.", ok_but, "1vh", "-4vw", "auto");
             tut.AddOverlayEffect("intro_state", buttons, "black", 0.8, 10, true);
             
             tut.AddPopoverEffect("start_but_state", buttons, "This grid represents a petri dish holding the hosts and symbionts in our environment. Each host is a square, and each symbiont is a circle. To start the simulation, just push start and observe as the petri dish starts to change. You can pause the simulation at any time with the pause button.", ok_but, "-10vh", "-4vw", "auto");
