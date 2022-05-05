@@ -26,7 +26,6 @@ class ITutorial {
             ok_but.SetCSS("z-index", "13");
             my_button.SetCSS("z-index", "13");
             
-            printf("testing");
             /* Add all states */
             tut.AddState("first_state");
             tut.AddState("intro_state");
@@ -37,8 +36,9 @@ class ITutorial {
             tut.AddState("reset_change_state");
             tut.AddState("lab_instruct_state");
             tut.AddState("graph_state");
+            tut.AddState("graph_state_2");
             tut.AddState("repeat_state");
-            // tut.AddState("end_state", &PrintComplete);
+            
  
             /* All state-to-state triggers */
             tut.AddEventListenerTrigger("first_state", "intro_state", my_button, "click", "click_trigger");
@@ -49,22 +49,9 @@ class ITutorial {
             tut.AddExistingTrigger("settings_change_state", "reset_change_state", "click_ok");
             tut.AddExistingTrigger("reset_change_state", "lab_instruct_state", "click_ok");
             tut.AddExistingTrigger("lab_instruct_state", "graph_state", "click_ok");
-            tut.AddExistingTrigger("graph_state", "repeat_state", "click_ok");
+            tut.AddExistingTrigger("graph_state", "graph_state_2", "click_ok");
+            tut.AddExistingTrigger("graph_state_2", "repeat_state", "click_ok");
             tut.AddExistingTrigger("repeat_state", "first_state", "click_ok");
-
-            /*end tutorial triggers*/
-            // Next line is supposed to allow you to restart the tutorial, but instead we are getting it automaticallly entering
-            // this state rather than waiting for the trigger :(
-            //tut.AddExistingTrigger("end_state", "first_state", "click_trigger");
-            // tut.AddExistingTrigger("intro_state", "end_state", "click_trigger");
-            // tut.AddExistingTrigger("start_but_state", "end_state", "click_trigger");
-            // tut.AddExistingTrigger("reset_but_state", "end_state", "click_trigger");
-            // tut.AddExistingTrigger("settings_state", "end_state", "click_trigger");
-            // tut.AddExistingTrigger("settings_change_state", "end_state", "click_trigger");
-            // tut.AddExistingTrigger("reset_change_state", "end_state", "click_trigger");
-            // tut.AddExistingTrigger("lab_instruct_state", "end_state", "click_trigger");
-            // tut.AddExistingTrigger("graph_state", "end_state", "click_trigger");
-            // tut.AddExistingTrigger("repeat_state", "end_state", "click_trigger");
             
             tut.AddExistingTrigger("intro_state", "first_state", "click_trigger");
             tut.AddExistingTrigger("start_but_state", "first_state", "click_trigger");
@@ -74,6 +61,7 @@ class ITutorial {
             tut.AddExistingTrigger("reset_change_state", "first_state", "click_trigger");
             tut.AddExistingTrigger("lab_instruct_state", "first_state", "click_trigger");
             tut.AddExistingTrigger("graph_state", "first_state", "click_trigger");
+            tut.AddExistingTrigger("graph_state_2", "first_state", "click_trigger");
             tut.AddExistingTrigger("repeat_state", "first_state", "click_trigger");
 
 
@@ -83,14 +71,6 @@ class ITutorial {
             
             tut.AddPopoverEffect("start_but_state", buttons, "This grid represents a petri dish holding the hosts and symbionts in our environment. Each host is a square, and each symbiont is a circle. To start the simulation, just push start and observe as the petri dish starts to change. You can pause the simulation at any time with the pause button.", ok_but, "-10vh", "-4vw", "auto");
             tut.AddOverlayEffect("start_but_state", buttons, "black", 0.8, 10, true);
-            // emp::Ptr<OverlayEffect> overlayPtr = tut.AddOverlayEffect("start_but_state", buttons, "black", 0.8, 10, true);
-            // std::string curState = tut.GetCurrentState();
-            // std::cout << "Testing......current state: "<< curState<<std::endl;
-            // if (curState=="start_but_state") {
-            //     overlayPtr -> SetOverlayCSS("position", "relative");
-            //     overlayPtr -> SetOverlayCSS("z-index", "10");
-            //     overlayPtr -> SetOverlayCSS("background-color", "red");
-            // }
  
             /*reset_but_state*/
             tut.AddPopoverEffect("reset_but_state", buttons, "To reset the simulation, push reset. You will need to click reset after you make changes to the settings before starting the simulation.", ok_but, "0.4vh", "-5vw", "auto");
@@ -113,9 +93,12 @@ class ITutorial {
             tut.AddOverlayEffect("lab_instruct_state", buttons, "black", 0.8, 10, true);
  
             /*graph_state*/
-            tut.AddPopoverEffect("graph_state", buttons, "Below the lab instructions are live graphs. Click the drop down to see them!", ok_but, "19vh", "25vw", "40%");
-            tut.AddPopoverEffect("graph_state", buttons, "Click reset and start on the lab to watch the graphs update in real time. ", ok_but, "31vh", "25vw", "40%");
+            tut.AddPopoverEffect("graph_state", buttons, "Below the lab instructions are live graphs. Collapse the lab instructions, them click the data collection drop down to see them!", ok_but, "19vh", "25vw", "40%");
             tut.AddOverlayEffect("graph_state", buttons, "black", 0.8, 10, true);
+            
+            /*graph_state_2*/
+            tut.AddPopoverEffect("graph_state_2", buttons, "Click reset and start on the lab to watch the graphs update in real time. ", ok_but, "31vh", "25vw", "40%");
+            tut.AddOverlayEffect("graph_state_2", buttons, "black", 0.8, 10, true);
  
             /*repeat_state*/
             tut.AddPopoverEffect("repeat_state", buttons, "You have finished the tutorial! To start it again at any time, click the start tutorial button. If you have any questions, click the FAQ button, or refer to the symbulation background. ", ok_but, "1vh", "-4vw", "auto");
@@ -130,27 +113,55 @@ class ITutorial {
         void startTut(UI::Document & animation, UI::Document & settings, UI::Document & explanation, UI::Document & learnmore, UI::Document & buttons, UI::Canvas & mycanvas, UI::Document & instructions,UI::Document & graphs, UI::Document & top_bar) {
  
             ok_but.SetCSS("left", "0.7vw");
-
-
-            tut.AddSpotlight("intro_state", top_bar);
-            tut.AddSpotlight("start_but_state", animation);
-            tut.AddSpotlight("start_but_state", buttons.Button("toggle"));
-            tut.AddSpotlight("reset_but_state", buttons.Button("reset"));
-            tut.AddSpotlight("settings_state", settings);
-            tut.AddSpotlight("settings_change_state", settings);
-            tut.AddSpotlight("lab_instruct_state", instructions);
-            tut.AddSpotlight("graph_state", graphs);
-            tut.AddSpotlight("reset_change_state", buttons.Button("reset"));
-            tut.AddSpotlight("reset_change_state", buttons.Button("toggle"));
-
-
-            tut.AddSpotlight("first_state", instructions);
-            tut.AddSpotlight("first_state", graphs);
             instructions.SetCSS("z-index","-1");
             instructions.SetCSS("position", "relative");
             graphs.SetCSS("z-index","-1");
             graphs.SetCSS("position", "relative");
             top_bar.SetCSS("z-index", "12");
+
+            // first_state
+            tut.AddSpotlight("first_state", instructions);
+            tut.AddSpotlight("first_state", graphs);
+            // intro_state
+            tut.AddSpotlight("intro_state", top_bar);
+            // start_but_state
+            tut.AddSpotlight("start_but_state", animation);
+            tut.AddSpotlight("start_but_state", buttons.Button("toggle"));
+            // reset_but_state
+            tut.AddSpotlight("reset_but_state", animation);
+            tut.AddSpotlight("reset_but_state", buttons.Button("reset"));
+            tut.AddSpotlight("reset_but_state", buttons.Button("toggle"));
+            // settings_state
+            tut.AddSpotlight("settings_state", settings);
+            // settings_change_state
+            tut.AddSpotlight("settings_change_state", settings);
+            // reset_change_state
+            tut.AddSpotlight("reset_change_state", animation);
+            tut.AddSpotlight("reset_change_state", buttons.Button("reset"));
+            tut.AddSpotlight("reset_change_state", buttons.Button("toggle"));
+            // lab_instruct_state
+            tut.AddSpotlight("lab_instruct_state", instructions);
+            // graph_state
+            tut.AddSpotlight("graph_state", graphs);
+            // graph_state_2
+            tut.AddSpotlight("graph_state_2", graphs);
+            tut.AddSpotlight("graph_state_2", animation);
+            tut.AddSpotlight("graph_state_2", buttons.Button("reset"));
+            tut.AddSpotlight("graph_state_2", buttons.Button("toggle"));
+            // repeat_state
+            
+            
+            
+            
+            
+            
+            
+            
+            
+
+
+            
+            
            
  
                 
