@@ -78,10 +78,10 @@ class ITutorial {
 
 
             /*start_but_state*/
-            tut.AddPopoverEffect("intro_state", buttons, "Welcome to Symbulation, an interactive online lab that explores the relationships between hosts and symbionts. Before starting this tutorial, click the Symbulation Overview button to learn about how the simulation runs. Once you have read it, click ok.", ok_but, "1vh", "-4vw", "auto");
+            tut.AddPopoverEffect("intro_state", buttons, "Welcome to Symbulation, an interactive online lab for Symbiosis. Before starting this tutorial, click the Symbulation Overview button to learn about how the simulation runs. Once you have read it, click ok.", ok_but, "1vh", "-4vw", "auto");
             tut.AddOverlayEffect("intro_state", buttons, "black", 0.8, 10, true);
             
-            tut.AddPopoverEffect("start_but_state", buttons, "This grid represents a petri dish holding the hosts and symbionts in our environment. Each host is a square, and each symbiont is a circle. To start the simulation, just push start and observe as the petri dish starts to change. You can pause the simulation at any time with the pause button.", ok_but, "-10vh", "-4vw", "auto");
+            tut.AddPopoverEffect("start_but_state", buttons, "This grid represents a petri dish holding the hosts and symbionts in our environment. Each host is a square, and each symbiont is a circle. Press Start to start the experiment, and press Pause when you want to pause it", ok_but, "-6vh", "-4vw", "auto");
             tut.AddOverlayEffect("start_but_state", buttons, "black", 0.8, 10, true);
             // emp::Ptr<OverlayEffect> overlayPtr = tut.AddOverlayEffect("start_but_state", buttons, "black", 0.8, 10, true);
             // std::string curState = tut.GetCurrentState();
@@ -93,10 +93,10 @@ class ITutorial {
             // }
  
             /*reset_but_state*/
-            tut.AddPopoverEffect("reset_but_state", buttons, "To reset the simulation, push reset. You will need to click reset after you make changes to the settings before starting the simulation.", ok_but, "0.4vh", "-5vw", "auto");
+            tut.AddPopoverEffect("reset_but_state", buttons, "Press Reset to start a new experiment", ok_but, "0.4vh", "-5vw", "auto");
             tut.AddOverlayEffect("reset_but_state", buttons, "black", 0.8, 10, true);
             /*settings_state*/
-            tut.AddPopoverEffect("settings_state", buttons, "These are the settings panels. Each setting has a dropdown that explains more about what that setting does. Try expanding a dropdown to learn more about a setting. ", ok_but, "1vh", "-5vw", "auto");
+            tut.AddPopoverEffect("settings_state", buttons, "These are the settings panels. Click on each term to see its explantion. Try it.", ok_but, "1vh", "-5vw", "auto");
             tut.AddOverlayEffect("settings_state", buttons,  "black", 0.8, 10, true);
  
             /*settings_change_state*/
@@ -105,20 +105,20 @@ class ITutorial {
             tut.AddOverlayEffect("settings_change_state", buttons, "black", 0.8, 10, true);
  
             /*reset_change_state*/
-            tut.AddPopoverEffect("reset_change_state", buttons, "After changing your settings, you must push reset to see your changes reflected in the petri dish. Try pushing reset, then starting the simulation again. Did you see the changes?", ok_but, "-5vh", "-4vw", "auto");
+            tut.AddPopoverEffect("reset_change_state", buttons, "To apply the changes in the settings, push Reset and then Start. Did you notice any difference?", ok_but, "-2vh", "-4vw", "auto");
             tut.AddOverlayEffect("reset_change_state", buttons, "black", 0.8, 10, true);
             
             /*lab_instruct_state*/
-            tut.AddPopoverEffect("lab_instruct_state", buttons, "Your lab instructions are held here. Each section can be collapsed to save space on your screen", ok_but, "1vh", "10vw", "70%");
+            tut.AddPopoverEffect("lab_instruct_state", buttons, "Lab instructions are held here. Each section can be collapsed", ok_but, "1vh", "12vw", "70%");
             tut.AddOverlayEffect("lab_instruct_state", buttons, "black", 0.8, 10, true);
  
             /*graph_state*/
-            tut.AddPopoverEffect("graph_state", buttons, "Below the lab instructions are live graphs. Click the drop down to see them!", ok_but, "19vh", "25vw", "40%");
-            tut.AddPopoverEffect("graph_state", buttons, "Click reset and start on the lab to watch the graphs update in real time. ", ok_but, "31vh", "25vw", "40%");
+            tut.AddPopoverEffect("graph_state", buttons, "Live graphs are below the instructions. Drop down to see them!", ok_but, "35vh", "25vw", "40%");
+            tut.AddPopoverEffect("graph_state", buttons, "Try starting a new experiment and watching the graphs update in real time! ", ok_but, "46vh", "25vw", "40%");
             tut.AddOverlayEffect("graph_state", buttons, "black", 0.8, 10, true);
  
             /*repeat_state*/
-            tut.AddPopoverEffect("repeat_state", buttons, "You have finished the tutorial! To start it again at any time, click the start tutorial button. If you have any questions, click the FAQ button, or refer to the symbulation background. ", ok_but, "1vh", "-4vw", "auto");
+            tut.AddPopoverEffect("repeat_state", buttons, "Tutorial finished! To see it agian, click the Start Tutorial button. Click the FAQ button, or refer to the symbulation background, if you have more questions ", ok_but, "1vh", "-4vw", "auto");
             tut.AddOverlayEffect("repeat_state", buttons, "black", 0.8, 10, true);
  
             /*end_state*/
@@ -136,12 +136,15 @@ class ITutorial {
             tut.AddSpotlight("start_but_state", animation);
             tut.AddSpotlight("start_but_state", buttons.Button("toggle"));
             tut.AddSpotlight("reset_but_state", buttons.Button("reset"));
+            tut.AddSpotlight("reset_but_state", animation);
             tut.AddSpotlight("settings_state", settings);
             tut.AddSpotlight("settings_change_state", settings);
+            tut.AddSpotlight("reset_change_state", settings);
+            tut.AddSpotlight("reset_change_state", buttons.Button("reset"));
+            tut.AddSpotlight("reset_change_state", animation);
+            tut.AddSpotlight("reset_change_state", buttons.Button("toggle"));
             tut.AddSpotlight("lab_instruct_state", instructions);
             tut.AddSpotlight("graph_state", graphs);
-            tut.AddSpotlight("reset_change_state", buttons.Button("reset"));
-            tut.AddSpotlight("reset_change_state", buttons.Button("toggle"));
 
 
             tut.AddSpotlight("first_state", instructions);
