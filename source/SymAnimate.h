@@ -277,7 +277,8 @@ public:
     graphs_card << host_histogram_canvas;
 
     //download data button
-    create_download_data_button(graphs_card);
+    //currently not working code and the explanation is at the create_download_data_button declearation
+    //create_download_data_button(graphs_card);
 
     graphs << graphs_card;
 
@@ -295,60 +296,60 @@ public:
     animation << "<br>";
     itut.startTut(animation, settings, explanation, learnmore, buttons, mycanvas, instructions, graphs, top_bar);
   }
+  //code for creating the buttom to download csv, current not working because the html does not treat symdata as a variable but a static string
+  //Furture work: create a Empirical UI like the canvs that allow the symdata to updata and include the javascript function below into the UI
+  // void create_download_data_button(emp::prefab::Card & card){
+  //   //card << "<button class = \"test1\" onclick=\"data.html\">Preview Data</button>";
+  //   card << "<button class=\"test1\" onclick = 'f=window.open(\"data.html\",\"fenetre\",\"the style (without style tag, example - width=400, height=600, no px\")'style=\"cursor: pointer;\">Preview Data</button>";
+  //   //calling the function that downloads both files
+  //   card << "<script type=\"text/javascript\">";
+  //   card << "function saveTextAsFile(){"; 
+  //   card << "document.write(";
+  //   card << Getsymdata();
+  //   card << ");";
+  //   card << "saveTextAsFileHost().click(); saveTextAsFileSym();}";
 
-  void create_download_data_button(emp::prefab::Card & card){
-    //card << "<button class = \"test1\" onclick=\"data.html\">Preview Data</button>";
-    card << "<button class=\"test1\" onclick = 'f=window.open(\"data.html\",\"fenetre\",\"the style (without style tag, example - width=400, height=600, no px\")'style=\"cursor: pointer;\">Preview Data</button>";
-    //calling the function that downloads both files
-    card << "<script type=\"text/javascript\">";
-    card << "function saveTextAsFile(){"; 
-    card << "document.write(";
-    card << Getsymdata();
-    card << ");";
-    card << "saveTextAsFileHost().click(); saveTextAsFileSym();}";
+  //   //download host file
+  //   card << "function saveTextAsFileHost(){";
+  //   card << "var textToSaveAsBlob = new Blob([";
+  //   card << "\"update,mean_intval,count,Hist_-1,Hist_-0.9,Hist_-0.8,Hist_-0.7,Hist_-0.6,Hist_-0.5,Hist_-0.4,Hist_-0.3,Hist_-0.2,Hist_-0.1,Hist_0.0,Hist_0.1,Hist_0.2,Hist_0.3,Hist_0.4,Hist_0.5,Hist_0.6,Hist_0.7,Hist_0.8,Hist_0.9\",\"1,0.000000,-nan,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0\"]";
+  //   //card << hostdata + "]";
+  //   card << ", {type:\"text/plain\"});";
+  //   card << "var textToSaveAsURL = window.URL.createObjectURL(textToSaveAsBlob);";
+  //   card << "var fileNameToSaveAs = [\"host.txt\"];";
+  //   card << "var downloadLink = document.createElement(\"a\");";
+  //   card << "downloadLink.download = fileNameToSaveAs;";
+  //   card << "downloadLink.innerHTML = \"Download File\";";
+  //   card << "downloadLink.href = textToSaveAsURL;";
+  //   //card << "downloadLink.onclick = destroyClickedElement;";
+  //   card << "downloadLink.style.display = \"none\";";
+  //   card << "document.body.appendChild(downloadLink);";
+  //   card << "return downloadLink;}";
 
-    //download host file
-    card << "function saveTextAsFileHost(){";
-    card << "var textToSaveAsBlob = new Blob([";
-    card << "\"update,mean_intval,count,Hist_-1,Hist_-0.9,Hist_-0.8,Hist_-0.7,Hist_-0.6,Hist_-0.5,Hist_-0.4,Hist_-0.3,Hist_-0.2,Hist_-0.1,Hist_0.0,Hist_0.1,Hist_0.2,Hist_0.3,Hist_0.4,Hist_0.5,Hist_0.6,Hist_0.7,Hist_0.8,Hist_0.9\",\"1,0.000000,-nan,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0\"]";
-    //card << hostdata + "]";
-    card << ", {type:\"text/plain\"});";
-    card << "var textToSaveAsURL = window.URL.createObjectURL(textToSaveAsBlob);";
-    card << "var fileNameToSaveAs = [\"host.txt\"];";
-    card << "var downloadLink = document.createElement(\"a\");";
-    card << "downloadLink.download = fileNameToSaveAs;";
-    card << "downloadLink.innerHTML = \"Download File\";";
-    card << "downloadLink.href = textToSaveAsURL;";
-    //card << "downloadLink.onclick = destroyClickedElement;";
-    card << "downloadLink.style.display = \"none\";";
-    card << "document.body.appendChild(downloadLink);";
-    card << "return downloadLink;}";
+  //   //download sym file
+  //   card << "function saveTextAsFileSym(){";
+  //   card << "var textToSaveAsBlob = new Blob([";
+  //   card << Getsymdata() + "]";
+  //   card << ", {type:\"text/plain\"});";
+  //   card << "var textToSaveAsURL = window.URL.createObjectURL(textToSaveAsBlob);";
+  //   card << "var fileNameToSaveAs = [\"sym.txt\"];";
+  //   card << "var downloadLink = document.createElement(\"a\");";
+  //   card << "downloadLink.download = fileNameToSaveAs;";
+  //   card << "downloadLink.innerHTML = \"Download File\";";
+  //   card << "downloadLink.href = textToSaveAsURL;";
+  //   //card << "downloadLink.onclick = destroyClickedElement;";
+  //   card << "downloadLink.style.display = \"none\";";
+  //   card << "document.body.appendChild(downloadLink);";
+  //   card << "downloadLink.click();}";
 
-    //download sym file
-    card << "function saveTextAsFileSym(){";
-    card << "var textToSaveAsBlob = new Blob([";
-    card << Getsymdata() + "]";
-    card << ", {type:\"text/plain\"});";
-    card << "var textToSaveAsURL = window.URL.createObjectURL(textToSaveAsBlob);";
-    card << "var fileNameToSaveAs = [\"sym.txt\"];";
-    card << "var downloadLink = document.createElement(\"a\");";
-    card << "downloadLink.download = fileNameToSaveAs;";
-    card << "downloadLink.innerHTML = \"Download File\";";
-    card << "downloadLink.href = textToSaveAsURL;";
-    //card << "downloadLink.onclick = destroyClickedElement;";
-    card << "downloadLink.style.display = \"none\";";
-    card << "document.body.appendChild(downloadLink);";
-    card << "downloadLink.click();}";
+  //   //destroy clicked element
+  //   card << "function destroyClickedElement(event){document.body.removeChild(event.target);}";
 
-    //destroy clicked element
-    card << "function destroyClickedElement(event){document.body.removeChild(event.target);}";
-
-    //end script
-    card << "</script>";
-  }
+  //   //end script
+  //   card << "</script>";
+  // }
   
   std::string Getsymdata(){
-    std::cout<<symdata;
     return this->symdata;
   }
   void initializeInstructionsCard(emp::prefab::Card & card){
@@ -737,6 +738,8 @@ public:
 
     can.Circle(x, y, 1, color, color);
   }
+  // function that create a symbulation style host data that can be passed in the data node
+  // String can be created successfully but the buttom is not working right now
   void WriteHostdataFile(){
    auto & nodeHist = world.GetHostIntValDataNode();
    auto & nodeCount = world.GetHostCountDataNode();
@@ -748,6 +751,9 @@ public:
    newdata += "\"";
    hostdata += newdata;
   }
+  // function that create a symbulation style sym data that can be passed in the data node
+  // contain a hard coded histgram since our version GetSymCountDataNode set every thing in the bin to 0, has been corrected in latter version of symbulation
+  // String can be created successfully but the buttom is not working right now
   void WriteSymdataFile(){
    auto & nodeHist = world.GetSymIntValDataNode();
    auto & nodeCount = world.GetSymCountDataNode();
@@ -867,7 +873,6 @@ public:
    newdata = newdata + ","+std::to_string(bin1) + ","+std::to_string(bin2) + ","+std::to_string(bin3) + ","+std::to_string(bin4) + ","+std::to_string(bin5) + ","+std::to_string(bin6) + ","+std::to_string(bin7) + ","+std::to_string(bin8) + ","+std::to_string(bin9) + ","+std::to_string(bin10) + ","+std::to_string(bin11) + ","+std::to_string(bin12) + ","+std::to_string(bin13) + ","+std::to_string(bin14) + ","+std::to_string(bin15) + ","+std::to_string(bin16) + ","+std::to_string(bin17) + ","+std::to_string(bin18) + ","+std::to_string(bin19) + ","+std::to_string(bin20);
    newdata += "\"";
    symdata += newdata;
-   std::cout << symdata;
   }
   /**
    * Input: None
@@ -907,12 +912,12 @@ public:
         drawHostStackedHist(host_histogram_canvas);
       }
     
+      
+      if (world.GetUpdate() % UPDATE_HIST == 0 ||world.GetUpdate() == 1){ 
+     
       WriteSymdataFile();
-      // if (world.GetUpdate() % UPDATE_HIST == 0 ||world.GetUpdate() == 1){ 
-      //   printf("write the file\n");
-      //   WriteSymdataFile();
         
-      // }
+      }
     }
   }
 };
