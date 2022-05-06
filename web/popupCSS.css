@@ -14,3 +14,29 @@ h1{
     color: black;
     font-family:'Garamond';
 }
+
+.question{
+    color: #bc96fe;
+    font-family:'Garamond';
+    padding-left: 22px;
+    text-indent: -22px;
+    margin: 0;
+    font-weight: bold;
+}
+
+.answer{
+    color: #36454F;
+    font-family:'Garamond';
+    padding-left: 22px;
+    text-indent: -22px;
+    margin: 0;
+    font-weight: bold;
+}
+
+a:link {
+    color: blue;
+}
+   
+a:hover {
+    color: hotpink;
+}

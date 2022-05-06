@@ -50,9 +50,9 @@ private:
   ITutorial itut;
   const int RECT_WIDTH = 10;
   const int UPDATE_HIST = 50;
-  const int GRAPH_PADDING_X = 30;
-  const double GRAPH_PADDING_Y = 0.15; 
-  
+  const int GRAPH_PADDING_X = 35;
+  const double GRAPH_PADDING_Y = 0.2; 
+
   emp::Random random{config.SEED()};
   SymWorld world{random};
   std::string quote = "\"";
@@ -73,8 +73,8 @@ public:
    * The contructor for SymAnimate
    * 
    */
-  SymAnimate() : animation("emp_animate"), graphs("graphs"), settings("emp_settings"), explanation("emp_explanation"), learnmore("emp_learnmore"), buttons("emp_buttons"), instructions("instructions"), top_bar("top_bar"), start_tutorial([](){}, "Start Tutorial"), itut(animation, settings, explanation, learnmore, buttons, top_bar, mycanvas, instructions, start_tutorial){
-    
+  SymAnimate() : animation("emp_animate"), graphs("graphs"), settings("emp_settings"), explanation("emp_explanation"), learnmore("emp_learnmore"), buttons("emp_buttons"), instructions("instructions"), top_bar("top_bar"), start_tutorial([](){}, "Start Tutorial"), itut(animation, settings, explanation, learnmore, buttons, top_bar, mycanvas, instructions, graphs, start_tutorial){
+
     config.GRID_X(40);
     config.GRID_Y(40);
     config.UPDATES(1000);
@@ -131,9 +131,11 @@ public:
     //--------------NAV BAR--------------------
     start_tutorial.SetAttr("class", "test1");
 
-    top_bar << "<div class=\"rightB\">";
+    top_bar << "<div class=\"rightB\" id='rightB'>";
     top_bar << "<button class=\"test1\" onclick = 'f=window.open(\"symb_overview.html\",\"fenetre\",\"the style (without style tag, example - width=400, height=600, no px\")'style=\"cursor: pointer;\">Symbulation Overview</button>";
-    top_bar << "<button class=\"test1\" onclick = 'f=window.open(\"biology_background.html\",\"fenetre\",\"the style (without style tag, example - width=400, height=600, no px\")'style=\"cursor: pointer;\">Biology Background</button>";
+    top_bar <<  "<div id='bio_bkgd'>";
+    top_bar << "<button class=\"test1\"  onclick = 'f=window.open(\"biology_background.html\",\"fenetre\",\"the style (without style tag, example - width=400, height=600, no px\")'style=\"cursor: pointer;\">Biology Background</button>";
+    top_bar << "</div>";
     top_bar << "<button class=\"test1\" onclick = 'f=window.open(\"FAQ.html\",\"fenetre\",\"the style (without style tag, example - width=400, height=600, no px\")'style=\"cursor: pointer;\">FAQ</button>";
     top_bar << "<a href=\"https://anyaevostinar.github.io/SymbulationEmp/web/symbulation.html\" ><button class=\"test1\">Home GUI</button></a>";
     top_bar << start_tutorial;
@@ -229,8 +231,8 @@ public:
     }, "Update #0", "update");
     
     //TODO: style button update
-    //buttons.Button("update").OnMouseOver([this](){ auto but = buttons.Button("update"); but.SetCSS(make popover)})
-    //buttons.Button("update").SetAttr("class", "btn btn-tertiary");
+
+    buttons.Button("update").SetAttr("class","updateBut");
 
     buttons.Button("toggle").OnMouseOver([this](){ auto but = buttons.Button("toggle"); but.SetCSS("background-color", "#3d1477"); but.SetCSS("cursor", "pointer"); but.SetCSS("color", "white");});
     buttons.Button("toggle").OnMouseOut([this](){ auto but = buttons.Button("toggle"); but.SetCSS("background-color", "#5f8eff"); but.SetCSS("color", "white");});
@@ -291,7 +293,7 @@ public:
     targets.push_back(mycanvas);
     drawPetriDish(mycanvas);
     animation << "<br>";
-    itut.startTut(animation, settings, explanation, learnmore, buttons, mycanvas, instructions);
+    itut.startTut(animation, settings, explanation, learnmore, buttons, mycanvas, instructions, graphs, top_bar);
   }
 
   void create_download_data_button(emp::prefab::Card & card){
@@ -458,8 +460,8 @@ public:
     can.CenterText(width/2, height*(GRAPH_PADDING_Y/2), title);
     //x-axis
     can.CenterText(width/2, height*(1-(GRAPH_PADDING_Y/2)), "Evolutionary Time");
-    can.CenterText(15, height*(GRAPH_PADDING_Y), "100%");
-    can.CenterText(15, height*(1-(GRAPH_PADDING_Y)), "0%");    
+    can.CenterText(20, height*(GRAPH_PADDING_Y), "100%");
+    can.CenterText(20, height*(1-(GRAPH_PADDING_Y)), "0%");    
   }
   /**
    * Input: None
