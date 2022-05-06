@@ -16,10 +16,10 @@ EMP_BUILD_CONFIG(SymConfigBase,
     VALUE(SYNERGY, double, 5, "Synergy is the cooperation between the host and symbiont. When the host receives resources, it can choose to donate resources to the symbiont or defend itself with the resources. When a host donates, you multiply by the synergy to know what the host gets back in return. More synergy is more beneficial to the host. "),
 
     GROUP(HOST, "Host Settings"),
-    VALUE(HOST_INT, double, -2, "Interaction value from -1 to 1 that hosts should have initially, -2 for random. This value decides whether the host is antagonistic or mutual. -1 is extremely antagonistic and 1 is extremely mutual. A neutral starting value is 0."),
+    VALUE(HOST_INT, double, -2, "Interaction value from -1 to 1 that hosts should have initially, -2 for random. This value decides whether the host is antagonistic or mutual. -1 is extremely antagonistic and 1 is extremely mutual. A neutral starting value is 0. To start with a random population, manually type -2 into the number box."),
 
     GROUP(SYM, "Symbiont Settings"),
-    VALUE(SYM_INT, double, -2, "Interaction value from -1 to 1 that symbionts should have initially, -2 for random. This value decides whether the symbiont is antagonistic or mutual. -1 is extremely antagonistic and 1 is extremely mutual. A neutral starting value is 0."),
+    VALUE(SYM_INT, double, -2, "Interaction value from -1 to 1 that symbionts should have initially, -2 for random. This value decides whether the symbiont is antagonistic or mutual. -1 is extremely antagonistic and 1 is extremely mutual. A neutral starting value is 0. To start with a random population, manually type -2 into the number box."),
     VALUE(VERTICAL_TRANSMISSION, double, 0.7, "Value 0 to 1 of the probability of symbiont vertically transmitting when the host reproduces. The higher the ratio is, the more likely the environment would be mutualistic."),
     
     GROUP(ADV, "Advanced Settings"),
