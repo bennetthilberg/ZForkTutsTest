@@ -1,7 +1,7 @@
 #ifndef ITUTORIAL_H
 #define ITUTORIAL_H
-#include "../Empirical/include/emp/web/KeypressManager.hpp"
-#include "../Empirical/include/emp/web/Tutorial.h"
+#include "../../Empirical/include/emp/web/KeypressManager.hpp"
+#include "../../Empirical/include/emp/web/Tutorial.h"
 #include <iostream>
 #include "default_mode/SymWorld.h"
 #include "../Empirical/include/emp/web/Document.hpp"
