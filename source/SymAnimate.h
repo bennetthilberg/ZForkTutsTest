@@ -99,7 +99,7 @@ public:
     if (am.HasUnused()) std::exit(EXIT_FAILURE);
 
     // setup configuration panel
-    config_panel.Setup();
+    config_panel.Setup(config);
     config_panel_ex.AddBodyContent(config_panel.GetConfigPanelDiv());
 
 
