@@ -1,8 +1,8 @@
 #ifndef HOST_H
 #define HOST_H
 
-#include "../../Empirical/include/emp/math/Random.hpp"
-#include "../../Empirical/include/emp/tools/string_utils.hpp"
+#include "../Empirical/include/emp/math/Random.hpp"
+#include "../Empirical/include/emp/tools/string_utils.hpp"
 #include <set>
 #include <iomanip> // setprecision
 #include <sstream> // stringstream
@@ -516,7 +516,7 @@ public:
     if (mutation_rate == -1) mutation_rate = my_config->MUTATION_RATE();
 
     if(random->GetDouble(0.0, 1.0) <= mutation_rate){
-      interaction_val += random->GetRandNormal(0.0, mutation_size);
+      interaction_val += random->GetNormal(0.0, mutation_size);
       if(interaction_val < -1) interaction_val = -1;
       else if (interaction_val > 1) interaction_val = 1;
     }

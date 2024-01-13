@@ -4,7 +4,7 @@
 #include "../Host.h"
 #include"../Pggsym.h"
 #include"../Pgghost.h"
-#include "../../../Empirical/include/emp/config/ArgManager.hpp"
+#include "../../Empirical/include/emp/config/ArgManager.hpp"
 #include <iostream>
 #include "../WorldSetup.cc"
 #include "../ConfigSetup.h"

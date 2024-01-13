@@ -100,7 +100,7 @@ public:
     // double pre_value = interaction_val;
     Symbiont::mutate();
     if (random->GetDouble(0.0, 1.0) <= mut_rate) {
-      Pgg_donate += random->GetRandNormal(0.0, mut_size);
+      Pgg_donate += random->GetNormal(0.0, mut_size);
       if(Pgg_donate < 0) Pgg_donate = 0;
       else if (Pgg_donate > 1) Pgg_donate = 1;
     }
@@ -121,7 +121,7 @@ public:
     // double pre_value = interaction_val;
     Symbiont::HorizMutate();
     if (random->GetDouble(0.0, 1.0) <= ht_mut_rate) {
-      Pgg_donate += random->GetRandNormal(0.0, ht_mut_size);
+      Pgg_donate += random->GetNormal(0.0, ht_mut_size);
       if(Pgg_donate < 0) Pgg_donate = 0;
       else if (Pgg_donate > 1) Pgg_donate = 1;
     }
